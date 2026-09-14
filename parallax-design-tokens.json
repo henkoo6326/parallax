@@ -1,0 +1,90 @@
+{
+  "meta": {
+    "name": "PARALLAX Field Ledger",
+    "version": "0.1-research",
+    "status": "제안 / 실제 기기 검증 전",
+    "date": "2026-09-13"
+  },
+  "color": {
+    "day": {
+      "canvas": "#F4F6F7",
+      "surface": "#FFFFFF",
+      "text": "#142C38",
+      "secondary": "#52636B",
+      "border": "#697D87",
+      "action": "#215DA8",
+      "remaining": "#006B64",
+      "remainingSurface": "#E3F1ED",
+      "issue": "#845400",
+      "issueSurface": "#FFF1D6",
+      "error": "#A12B32"
+    },
+    "night": {
+      "canvas": "#13252F",
+      "surface": "#1C3441",
+      "text": "#F3F7F8",
+      "secondary": "#ADBEC5",
+      "border": "#90A5AE",
+      "action": "#AFCBFA",
+      "remaining": "#9FDDD0",
+      "remainingSurface": "#153E3A",
+      "issue": "#F5CE82",
+      "issueSurface": "#45381F",
+      "error": "#FFB6B9"
+    }
+  },
+  "typography": {
+    "family": "Pretendard Variable, system-ui, Apple SD Gothic Neo, sans-serif",
+    "title": {
+      "size": 28,
+      "weight": 700
+    },
+    "section": {
+      "size": 22,
+      "weight": 650
+    },
+    "body": {
+      "size": 18,
+      "weight": 450
+    },
+    "meta": {
+      "size": 16,
+      "weight": 550
+    },
+    "lineHeight": 1.5,
+    "unit": "플랫폼 구현 시 sp/pt 별도 매핑; HTML 표본은 CSS px"
+  },
+  "spacing": [
+    4,
+    8,
+    12,
+    16,
+    24,
+    32,
+    48
+  ],
+  "radius": {
+    "control": 8,
+    "panel": 12,
+    "badge": 4
+  },
+  "target": {
+    "baseline": 48,
+    "fieldCandidate": 64,
+    "gapCandidate": 12,
+    "unit": "Android dp 후보; 장갑 적합성은 실제 장비에서 mm 및 오탭 검증"
+  },
+  "motion": {
+    "feedbackMs": 120,
+    "panelMs": 180,
+    "layoutMs": 240,
+    "reduced": "즉시 전환; 정보 손실 없음"
+  },
+  "layout": {
+    "compactBelowDp": 600,
+    "mediumBelowDp": 840,
+    "twoPaneCandidateMinDp": 840,
+    "paneMinCandidateDp": 320,
+    "hinge": "OS 제공 경계 + 실제 기기 검증 여유; 고정 64 단위 금지"
+  }
+}

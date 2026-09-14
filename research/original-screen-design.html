@@ -1,0 +1,1024 @@
+<title>PARALLAX 폴더블 화면설계</title>
+<style>
+:root{
+ --ground:#EDEDEA; --surface:#FFF; --surface-2:#E5E5E0; --line:#D4D4CE; --line-2:#BFBFB7;
+ --ink:#15171A; --ink-2:#4A4E55; --ink-3:#7A8087;
+ --accent:#59680F; --accent-soft:#EFF2D9; --accent-line:#C9D48A;
+ --shadow:0 1px 2px rgba(20,22,26,.05),0 10px 28px rgba(20,22,26,.07);
+ --wire:#B9BAB4; --wire-fill:#F4F4F0; --wire-ink:#3A3E44;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+ --ground:#111214; --surface:#191B1E; --surface-2:#212429; --line:#2C2F34; --line-2:#3B3F46;
+ --ink:#E8E9EB; --ink-2:#A6ABB2; --ink-3:#747A82;
+ --accent:#C4D63F; --accent-soft:#20240C; --accent-line:#4A5219;
+ --shadow:0 1px 2px rgba(0,0,0,.4),0 12px 32px rgba(0,0,0,.38);
+ --wire:#40454C; --wire-fill:#1E2126; --wire-ink:#BFC4CB;
+}}
+:root[data-theme="dark"]{
+ --ground:#111214; --surface:#191B1E; --surface-2:#212429; --line:#2C2F34; --line-2:#3B3F46;
+ --ink:#E8E9EB; --ink-2:#A6ABB2; --ink-3:#747A82;
+ --accent:#C4D63F; --accent-soft:#20240C; --accent-line:#4A5219;
+ --shadow:0 1px 2px rgba(0,0,0,.4),0 12px 32px rgba(0,0,0,.38);
+ --wire:#40454C; --wire-fill:#1E2126; --wire-ink:#BFC4CB;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--ground);color:var(--ink);
+ font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","Apple SD Gothic Neo","Pretendard","Malgun Gothic",sans-serif;
+ font-size:15px;line-height:1.62;-webkit-font-smoothing:antialiased}
+.mono{font-family:ui-monospace,"SF Mono",SFMono-Regular,Menlo,monospace;font-variant-numeric:tabular-nums}
+a{color:var(--accent);text-decoration:none;border-bottom:1px solid var(--accent-line)}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+img{max-width:100%;display:block}
+b{font-weight:650}
+s{opacity:.55}
+i{font-style:italic;color:var(--ink-2)}
+.wrap{max-width:1240px;margin:0 auto;padding:0 24px}
+
+/* mast */
+.mast{background:var(--surface);border-bottom:1px solid var(--line)}
+.mast-in{max-width:1240px;margin:0 auto;padding:52px 24px 38px;display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:52px;align-items:end}
+.eyebrow{font-size:11px;letter-spacing:.17em;text-transform:uppercase;color:var(--accent);font-weight:700}
+h1{font-size:clamp(28px,4.2vw,46px);line-height:1.16;letter-spacing:-.024em;font-weight:800;margin:14px 0 0;text-wrap:balance}
+.dek{margin:16px 0 0;color:var(--ink-2);font-size:15.5px;max-width:58ch}
+.srcbox{border:1px solid var(--line);border-radius:12px;padding:15px 17px;background:var(--surface-2)}
+.srcbox dl{margin:0;display:grid;grid-template-columns:auto 1fr;gap:7px 14px;font-size:12.5px}
+.srcbox dt{color:var(--ink-3);white-space:nowrap}
+.srcbox dd{margin:0;overflow-wrap:anywhere}
+
+/* nav */
+.nav{position:sticky;top:0;z-index:40;background:color-mix(in srgb,var(--ground) 90%,transparent);backdrop-filter:saturate(1.5) blur(14px);border-bottom:1px solid var(--line)}
+.nav-in{max-width:1240px;margin:0 auto;padding:11px 24px;display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.nav a,.chip{font-size:12.5px;padding:5px 11px;border-radius:999px;border:1px solid var(--line-2);color:var(--ink-2);background:transparent;cursor:pointer;font-family:inherit}
+.nav a{border-bottom:1px solid var(--line-2)}
+.nav a:hover,.chip:hover{color:var(--ink);border-color:var(--ink-3)}
+.chip[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:var(--ground)}
+.navsep{width:1px;height:20px;background:var(--line);margin:0 6px}
+
+/* sections */
+.sec{padding:64px 0 0;scroll-margin-top:60px}
+.sec>h2{font-size:25px;font-weight:780;letter-spacing:-.02em;margin:0 0 6px;border-top:2px solid var(--ink);padding-top:19px}
+.sec>.sub{color:var(--ink-2);margin:0 0 26px;max-width:74ch}
+h3{font-size:18px;font-weight:730;letter-spacing:-.014em;margin:30px 0 10px}
+
+table{width:100%;border-collapse:collapse;font-size:13.6px;margin:14px 0}
+th,td{text-align:left;padding:9px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-size:11px;letter-spacing:.09em;text-transform:uppercase;color:var(--ink-3);font-weight:650;border-bottom:1px solid var(--line-2)}
+td.mono,th.mono{font-family:ui-monospace,"SF Mono",Menlo,monospace}
+.tw{overflow-x:auto}
+.callout{border-left:3px solid var(--accent);background:var(--accent-soft);padding:13px 16px;border-radius:0 8px 8px 0;margin:16px 0;font-size:14px}
+.warn{border-left:3px solid var(--line-2);background:var(--surface-2);padding:13px 16px;border-radius:0 8px 8px 0;margin:16px 0;font-size:14px}
+
+/* device wireframes */
+.dev{background:var(--wire-fill);border:2px solid var(--wire);border-radius:14px;padding:10px;position:relative;font-size:10.5px;color:var(--wire-ink);line-height:1.45}
+.dev.cover{max-width:212px;aspect-ratio:466/678;display:flex;flex-direction:column;gap:5px}
+.dev.wide{aspect-ratio:626/446;display:flex;gap:0;padding:0;overflow:hidden}
+.fold{width:0;border-left:1px dashed var(--wire);align-self:stretch;position:relative;flex:0 0 auto;margin:0 10px}
+.fold::after{content:"접히는 선";position:absolute;top:6px;left:50%;transform:translateX(-50%) rotate(90deg);transform-origin:left top;font-size:8px;letter-spacing:.06em;color:var(--ink-3);white-space:nowrap}
+.pane{flex:1;padding:10px;display:flex;flex-direction:column;gap:5px;min-width:0}
+.vstrip{width:16px;flex:0 0 16px;border-right:1px solid var(--wire);display:flex;flex-direction:column;align-items:center;justify-content:flex-start;gap:5px;padding-top:10px}
+.vstrip i{width:8px;height:8px;border:1px solid var(--wire);border-radius:2px;display:block;font-style:normal}
+.w-st{font-size:9px;letter-spacing:.04em;color:var(--ink-3);border-bottom:1px solid var(--wire);padding-bottom:4px}
+.w-lb{font-size:9px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3)}
+.w-h1{font-size:16px;font-weight:750;letter-spacing:-.02em;line-height:1.2;color:var(--ink)}
+.w-h2{font-size:13px;font-weight:700;letter-spacing:-.01em;color:var(--ink)}
+.w-bd{display:inline-block;font-size:9px;font-weight:650;padding:2px 6px;border:1px solid var(--accent-line);color:var(--accent);border-radius:4px;align-self:flex-start;font-family:ui-monospace,Menlo,monospace}
+.w-li{font-size:10px;color:var(--wire-ink)}
+.w-note{font-size:9px;color:var(--ink-3);border-top:1px solid var(--wire);padding-top:5px;margin-top:auto}
+.w-btn{background:var(--ink);color:var(--ground);text-align:center;padding:9px;border-radius:7px;font-size:11px;font-weight:700;margin-top:auto}
+.w-btn2{border:1px solid var(--wire);text-align:center;padding:8px;border-radius:7px;font-size:10.5px;font-weight:600}
+.w-btn3{display:flex;gap:4px}.w-btn3>span{flex:1;border:1px solid var(--wire);text-align:center;padding:8px 2px;border-radius:6px;font-size:10px}
+.w-lnk{text-align:center;font-size:10px;color:var(--ink-3)}
+.w-div{border-top:1px solid var(--wire);margin:1px 0}
+.w-bar{font-size:9px;color:var(--ink-3);font-family:ui-monospace,Menlo,monospace}
+.w-map,.w-vid,.w-fig{flex:1;border:1px dashed var(--wire);border-radius:6px;display:flex;align-items:center;justify-content:center;text-align:center;padding:8px;font-size:9.5px;color:var(--ink-3);min-height:60px}
+.w-grid4{flex:1;display:grid;grid-template-columns:1fr 1fr;gap:5px}
+.w-grid4>span{border:1px dashed var(--wire);border-radius:5px;display:flex;align-items:center;justify-content:center;font-size:9px;color:var(--ink-3);min-height:34px}
+.w-ov{position:absolute;right:14%;top:16%;width:34%;background:var(--surface);border:1.5px solid var(--wire);border-radius:9px;padding:9px;display:flex;flex-direction:column;gap:5px;box-shadow:var(--shadow)}
+/* zone map */
+.zones{flex:1;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:repeat(3,1fr);gap:7px;padding:2px}
+.z{border-radius:5px;display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:9px;text-align:center;padding:4px;line-height:1.3}
+.z b{font-size:9.5px;font-weight:700}
+.z1{background:color-mix(in srgb,var(--wire-ink) 22%,transparent);color:var(--ink-2)}
+.z2{background:color-mix(in srgb,var(--wire-ink) 12%,transparent);color:var(--ink-2)}
+.z3{background:repeating-linear-gradient(45deg,transparent,transparent 3px,color-mix(in srgb,var(--wire-ink) 25%,transparent) 3px,color-mix(in srgb,var(--wire-ink) 25%,transparent) 6px);color:var(--ink-2)}
+.z4{background:repeating-linear-gradient(45deg,rgba(112,137,134,.20),rgba(112,137,134,.20) 4px,rgba(112,137,134,.46) 4px,rgba(112,137,134,.46) 8px);border:2px solid rgb(88,124,120);color:var(--ink)}
+.z5{border:1px dashed var(--wire);color:var(--ink-3)}
+
+/* screen card */
+.scard{border:1px solid var(--line);border-radius:14px;background:var(--surface);box-shadow:var(--shadow);margin-bottom:22px;overflow:hidden}
+.scard[hidden]{display:none}
+.shead{display:flex;flex-wrap:wrap;gap:10px;align-items:baseline;padding:18px 22px 14px;border-bottom:1px solid var(--line);background:var(--surface-2)}
+.sid{font-family:ui-monospace,Menlo,monospace;font-size:12px;font-weight:700;padding:3px 8px;border-radius:5px;background:var(--ink);color:var(--ground)}
+.sid.star{background:var(--accent);color:#111}
+.shead h4{margin:0;font-size:18px;font-weight:740;letter-spacing:-.015em}
+.pose{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);border:1px solid var(--line-2);padding:2px 8px;border-radius:999px}
+.swhy{width:100%;margin:2px 0 0;font-size:13.5px;color:var(--ink-2)}
+.sbody{display:grid;grid-template-columns:300px minmax(0,1fr);gap:26px;padding:22px}
+.reflist{display:flex;flex-direction:column;gap:12px}
+.rl-h{font-size:10.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--ink-3);font-weight:700}
+.ritem{display:grid;grid-template-columns:104px minmax(0,1fr);gap:13px;align-items:start}
+.ritem img{width:100%;height:auto;display:block;aspect-ratio:2/1;object-fit:cover;border-radius:5px;border:1px solid var(--line);cursor:zoom-in}
+.rnum{font-family:ui-monospace,Menlo,monospace;font-size:10px;font-weight:700;color:var(--accent);display:block;margin-bottom:3px}
+.rtit{font-size:13px;font-weight:650;line-height:1.4}
+.rdesc{font-size:12.8px;color:var(--ink-2);margin-top:2px}
+.extlist{display:flex;flex-direction:column;gap:7px;margin-top:4px}
+.eitem{display:grid;grid-template-columns:80px minmax(0,1fr);gap:12px;font-size:12.8px}
+.esrc{font-family:ui-monospace,Menlo,monospace;font-size:10px;font-weight:700;color:var(--ink-3);letter-spacing:.03em;padding-top:2px}
+.pol{margin-top:14px;border:1px solid var(--accent-line);background:var(--accent-soft);border-radius:9px;padding:12px 14px;font-size:13.2px}
+.pol-h{font-size:10.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--accent);font-weight:700;margin-bottom:5px}
+
+/* flow */
+.flow{display:grid;grid-template-columns:1fr 44px 1fr;gap:0 14px;align-items:stretch;font-size:13px}
+.fcol{display:flex;flex-direction:column;gap:8px}
+.fnode{border:1px solid var(--line);border-radius:9px;padding:10px 13px;background:var(--surface)}
+.fnode .fp{font-family:ui-monospace,Menlo,monospace;font-size:9.5px;letter-spacing:.08em;color:var(--ink-3);text-transform:uppercase}
+.fnode b{display:block;font-size:13.5px;margin-top:1px}
+.fnode span{font-size:12.3px;color:var(--ink-2)}
+.fnode.empty{border-style:dashed;background:transparent}
+.fnode.star{border-color:var(--accent);background:var(--accent-soft)}
+.fmid{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;color:var(--ink-3);font-size:10px}
+.fhead{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3);font-weight:700;padding-bottom:6px;border-bottom:1px solid var(--line-2);margin-bottom:2px}
+.farrow{font-family:ui-monospace,Menlo,monospace;font-size:11px;color:var(--accent);text-align:center;padding:2px 0}
+
+/* grid derivation */
+.griddemo{border:1px solid var(--line);border-radius:10px;padding:16px;background:var(--surface);margin:14px 0}
+.gdrow{display:flex;gap:0;align-items:stretch;height:52px;font-family:ui-monospace,Menlo,monospace;font-size:9.5px}
+.gd-m{flex:0 0 6%;background:repeating-linear-gradient(45deg,transparent,transparent 3px,var(--line) 3px,var(--line) 5px);display:flex;align-items:center;justify-content:center;color:var(--ink-3)}
+.gd-c{flex:1;background:var(--accent-soft);border:1px solid var(--accent-line);display:flex;align-items:center;justify-content:center;color:var(--accent);font-weight:700}
+.gd-g{flex:0 0 5%;display:flex;align-items:center;justify-content:center;color:var(--ink-3)}
+.gd-f{flex:0 0 5%;border-left:1px dashed var(--ink-3);border-right:1px dashed var(--ink-3);display:flex;align-items:center;justify-content:center;color:var(--ink-3);font-size:8px}
+
+footer{margin-top:70px;border-top:1px solid var(--line);background:var(--surface)}
+footer .wrap{padding:28px 24px 46px;font-size:12.5px;color:var(--ink-3);display:flex;flex-wrap:wrap;gap:8px 26px}
+
+dialog.lb{border:0;padding:0;background:transparent;max-width:96vw}
+dialog.lb::backdrop{background:rgba(6,7,9,.92)}
+dialog.lb img{max-width:96vw;max-height:88vh;width:auto;border-radius:6px}
+dialog.lb .cap{margin-top:9px;color:#d9dbdf;font-size:12px;font-family:ui-monospace,Menlo,monospace}
+
+@media (max-width:980px){
+ .mast-in{grid-template-columns:1fr;gap:26px;padding:38px 20px 30px}
+ .sbody{grid-template-columns:1fr;gap:20px}
+ .dev.cover{max-width:200px;margin:0 auto}
+ .flow{grid-template-columns:1fr;gap:14px}
+ .fmid{flex-direction:row;padding:4px 0}
+ .ritem{grid-template-columns:84px minmax(0,1fr)}
+}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+<header class="mast"><div class="mast-in">
+ <div>
+  <div class="eyebrow">PARALLAX · 폴더블 화면설계 v1</div>
+  <h1>본 것은 남는다<br>보지 못한 곳도 남는다</h1>
+  <p class="dek">정보구조도의 두 트랙(현장 경찰 · 인수인계자)을 <b>16개 화면</b>으로 풀고, 화면마다 iPadOS 26 실제 레퍼런스와 Apple·Samsung 공식 규범, 그리고 MIL-STD 현장 조건을 함께 붙였습니다. 기획서 12장 「넘지 않는 선」과 정보구조도가 충돌하는 <b>9개 지점</b>은 앞에서 먼저 정리했습니다.</p>
+ </div>
+ <div class="srcbox"><dl>
+  <dt>기준 문서</dt><dd>PARALLAX 최종기획서 v1.0 · 정보구조도(고해은)</dd>
+  <dt>폼팩터</dt><dd>북 타입 좌우 펼침 · 내부 7.6″ / 외부 5.4″</dd>
+  <dt>레퍼런스</dt><dd>iPadOS 26 실측 90컷 · iPhone Duo HIG · One UI 9 · MIL-STD-1472H</dd>
+  <dt>화면 수</dt><dd class="mono">16 (A 9 · B 7)</dd>
+  <dt>작성</dt><dd class="mono">2026-09-13</dd>
+ </dl></div>
+</div></header>
+
+<nav class="nav"><div class="nav-in">
+ <a href="#premise">전제</a><a href="#conflict">충돌 9건</a><a href="#flow">플로우</a>
+ <a href="#tokens">설계 토큰</a><a href="#screens">화면 16</a><a href="#gap">공백의 근거</a><a href="#risk">반박 데이터</a><a href="#open">남은 결정</a>
+ <span class="navsep"></span>
+ <button class="chip" data-tr="all" aria-pressed="true">전체 16</button>
+ <button class="chip" data-tr="A" aria-pressed="false">A · 현장 경찰 9</button>
+ <button class="chip" data-tr="B" aria-pressed="false">B · 인수인계자 7</button>
+</div></nav>
+
+<main class="wrap">
+
+<section class="sec" id="premise">
+<h2>전제 — 폼팩터가 2026년에 확정됐다</h2>
+<p class="sub">기획서 17-1 #4는 「경찰 업무폰이 폴더블인가」를 미확인으로 남겨 뒀습니다. 그 사이 시장 쪽이 먼저 정리됐습니다.</p>
+<div class="tw"><table>
+<tr><th></th><th>Apple iPhone Duo</th><th>Samsung Galaxy Z Fold 8 Wide</th></tr>
+<tr><td>발표</td><td>2026-09-09 (출시 10-23)</td><td>2026년 7~8월</td></tr>
+<tr><td>내부</td><td class="mono"><b>7.6″</b> · 1878×2670 @430ppi</td><td class="mono"><b>7.6″</b></td></tr>
+<tr><td>외부</td><td class="mono"><b>5.4″</b> · 1398×2034 @460ppi</td><td class="mono"><b>5.4″</b></td></tr>
+<tr><td>펼침 방향</td><td>가로가 넓음 (6.48″W × 4.64″H)</td><td>가로가 넓음 (<span class="mono">WideFoldModel</span>)</td></tr>
+<tr><td>size class</td><td>내부 = regular / 외부 = compact</td><td>내부 ≈ expanded / 외부 = compact</td></tr>
+</table></div>
+<div class="callout"><b>두 회사가 같은 화면 크기 · 같은 가로형 펼침으로 수렴했습니다.</b> 특정 제조사에 종속되지 않고 「2026년 폴더블의 표준 폼팩터」를 전제로 설계했다고 말할 수 있는 상태입니다.</div>
+
+<h3>화면비가 근거가 된다</h3>
+<p>내부 화면비 <b class="mono">1 : 1.42 ≈ √2</b> — A4 용지 비율입니다. 16:9 영상에는 최악(레터박스가 화면의 약 1/5)이지만, <b>문서·목록·2단 레이아웃·「지도 + 카드」 조합에는 최적</b>입니다. PARALLAX의 두 축이 정확히 그것입니다. <b>폴더블을 고른 이유를 화면비로 방어할 수 있습니다.</b></p>
+
+<h3>세 가지 자세</h3>
+<div class="tw"><table>
+<tr><th>자세</th><th>화면</th><th>PARALLAX에서의 역할</th></tr>
+<tr><td><b>접힘</b></td><td class="mono">외부 5.4″ · 466×678pt · compact</td><td>뛰면서 한 손으로. <b>한 화면에 결정 1개</b></td></tr>
+<tr><td><b>펼침</b></td><td class="mono">내부 7.6″ 가로 · 626×890pt · regular</td><td>두 손으로 멈춰 서서. <b>좌 = 공간 / 우 = 목록</b></td></tr>
+<tr><td><b>반접힘</b></td><td>내부가 좌·우로 갈림</td><td>보닛·무릎에 올려놓고. <b>한쪽 = 보기 / 한쪽 = 조작</b></td></tr>
+</table></div>
+<div class="warn"><b>⚠ 반접힘의 방향에 주의.</b> 북 타입은 접히는 선이 세로입니다. 정상 그립에서 반쯤 접으면 화면이 <b>좌·우</b>로 갈립니다 (Apple: <i>“the views move to occupy each side”</i>). 갤럭시 Flex Mode의 「위=보기 / 아래=조작」은 기기를 90° 세웠을 때 성립합니다. 기획서 7-3 산출물에 어느 그립인지 명시해야 합니다.</div>
+</section>
+
+<section class="sec" id="conflict">
+<h2>정보구조도 ↔ 기획서 충돌 9건</h2>
+<p class="sub">정보구조도는 화면 <b>범위</b>를 정하고, 기획서 12장은 그 화면에 <b>무엇을 담으면 안 되는지</b>를 정합니다. <b>범위는 정보구조도를 따르고, 내용은 기획서를 따릅니다.</b></p>
+<div class="tw"><table>
+<tr><th>#</th><th>정보구조도</th><th>걸리는 조항</th><th>판정</th><th>해결안</th></tr>
+<tr><td class="mono">1</td><td>현재 사건과 <b>위험도</b></td><td>12장 — 위험도 점수 금지</td><td>충돌</td><td>우리가 산출하지 않는다. 112 접수 코드를 그대로 표시하고 라벨을 <b>「접수 코드」</b>로. 화면에 출처 병기 — <span class="mono">⌐ 112 접수 · 코드1</span></td></tr>
+<tr><td class="mono">2</td><td><b>긴급 위험 알림</b></td><td>12장 — 실시간 위협 판정 금지 / 설문 8·11</td><td>충돌</td><td><b>발신 주체를 사람으로 고정.</b> 지휘통제실 지시와 동료 발신만. 라벨을 <b>「지휘실 지시」·「동료 발신」</b>으로</td></tr>
+<tr><td class="mono">3</td><td>우선 확인 대상</td><td>9-2 — 추천·해석 금지</td><td>충돌</td><td><b>지휘통제실이 지정한 것만.</b> 라벨 <b>「지시받은 확인 대상」</b>. 시스템이 고른 순위는 만들지 않는다</td></tr>
+<tr><td class="mono">4</td><td><b>AI</b> 보고서 작성</td><td>9-3 — AI는 변환에만</td><td>부분</td><td>STT 전사·서식 칸 전사는 허용, 생성은 금지. 라벨 <b>「말한 것을 서식으로 옮김」</b>. 원문과 전사문을 나란히</td></tr>
+<tr><td class="mono">5</td><td><b>주요</b> 장면 캡처(AI)</td><td>9-3 — 검출 허용, 판단 금지</td><td>부분</td><td>「주요」를 뺀다. <b>「좌표·시각이 붙은 장면」</b> 또는 사람이 북마크한 장면</td></tr>
+<tr><td class="mono">6</td><td>현장 경찰이 보는 화면 8종</td><td>3-3③ 착용자 화면 OFF / 11장</td><td>범위 충돌</td><td><b>OFF의 대상은 「남은 구역·커버리지 결과」에 한정.</b> 임무·지도·소통·자료는 표시. 단 <b>활동 중에는 어떤 화면도 띄우지 않는다</b>. ⚠ 팀 확인 필요</td></tr>
+<tr><td class="mono">7</td><td><b>영상</b> 확인이 대분류</td><td>13-2 — 기록은 좌표·시각·방향</td><td>개념 충돌</td><td><b>생성하는 것은 좌표, 연결하는 것은 이미 찍힌 영상.</b> 문구를 <b>「연결된 영상」</b>으로. 15-2에서 이 오해로 인터뷰 1회차를 버렸다</td></tr>
+<tr><td class="mono">8</td><td>AR 글래스 관리</td><td>7-1 실측 조건</td><td>충돌 아님</td><td>오히려 필요. 8장 단계 0 「착용 확인」에 대응</td></tr>
+<tr><td class="mono">9</td><td>음성 명령 · 음성 브리핑</td><td>12장은 <b>손 제스처</b>만 금지</td><td>충돌 아님</td><td>「손이 묶여 있다」는 대전제와 부합. 선택적 보조 입력임을 구분 표기</td></tr>
+</table></div>
+<div class="callout"><b>이 표에서 나온 화면 규칙 3개</b><br>
+① <b>판정하는 주체를 화면에 항상 적는다.</b> 값 옆에 출처가 붙으면 「AI가 정했다」는 오해가 생기지 않는다.<br>
+② <b>「남은 구역」은 B의 화면에서 처음 등장한다.</b> A의 화면 어디에도 자기 미확인 위치가 없다.<br>
+③ <b>활동 중에는 화면이 없다.</b> 화면은 「활동 전」과 「활동 후」에만 존재한다.</div>
+</section>
+
+<section class="sec" id="flow">
+<h2>마스터 플로우 — 릴레이</h2>
+<p class="sub">이 서비스의 형태는 「앱」이 아니라 <b>릴레이</b>입니다. A가 만든 것을 B가 받습니다. 그래서 플로우도 한 사람의 여정이 아니라 <b>두 사람의 교차</b>로 그려야 합니다.</p>
+<div class="flow">
+ <div class="fcol">
+  <div class="fhead">A · 현장 경찰 (선행)</div>
+  <div class="fnode"><span class="fp">접힘</span><b>① 출동 지령 수신</b><span>기록이 시작된다</span></div>
+  <div class="fnode"><span class="fp">펼침</span><b>② 현장 도착 · 임무 확인</b><span>사건 · 접수코드 · 담당구역</span></div>
+  <div class="fnode"><span class="fp">반접힘</span><b>③ 구역 배정 · 착용 확인</b><span>말로 나눈 구역을 로그에</span></div>
+  <div class="fnode empty"><span class="fp">화면 없음</span><b>④ 활동 중</b><span>시선만 기록된다 — <b>비어 있는 것이 기능이다</b></span></div>
+  <div class="fnode"><span class="fp">펼침</span><b>⑤ 인계 작성</b><span>넘길 항목 확인 · 남은 구역은 보이지 않는다</span></div>
+  <div class="fnode"><span class="fp">대기</span><b>⑥ 대기 표시</b><span>기다리는 시간을 그대로</span></div>
+  <div class="fnode"><b>⑦ 인계 완료</b><span>이력이 남는다</span></div>
+ </div>
+ <div class="fmid">
+  <div class="farrow">┈┈</div><div>동시</div><div class="farrow">┈┈</div>
+  <div class="farrow">──▶</div><div>인계<br>발신</div>
+  <div class="farrow">◀──</div><div>수락<br>통지</div>
+ </div>
+ <div class="fcol">
+  <div class="fhead">B · 인수인계자 (후속)</div>
+  <div class="fnode"><span class="fp">접힘</span><b>① 증원 지령 수신</b><span>ETA · 후속 투입 이유</span></div>
+  <div class="fnode"><span class="fp">접힘</span><b>② 이동 중 음성 브리핑</b><span>화면 안 봄 · 귀로만</span></div>
+  <div class="fnode"><span class="fp">접힘</span><b>③ 인계 카드 수신</b><span>한 화면 · 결정 1개</span></div>
+  <div class="fnode star"><span class="fp">펼침</span><b>④ 브리핑 검토 ★</b><span><b>남은 구역이 여기서 처음 보인다</b></span></div>
+  <div class="fnode"><span class="fp">펼침</span><b>⑤ 현장 자료 확인</b><span>연결된 영상 · 장면 캡처</span></div>
+  <div class="fnode"><b>⑥ 인계 수락</b><span>명시적 수락 · 이력이 남는다</span></div>
+  <div class="fnode"><span class="fp">반접힘</span><b>⑦ AR 글래스 이어받기</b><span>↳ B가 A가 된다 · ②로 순환</span></div>
+ </div>
+</div>
+
+<h3>자세가 바뀔 때 — 갈아엎지 말고 자라나게</h3>
+<div class="warn">Apple HIG — <i>“Avoid extreme layout changes as people fold the device. Move only what's necessary to keep elements visible and easy to tap. Controls that disappear or shift dramatically are harder to find and track.”</i></div>
+<div class="tw"><table>
+<tr><th>전환</th><th>일어나야 하는 것</th><th>일어나면 안 되는 것</th></tr>
+<tr><td><b>접힘 → 펼침</b></td><td>커버 카드가 <b>우측 판으로 그대로 이동</b>하고, 왼쪽에 지도가 새로 열린다</td><td>카드가 사라지거나 다른 화면으로 바뀌는 것</td></tr>
+<tr><td><b>펼침 → 접힘</b></td><td>우측 판이 커버로 접혀 들어가고, 지도는 카드 안 미니맵으로 축소</td><td>지도가 통째로 사라져 위치 감각을 잃는 것</td></tr>
+<tr><td><b>펼침 → 반접힘</b></td><td>두 판이 각자 <b>접히는 선을 피해</b> 안쪽으로 물러난다</td><td>컨트롤이 접히는 선 위에 남는 것</td></tr>
+<tr><td><b>자세 무관</b></td><td>같은 기능은 <b>같은 상대 위치</b>에</td><td>자세마다 버튼 위치가 바뀌어 다시 배우게 하는 것</td></tr>
+</table></div>
+</section>
+
+<section class="sec" id="tokens">
+<h2>설계 토큰 — 장갑이 그리드를 정한다</h2>
+
+<h3>먼저 수치 하나를 바로잡습니다</h3>
+<p>리서치 표에 「장갑 착용 시 20×20mm ≈ 126dp ≈ <s>56pt</s>」로 적힌 항목이 있는데 <b>56pt는 틀렸습니다.</b> 활판 포인트(1/72″)로 환산한 값이 iOS 포인트(1/163″) 자리에 들어갔습니다. 같은 표의 「Apple 44pt = 6.9mm」는 iOS 포인트 기준이므로 단위가 섞였습니다.</p>
+<div class="tw"><table>
+<tr><th>20 mm를 환산하면</th><th class="mono">값</th><th></th></tr>
+<tr><td>dp (1/160″)</td><td class="mono">126 dp</td><td>✅</td></tr>
+<tr><td>iOS pt · 명목 163ppi</td><td class="mono">128 pt</td><td></td></tr>
+<tr><td>iOS pt · Duo 내부 실측 430ppi @3x</td><td class="mono">113 pt</td><td></td></tr>
+<tr><td>iOS pt · Duo 외부 실측 460ppi @3x</td><td class="mono">121 pt</td><td></td></tr>
+<tr><td>활판 pt (1/72″)</td><td class="mono">57 pt</td><td>← 표에 잘못 들어간 값</td></tr>
+</table></div>
+<div class="callout"><b>이 차이가 2배입니다.</b> 56pt로 버튼을 그리면 장갑 낀 손 기준의 절반이 됩니다.<br>
+<b>채택값 — 장갑 주 액션 타깃 = 120 pt.</b> 내부(113)와 외부(121)를 모두 덮고 8의 배수라 그리드에 맞습니다.<br>
+<span class="mono" style="font-size:12px">근거 — MIL-STD-1472H §5.1.3.1.17 Fig.3: 맨손 15×15mm, 장갑 보정 각 변 +5mm</span></div>
+
+<h3>그리드가 저절로 떨어진다</h3>
+<div class="griddemo">
+ <div class="w-lb" style="margin-bottom:8px">펼침 · 내부 626 pt → 4열</div>
+ <div class="gdrow"><div class="gd-m">24</div><div class="gd-c">120</div><div class="gd-g">32</div><div class="gd-c">120</div><div class="gd-f">fold<br>±32</div><div class="gd-c">120</div><div class="gd-g">32</div><div class="gd-c">120</div><div class="gd-m">24</div></div>
+ <div class="w-lb" style="margin:16px 0 8px">접힘 · 외부 466 pt → 2열</div>
+ <div class="gdrow"><div class="gd-m">24</div><div class="gd-c">193</div><div class="gd-g">32</div><div class="gd-c">193</div><div class="gd-m">24</div></div>
+</div>
+<div class="tw"><table>
+<tr><th>토큰</th><th class="mono">값</th><th>근거</th></tr>
+<tr><td>열 수 (펼침)</td><td class="mono">4열</td><td>장갑 타깃에서 역산 + Apple HIG <i>“prefer an even number of columns so content divides cleanly”</i></td></tr>
+<tr><td>열 수 (접힘)</td><td class="mono">2열</td><td>결정 1개 원칙. 전폭 버튼 = 2열 병합</td></tr>
+<tr><td>거터</td><td class="mono">32 pt</td><td>타깃 간 최소 간격 5mm ≈ 28~30pt에서 올림 (MIL-STD-1472H Fig.3 NOTE 3)</td></tr>
+<tr><td>바깥 마진</td><td class="mono">24 pt</td><td></td></tr>
+<tr><td><b>접히는 선 회피대</b></td><td class="mono">중앙 ±32 pt</td><td>거터 폭을 그대로 회피대로. ⚠ 삼성·구글·애플 어디에도 구체 dp 규정이 없어 채택한 값</td></tr>
+</table></div>
+<div class="callout"><b>4열 그리드가 나온 것이 이 설계의 첫 성과입니다.</b> 「폴더블이니까 2단으로」가 아니라 <b>「장갑 → 120pt → 4열」</b>이라는 도출 경로가 있습니다. 발표에서 이 한 줄이 방어력이 됩니다.</div>
+
+<h3>타이포그래피 — 50대 이상 42.8%</h3>
+<p>MIL-STD-1472H의 15~20 arcmin은 「겨우 판독 가능한 절대 하한」이지 「편안히 읽히는 크기」가 아닙니다. 기획서 5-3을 근거로 <b>고령자 연구값을 채택</b>합니다.</p>
+<div class="tw"><table>
+<tr><th>역할</th><th class="mono">크기</th><th>굵기</th><th>근거</th></tr>
+<tr><td>사건 유형 · 핵심 수치</td><td class="mono">28 pt</td><td>Bold</td><td>뛰면서 읽는 유일한 정보</td></tr>
+<tr><td>화면 제목 · 결정 문구</td><td class="mono">22 pt</td><td>Semibold</td><td>Heliyon 2020 — 22pt에서 65세+가 청년과 동일 성능</td></tr>
+<tr><td>본문</td><td class="mono">17 pt</td><td>Regular</td><td>Frontiers 2022 고령자 권장 14~22pt의 중앙</td></tr>
+<tr><td>라벨 · 메타</td><td class="mono">14 pt</td><td>Medium</td><td><b>하한.</b> 이보다 작게 쓰지 않는다</td></tr>
+<tr><td>행간</td><td class="mono">1.5×</td><td></td><td>MIL-STD-1472H §5.4.7.10</td></tr>
+<tr><td>어두운 배경 흰 글자 획</td><td class="mono">높이의 1/7~1/8</td><td></td><td>§5.4.7.4.2 — 야간·암순응. <b>Light/Thin 웨이트 금지</b></td></tr>
+<tr><td>서체</td><td>산세리프 필수</td><td></td><td>§5.17.18.7.2 — 열악한 조건</td></tr>
+</table></div>
+
+<h3>색 — 위험을 뜻하지 않는 팔레트</h3>
+<div class="callout"><b>이 프로젝트에서 색은 가장 위험한 재료입니다.</b> 12장이 「위험도 점수」를 금지하는데, 빨강·주황을 쓰는 순간 화면은 자동으로 위험도를 말하게 됩니다.<br><b>규칙 — 위험 서열을 뜻하는 색을 쓰지 않는다. 그리고 「남은 구역」을 명도 축에 두지 않는다.</b></div>
+<div class="warn"><b>⚠ 초안을 고쳤습니다.</b> 처음에는 다섯 상태를 <b>전부 명도 축</b>에 놓고 남은 구역을 「가장 밝은 채움」으로 그렸습니다. <b>그것은 널리 쓰이는 표준이 이미 저지른 실수와 같은 형태입니다.</b><br><br>
+ROS 표준 지도 저장기(<span class="mono">map_saver.cpp</span>)는 미지 영역을 회색 <b class="mono">205</b>로 씁니다. 그 <span class="mono">else</span> 분기에 두 종류가 섞여 들어갑니다 — ① 값 −1인 <b>한 번도 관측 안 된 셀</b> ② 값 26~64인 <b>관측했지만 애매한 셀</b>. <b>「아무도 안 봤다」와 「봤는데 결론이 안 난다」를 같은 회색으로 뭉갭니다.</b> 게다가 205는 0과 254 사이 <b>명도 축 위에 있어 시각적으로 「반쯤 점유됨」으로 읽힙니다.</b><br><br>
+<b>RViz의 해법이 정답입니다</b> — free↔occupied는 무채색 명도 축에 두고, <b>unknown은 그 축에서 이탈시켜 채도가 있는 별도 색상</b>(청록 RGB 112,137,134)을 줍니다.</div>
+<div class="callout"><b>이 결정을 뒷받침하는 한 줄</b> — ROS <span class="mono">costmap_2d</span>: <span class="mono">NO_INFORMATION = 255</span> &gt; <span class="mono">LETHAL_OBSTACLE = 254</span>.<br>
+<b>「모르는 곳」이 「치명적 장애물」보다 높은 값입니다.</b> 경찰 수색으로 옮기면 — <b>미탐색 구역은 「빈 곳」이 아니라 최우선 처리 대상</b>입니다. 로봇 경로계획이 오래전에 내린 결론을 사람의 화면에 옮기는 것입니다.</div>
+<div class="tw"><table>
+<tr><th>상태 (기획서 6-4)</th><th>표현</th><th>미리보기</th></tr>
+<tr><td>확인됨</td><td>무채색 명도 — 가장 어두운 채움 · 테두리 없음</td><td><span class="z z1" style="display:inline-flex;width:110px;height:30px">확인됨</span></td></tr>
+<tr><td>관찰됨</td><td>무채색 명도 — 한 단계 밝은 채움</td><td><span class="z z2" style="display:inline-flex;width:110px;height:30px">관찰됨</span></td></tr>
+<tr><td>조건 미흡</td><td>빗금 + 반투명 — <b>없으면 실외에서 서비스가 거짓말을 한다</b></td><td><span class="z z3" style="display:inline-flex;width:110px;height:30px">조건 미흡</span></td></tr>
+<tr><td><b>남은 구역</b></td><td><b>명도 축 이탈 · 청록 계열 채움 + 굵은 테두리 + 사선 해칭</b><br><span style="font-size:12px;color:var(--ink-3)">hue는 「다른 종류」를 뜻하지 「더 위험함」을 뜻하지 않는다. MIL-STD-2525D도 hue를 의미에 고정하고 luminance만 변수로 쓴다</span></td><td><span class="z z4" style="display:inline-flex;width:110px;height:30px">남은 구역</span></td></tr>
+<tr><td>범위 밖</td><td>점선 테두리 · 채움 없음 — 경계는 사람이 정한다</td><td><span class="z z5" style="display:inline-flex;width:110px;height:30px">범위 밖</span></td></tr>
+</table></div>
+<p><b>⚠ 미탐색을 투명 처리하면 안 됩니다.</b> RViz costmap에서 <b>투명(alpha 0)은 free에 쓰입니다</b> — 관례상 「투명 = 문제없음」이지 「모름」이 아닙니다.<br><br><b>부수 효과 세 가지</b> — ① 색각 이상 대응(청록은 적록 색각이상에서도 무채색과 구분) ② 햇빛 아래에서 명도차가 무너져도 채도차는 남음 ③ 「위험 구역」으로 오독될 여지가 없음. 대비 요구는 <b class="mono">문자–배경 6:1 이상, 10:1 권장</b> (MIL-STD-1472H §5.2.2.7 — WCAG AA 4.5:1보다 엄격), <b class="mono">25,000 lux까지 유지</b> (§5.2.1.5).</p>
+
+<h3>테마 — 「경찰 앱 = 다크 모드」는 표준 위반이다</h3>
+<div class="warn">MIL-STD-1472H §5.2.2.6 — <i>“암순응을 유지하기 위해, 주변 광량이 약 <b>0.1 lx</b> 미만일 때 디스플레이는 어두운 배경에 밝은 문자를 사용해야 한다(shall). <b>그 외의 경우에는 밝은 배경에 어두운 문자를 사용해야 한다(shall).</b>”</i></div>
+<p><b>0.1 lx는 보름달 밤 수준입니다.</b> 가로등 있는 노상 · 차량 내부 · 실내는 전부 「그 외의 경우」이므로 <b>라이트 테마가 규범</b>입니다. NIST 현장 인터뷰가 같은 증언을 남겼습니다 — <i>“화면의 night mode는 대비색이 부족해 판독 불가.”</i></p>
+<div class="tw"><table>
+<tr><th>모드</th><th>조건</th><th>극성</th><th>획 두께</th></tr>
+<tr><td><b>주간 (기본값)</b></td><td>0.1 lx 이상 — 노상·차내·실내 대부분</td><td><b>밝은 배경 + 어두운 글자</b></td><td class="mono">1/6~1/7 (두껍게)</td></tr>
+<tr><td><b>야간 전용</b></td><td>0.1 lx 미만</td><td>어두운 배경 + 밝은 글자</td><td class="mono">1/7~1/8 (halation 보정)</td></tr>
+</table></div>
+<div class="callout"><b>조도 센서 기반 자동 전환(임계 0.1 lx)을 설계 논리로 삼습니다.</b> 사용자가 고르는 설정이 아니라 환경이 정하는 상태입니다.<br>
+⚠ 눈부심 억제용 <b>편광·틴팅 표면은 금지</b>(§5.2.1.4.5). ⚠ <b>화면은 태양을 이길 수 없습니다</b> — 햇빛 아래 흰 종이 약 10⁵ cd/m², 폴더블 최대 휘도 2,600 cd/m². 밝기가 아니라 <b>극성과 대비</b>로 해결합니다.</div>
+
+<h3>현장 조건이 추가로 요구하는 것 4가지</h3>
+<div class="tw"><table>
+<tr><th>#</th><th>요구</th><th>근거</th><th>PARALLAX 적용</th></tr>
+<tr><td class="mono">①</td><td><b>핵심 정보는 스크롤 없이 항상 보인다</b></td><td>MIL §5.19.5.4.1 「두 번의 키 액션 이내」 · NISTIR 8340 §4.1.8 「스크롤 없이 지속 표시」 · NISTIR 8216 <i>“폰을 보며 한 자리에 오래 서 있는 것은 엄청난 officer-safety 문제”</i></td><td><b>인계 요약(B-2·B-5)은 스크롤 없는 1스크린.</b> 넘치면 항목을 줄이지 화면을 늘리지 않는다</td></tr>
+<tr><td class="mono">②</td><td><b>터치스크린이 유일한 입력수단이 될 수 없다</b></td><td>MIL §5.1.3.1.1.3 <i>shall not</i> · APX NEXT는 무전/앱 프로세서 물리 분리 · FirstNet App Lock은 외부 PTT 키를 안 잠근다</td><td>기록 개시 · 음성 보고 · 지원 요청에 <b>물리 버튼 경로 병행.</b> 정보구조도 5번의 「물리버튼 옵션」이 여기서 정당화된다</td></tr>
+<tr><td class="mono">③</td><td><b>화면을 즉시 감출 수단</b></td><td>GOV.UK <b>Exit this page</b>(Shift 3연타 → 즉시 이탈 + 세션 삭제) · Motorola <b>Covert mode</b> · Axon <b>Stealth</b></td><td>인계 화면(B-2~B-5)에 은닉 수단. 현장엔 민원인·용의자·언론이 있고 인계 화면엔 피해자 정보가 들어간다</td></tr>
+<tr><td class="mono">④</td><td><b>상태는 최소 3채널 중복 인코딩</b></td><td>MIL §5.1.3.1.16 「색은 모양·라벨과 이중화」 · NISTIR 8340 §4.1.10 · 스트레스 하 <b>경찰의 약 65%가 청각 왜곡</b> 경험</td><td>구역 상태는 이미 <b>명도+패턴+라벨</b> 3채널. 알림은 <b>진동+커버 1줄+소리</b>. 진동 규격 <span class="mono">150~300 Hz · 50~200 ms</span> (§5.19.4.4)</td></tr>
+</table></div>
+
+<h3>출처 배지 <span class="mono">⌐</span> — 가장 중요한 컴포넌트</h3>
+<p>기획서 9장(해석 금지)을 화면에서 지키는 장치입니다. <b>시스템이 만들지 않은 값에는 반드시 출처 배지를 붙입니다.</b> 배지가 없는 값은 「구역 상태」처럼 뺄셈으로 나온 것뿐입니다.</p>
+<p style="display:flex;gap:8px;flex-wrap:wrap">
+<span class="w-bd">⌐ 112 접수 · 코드1</span><span class="w-bd">⌐ 지휘실 지정</span><span class="w-bd">⌐ 동료 박○○ 발신</span><span class="w-bd">⌐ 지휘실 북마크</span></p>
+</section>
+
+<section class="sec" id="screens">
+<h2>화면 16종</h2>
+<p class="sub">화면마다 <b>iPadOS 26 실측 컷</b>(썸네일을 누르면 원본), <b>Apple·Samsung 공식 규범</b>, <b>경찰 현장 고려</b>를 함께 붙였습니다.</p>
+<article class="scard" data-track="A" id="sA-0">
+ <div class="shead">
+  <span class="sid">A-0</span>
+  <h4>출동 지령 수신</h4>
+  <span class="pose">접힘</span>
+  <p class="swhy">기록의 개시. 「출동 지령이 있어야 시작된다」(13-2)</p>
+ </div>
+ <div class="sbody">
+  <div><div class="dev cover"><div class="w-st">●REC 대기</div><div class="w-lb">출동 지령</div><div class="w-h1">주거침입 의심</div><div class="w-bd">⌐ 112 접수 · 코드1</div><div class="w-li">화곡동 △△빌라 302</div><div class="w-li">도착 예상 4분</div><div class="w-btn">출 동</div><div class="w-lnk">나중에</div><div class="w-lnk">◉ 물리버튼 길게 눌러 음성 명령</div></div></div>
+  <div>
+   <div class="reflist">
+    <div class="rl-h">iPadOS 26 레퍼런스 · 3컷</div>
+    <div class="ritem">
+      <img src="refs/90.jpg" alt="iPadOS #90 잠금화면 위젯" loading="lazy" width="2560" height="1280" data-n="90" data-cap="#90 · 11:23 · 잠금화면 위젯">
+      <div><span class="rnum">#90 · 11:23</span><div class="rtit">잠금화면 위젯 슬롯</div><div class="rdesc">커버는 슬롯이다 — 시계 + 정보 2~3칸이 물리적 한계</div></div>
+    </div><div class="ritem">
+      <img src="refs/88.jpg" alt="iPadOS #88 작은 모달" loading="lazy" width="2560" height="1280" data-n="88" data-cap="#88 · 10:41 · 작은 모달">
+      <div><span class="rnum">#88 · 10:41</span><div class="rtit">작은 중앙 모달</div><div class="rdesc">선택지가 2개면 화면을 다 쓰지 않는다</div></div>
+    </div><div class="ritem">
+      <img src="refs/82.jpg" alt="iPadOS #82 캡처 패널" loading="lazy" width="2560" height="1280" data-n="82" data-cap="#82 · 9:53 · 캡처 패널">
+      <div><span class="rnum">#82 · 9:53</span><div class="rtit">캡처 패널 · 지연 시작</div><div class="rdesc">눌러도 조건이 갖춰질 때까지 대기하는 상태 표시</div></div>
+    </div>
+   </div>
+   <div class="extlist"><div class="rl-h" style="margin-top:6px">외부 규범</div>
+    <div class="eitem"><span class="esrc">Apple HIG</span><span>외부 = compact width — 커버 전용 디자인 언어를 만들지 않는다</span></div><div class="eitem"><span class="esrc">Apple HIG</span><span>reserved region · 외부 카메라 영역은 항상 비운다</span></div><div class="eitem"><span class="esrc">Galaxy</span><span>App Continuity — 커버에서 수락 → 펼치면 스크롤·입력까지 그대로</span></div></div>
+   <div class="pol"><div class="pol-h">경찰 현장 고려</div>뛰면서 한 손으로 누른다. 주 버튼을 하단 1/3에 전폭으로. 「나중에」를 같은 크기로 두면 오탭이 난다.</div>
+  </div>
+ </div>
+</article>
+<article class="scard" data-track="A" id="sA-1">
+ <div class="shead">
+  <span class="sid">A-1</span>
+  <h4>현재 임무</h4>
+  <span class="pose">펼침</span>
+  <p class="swhy">정보구조도 1번의 7개 항목을 담는 유일한 화면</p>
+ </div>
+ <div class="sbody">
+  <div><div class="dev wide"><div class="vstrip"><i></i><i></i><i></i><i></i></div><div class="pane"><div class="w-map">지도 — 담당 구역 · 진입 위치 ◉ · 팀 ● · CCTV ▣</div></div><div class="fold"></div><div class="pane"><div class="w-st">◉ 음성 명령 대기 · 물리버튼 길게</div><div class="w-h2">주거침입 의심</div><div class="w-bd">⌐ 112 접수 · 코드1</div><div class="w-div"></div><div class="w-lb">내 역할</div><div class="w-li">2층 서편 · 진입 담당</div><div class="w-div"></div><div class="w-lb">지시받은 확인 대상</div><div class="w-li">베란다 창 개방 여부</div><div class="w-li">계단실 CCTV 사각</div><div class="w-bd">⌐ 지휘실 지정</div><div class="w-div"></div><div class="w-li">임무 변경 1건 ›</div><div class="w-div"></div><div class="w-lb">임무 처리</div><div class="w-btn2">임무 완료 보고</div><div class="w-lnk">보류로 전환</div></div></div></div>
+  <div>
+   <div class="reflist">
+    <div class="rl-h">iPadOS 26 레퍼런스 · 4컷</div>
+    <div class="ritem">
+      <img src="refs/26.jpg" alt="iPadOS #26 사진+노트 분할" loading="lazy" width="2560" height="1280" data-n="26" data-cap="#26 · 2:43 · 사진+노트 분할">
+      <div><span class="rnum">#26 · 2:43</span><div class="rtit">사진 + 노트 분할</div><div class="rdesc">참조는 왼쪽, 입력은 오른쪽 — 「자료 보며 작업」의 정답 배치</div></div>
+    </div><div class="ritem">
+      <img src="refs/21.jpg" alt="iPadOS #21 타일링 적용 결과" loading="lazy" width="2560" height="1280" data-n="21" data-cap="#21 · 2:16 · 타일링 적용 결과">
+      <div><span class="rnum">#21 · 2:16</span><div class="rtit">타일링 적용 결과</div><div class="rdesc">두 판이 가장자리에 붙지 않고 바깥 여백 + 판 사이 갭을 남긴다. 이 갭이 접히는 선을 흡수</div></div>
+    </div><div class="ritem">
+      <img src="refs/28.jpg" alt="iPadOS #28 목록+상세 2단" loading="lazy" width="2560" height="1280" data-n="28" data-cap="#28 · 2:53 · 목록+상세 2단">
+      <div><span class="rnum">#28 · 2:53</span><div class="rtit">목록 + 상세 2단</div><div class="rdesc">시스템 분할 없이 앱 스스로 2단이 되는 형태</div></div>
+    </div><div class="ritem">
+      <img src="refs/85.jpg" alt="iPadOS #85 세그먼트 툴바" loading="lazy" width="2560" height="1280" data-n="85" data-cap="#85 · 10:19 · 세그먼트 툴바">
+      <div><span class="rnum">#85 · 10:19</span><div class="rtit">좌·중·우 3구역 툴바</div><div class="rdesc">폭이 줄면 중앙을 먼저 압축하고 좌우 그룹은 유지</div></div>
+    </div>
+   </div>
+   <div class="extlist"><div class="rl-h" style="margin-top:6px">외부 규범</div>
+    <div class="eitem"><span class="esrc">Apple HIG</span><span>split arrangement — <i>“splits horizontally when the arrangement is wider than it is tall”</i>. 가로 펼침이므로 좌우 2분할이 시스템 기본</span></div><div class="eitem"><span class="esrc">Apple HIG</span><span>세로 컨트롤 — <i>“the left app has controls on the left”</i></span></div><div class="eitem"><span class="esrc">Galaxy</span><span>삼성 권장 폴더블 판 비율 50/50 (구글 Supporting Pane 70/30과 다름)</span></div></div>
+   <div class="pol"><div class="pol-h">경찰 현장 고려</div>「지시받은 확인 대상」에 <b>⌐ 지휘실 지정</b> 배지 필수. 없으면 시스템 추천으로 읽히고 기획서 9-2 위반. 「임무 완료 보고」는 상태 전환일 뿐 성과평가·인사·감찰에 쓰이지 않는다(4-4).</div>
+  </div>
+ </div>
+</article>
+<article class="scard" data-track="A" id="sA-2">
+ <div class="shead">
+  <span class="sid">A-2</span>
+  <h4>지휘실 지시 · 동료 발신</h4>
+  <span class="pose">접힘 / 펼침 오버레이</span>
+  <p class="swhy">사람이 보낸 것만 알린다. 시스템이 판정한 위험 알림은 없다</p>
+ </div>
+ <div class="sbody">
+  <div><div class="dev wide"><div class="vstrip"><i></i><i></i><i></i><i></i></div><div class="pane"><div class="w-map">지도 — ◉ 지시 위치가 함께 찍힌다</div></div><div class="fold"></div><div class="pane"></div><div class="w-ov"><div class="w-bd">⌐ 지휘실 지시</div><div class="w-h2">3층으로 이동</div><div class="w-li">12:04 상황실</div><div class="w-btn">확 인</div></div></div></div>
+  <div>
+   <div class="reflist">
+    <div class="rl-h">iPadOS 26 레퍼런스 · 5컷</div>
+    <div class="ritem">
+      <img src="refs/59.jpg" alt="iPadOS #59 Slide Over 카드" loading="lazy" width="2560" height="1280" data-n="59" data-cap="#59 · 6:07 · Slide Over 카드">
+      <div><span class="rnum">#59 · 6:07</span><div class="rtit">Slide Over 카드</div><div class="rdesc">세로 카드 + ••• 하나뿐인 헤더 + 둘레 스트로크. 작은 창일수록 컨트롤을 접는다</div></div>
+    </div><div class="ritem">
+      <img src="refs/86.jpg" alt="iPadOS #86 앵커 팝오버" loading="lazy" width="2560" height="1280" data-n="86" data-cap="#86 · 10:23 · 앵커 팝오버">
+      <div><span class="rnum">#86 · 10:23</span><div class="rtit">앵커 팝오버</div><div class="rdesc">모달 대신 앵커 — 뒤 지도가 계속 보인다. 맥락을 끊지 않는다</div></div>
+    </div><div class="ritem">
+      <img src="refs/56.jpg" alt="iPadOS #56 3층 레이어" loading="lazy" width="2560" height="1280" data-n="56" data-cap="#56 · 5:53 · 3층 레이어">
+      <div><span class="rnum">#56 · 5:53</span><div class="rtit">3층 레이어</div><div class="rdesc">바닥 2분할 + 그 위 플로팅. 타일과 플로팅을 다른 층위로</div></div>
+    </div><div class="ritem">
+      <img src="refs/57.jpg" alt="iPadOS #57 던져 숨김" loading="lazy" width="2560" height="1280" data-n="57" data-cap="#57 · 5:59 · 던져 숨김">
+      <div><span class="rnum">#57 · 5:59</span><div class="rtit">옆으로 던져 숨김</div><div class="rdesc">「닫기」가 아니라 「화면 밖에 걸어두기」</div></div>
+    </div><div class="ritem">
+      <img src="refs/58.jpg" alt="iPadOS #58 끌어 복귀" loading="lazy" width="2560" height="1280" data-n="58" data-cap="#58 · 6:03 · 끌어 복귀">
+      <div><span class="rnum">#58 · 6:03</span><div class="rtit">가장자리에서 끌어 복귀</div><div class="rdesc">숨김과 복귀가 같은 제스처의 역방향 — 학습할 게 없다</div></div>
+    </div>
+   </div>
+   <div class="extlist"><div class="rl-h" style="margin-top:6px">외부 규범</div>
+    <div class="eitem"><span class="esrc">Galaxy</span><span>Pop-up view 헤더 5버튼 — 옵션 고정 → 분할로 열기 → 최소화 → 최대화 → 닫기. 최소화하면 떠다니는 버블</span></div><div class="eitem"><span class="esrc">Apple HIG</span><span>overlay arrangement — 반접힘에서 두 뷰가 각 side로 이동</span></div></div>
+   <div class="pol"><div class="pol-h">경찰 현장 고려</div><b>색으로 위험을 표현하지 않는다.</b> 빨강 배너는 곧 「위험도 표시」로 읽혀 12장 위반. 발신자 배지로만 구분. 대치 중에는 진동 1회 + 커버 1줄까지만.</div>
+  </div>
+ </div>
+</article>
+<article class="scard" data-track="A" id="sA-3">
+ <div class="shead">
+  <span class="sid">A-3</span>
+  <h4>공간 작전 및 지도</h4>
+  <span class="pose">펼침</span>
+  <p class="swhy">구역 · 팀 위치 · CCTV. 정보구조도 3번</p>
+ </div>
+ <div class="sbody">
+  <div><div class="dev wide"><div class="vstrip"><i></i><i></i><i></i><i></i></div><div class="pane"><div class="w-map">지도 · 구역 · 팀 위치 ● · CCTV ▣</div></div><div class="fold"></div><div class="pane"><div class="w-map">지도 계속</div><div class="w-btn2">◉ ▣ ⬚ ⊕ ⊖ ⟲  플로팅 팔레트</div></div></div></div>
+  <div>
+   <div class="reflist">
+    <div class="rl-h">iPadOS 26 레퍼런스 · 4컷</div>
+    <div class="ritem">
+      <img src="refs/89.jpg" alt="iPadOS #89 플로팅 팔레트" loading="lazy" width="2560" height="1280" data-n="89" data-cap="#89 · 10:47 · 플로팅 팔레트">
+      <div><span class="rnum">#89 · 10:47</span><div class="rtit">이동 가능한 플로팅 팔레트</div><div class="rdesc">고정 툴바로 지도를 잘라먹지 않는다. 접히는 선 밖으로 옮길 수 있어야</div></div>
+    </div><div class="ritem">
+      <img src="refs/87.jpg" alt="iPadOS #87 풀블리드+하단" loading="lazy" width="2560" height="1280" data-n="87" data-cap="#87 · 10:33 · 풀블리드+하단">
+      <div><span class="rnum">#87 · 10:33</span><div class="rtit">풀블리드 + 하단 컨트롤 클러스터</div><div class="rdesc">컨트롤을 가운데 뭉쳐 손 이동 거리를 줄인다</div></div>
+    </div><div class="ritem">
+      <img src="refs/20.jpg" alt="iPadOS #20 윈도우 타일링 프리셋" loading="lazy" width="2560" height="1280" data-n="20" data-cap="#20 · 2:13 · 윈도우 타일링 프리셋">
+      <div><span class="rnum">#20 · 2:13</span><div class="rtit">윈도우 타일링 프리셋</div><div class="rdesc">「지도만 / 지도+카드 / 지도+영상」을 픽토그램 프리셋으로 — 현장에서 창을 끌 시간이 없다</div></div>
+    </div><div class="ritem">
+      <img src="refs/47.jpg" alt="iPadOS #47 가장자리 스와이프" loading="lazy" width="2560" height="1280" data-n="47" data-cap="#47 · 4:45 · 가장자리 스와이프">
+      <div><span class="rnum">#47 · 4:45</span><div class="rtit">가장자리 스와이프 리사이즈</div><div class="rdesc">접히는 선 위 divider 대신 가장자리에서 밀어 넣기</div></div>
+    </div>
+   </div>
+   <div class="extlist"><div class="rl-h" style="margin-top:6px">외부 규범</div>
+    <div class="eitem"><span class="esrc">Apple HIG</span><span><i>“prefer an even number of columns so content divides cleanly”</i></span></div><div class="eitem"><span class="esrc">Galaxy</span><span>주름 위 컨트롤 금지 — 삼성·구글 양쪽 명문 규칙. ⚠ 구체 회피 dp는 어느 문서에도 없음</span></div></div>
+   <div class="pol"><div class="pol-h">경찰 현장 고려</div>CCTV 아이콘은 「있다」만 말한다. 화질·각도·가동 여부를 시스템이 판정하면 9장 위반. 구역 상태는 색상환이 아니라 <b>명도 + 패턴</b>.</div>
+  </div>
+ </div>
+</article>
+<article class="scard" data-track="A" id="sA-4">
+ <div class="shead">
+  <span class="sid">A-4</span>
+  <h4>AR 글래스 관리</h4>
+  <span class="pose">반접힘</span>
+  <p class="swhy">착용 확인. 「이 화면이 마지막 조작이다」(8장 단계 0)</p>
+ </div>
+ <div class="sbody">
+  <div><div class="dev wide"><div class="vstrip"><i></i><i></i><i></i><i></i></div><div class="pane"><div class="w-fig">글래스 도해</div></div><div class="fold"></div><div class="pane"><div class="w-h2">착용 확인</div><div class="w-li">○ 연결됨</div><div class="w-li">○ 배터리 82%</div><div class="w-li">⚠ 온도 9°C — 작동 범위 10~27°C</div><div class="w-btn">기록 시작</div></div></div></div>
+  <div>
+   <div class="reflist">
+    <div class="rl-h">iPadOS 26 레퍼런스 · 3컷</div>
+    <div class="ritem">
+      <img src="refs/02.jpg" alt="iPadOS #02 모드 선택 카드" loading="lazy" width="2560" height="1280" data-n="02" data-cap="#02 · 0:47 · 모드 선택 카드">
+      <div><span class="rnum">#02 · 0:47</span><div class="rtit">모드 선택 카드 + 미니어처 프리뷰</div><div class="rdesc">추상적 상태를 말이 아니라 그림으로. 착용 위치·각도를 도해로</div></div>
+    </div><div class="ritem">
+      <img src="refs/82.jpg" alt="iPadOS #82 캡처 패널" loading="lazy" width="2560" height="1280" data-n="82" data-cap="#82 · 9:53 · 캡처 패널">
+      <div><span class="rnum">#82 · 9:53</span><div class="rtit">캡처 패널 · 지연 시작</div><div class="rdesc">조건 미달이면 대기 상태로 정직하게</div></div>
+    </div><div class="ritem">
+      <img src="refs/10.jpg" alt="iPadOS #10 제어센터 즉시 토글" loading="lazy" width="2560" height="1280" data-n="10" data-cap="#10 · 1:20 · 제어센터 즉시 토글">
+      <div><span class="rnum">#10 · 1:20</span><div class="rtit">제어센터 즉시 토글</div><div class="rdesc">무거운 시스템 설정도 1탭 거리에</div></div>
+    </div>
+   </div>
+   <div class="extlist"><div class="rl-h" style="margin-top:6px">외부 규범</div>
+    <div class="eitem"><span class="esrc">Apple HIG</span><span>poses — <i>“placed down on a surface, or standing on its edges”</i>. 반접힘은 기기를 세워두는 자세, 두 손이 자유로워진다</span></div><div class="eitem"><span class="esrc">Galaxy</span><span>Flex Mode <i>“Viewing on top, Control on the bottom”</i> — 단 이는 세로 그립. 가로 북타입은 좌우로 갈린다</span></div></div>
+   <div class="pol"><div class="pol-h">경찰 현장 고려</div>7-1 실측(방수 0 · 10~27°C · 밝은 실외 안 보임)을 <b>경고가 아니라 상태로</b>. 「위험」이 아니라 「작동 범위 밖」.</div>
+  </div>
+ </div>
+</article>
+<article class="scard" data-track="A" id="sA-5">
+ <div class="shead">
+  <span class="sid">A-5</span>
+  <h4>현장 기록</h4>
+  <span class="pose">펼침</span>
+  <p class="swhy">⚠ 활동 중에는 열리지 않는다. 활동 후 검토 전용</p>
+ </div>
+ <div class="sbody">
+  <div><div class="dev wide"><div class="vstrip"><i></i><i></i><i></i><i></i></div><div class="pane"><div class="w-lb">시간축</div><div class="w-li">● 12:04 주방</div><div class="w-li">● 12:06 거실</div><div class="w-li">● 12:09 안방</div><div class="w-div"></div><div class="w-bd">⌐ 폰 AR 백업 · 물리버튼</div><div class="w-li">글래스 미착용 구간 2건 ▶</div></div><div class="fold"></div><div class="pane"><div class="w-lb">음성 주석 3건</div><div class="w-li">12:04 “베란다 창 열림”  ▶ 원문</div><div class="w-li">12:06 “계단실 어두움”  ▶ 원문</div><div class="w-div"></div><div class="w-lb">보고서 초안</div><div class="w-li">말한 것을 서식 칸으로 옮김</div><div class="w-btn">발생보고서</div></div></div></div>
+  <div>
+   <div class="reflist">
+    <div class="rl-h">iPadOS 26 레퍼런스 · 4컷</div>
+    <div class="ritem">
+      <img src="refs/84.jpg" alt="iPadOS #84 주석 · UI 은폐" loading="lazy" width="2560" height="1280" data-n="84" data-cap="#84 · 10:13 · 주석 · UI 은폐">
+      <div><span class="rnum">#84 · 10:13</span><div class="rtit">입력 중 UI 자동 은폐</div><div class="rdesc">펜슬·음성이 시작되면 컨트롤을 최소 1개만 남긴다</div></div>
+    </div><div class="ritem">
+      <img src="refs/89.jpg" alt="iPadOS #89 플로팅 팔레트" loading="lazy" width="2560" height="1280" data-n="89" data-cap="#89 · 10:47 · 플로팅 팔레트">
+      <div><span class="rnum">#89 · 10:47</span><div class="rtit">플로팅 팔레트</div><div class="rdesc">도구를 레이아웃에서 떼어내 떠 있는 오브젝트로</div></div>
+    </div><div class="ritem">
+      <img src="refs/82.jpg" alt="iPadOS #82 캡처 패널" loading="lazy" width="2560" height="1280" data-n="82" data-cap="#82 · 9:53 · 캡처 패널">
+      <div><span class="rnum">#82 · 9:53</span><div class="rtit">대기 상태 표시</div><div class="rdesc">전사 중·업로드 중을 감추지 않는다</div></div>
+    </div><div class="ritem">
+      <img src="refs/85.jpg" alt="iPadOS #85 세그먼트 툴바" loading="lazy" width="2560" height="1280" data-n="85" data-cap="#85 · 10:19 · 세그먼트 툴바">
+      <div><span class="rnum">#85 · 10:19</span><div class="rtit">상단 세그먼트 툴바</div><div class="rdesc">좌(내비) / 중(도구) / 우(액션) 3구역</div></div>
+    </div>
+   </div>
+   <div class="extlist"><div class="rl-h" style="margin-top:6px">외부 규범</div>
+    <div class="eitem"><span class="esrc">기획서 9-3</span><span>AI는 변환에만 — STT 전사와 서식 칸 전사는 허용, 생성은 금지</span></div></div>
+   <div class="pol"><div class="pol-h">경찰 현장 고려</div><b>9장 위반이 가장 나기 쉬운 화면.</b> 「AI 보고서 작성」이 아니라 「말한 것을 서식 칸으로 옮김」. <b>원문 재생 버튼을 항상 붙여</b> 변환임을 보인다. 요약·문장 다듬기를 넣는 순간 9-1의 「같은 자리에 다시 선다」. 정보구조도 5번의 「핸드폰 AR 녹화」는 <b>글래스가 꺼진 구간을 메우는 물리버튼 백업 캡처</b> — 활동 중 화면 없이 찍고 이 화면에서 타임라인에 병합해 검토한다. 상시 촬영이 아니다(②).</div>
+  </div>
+ </div>
+</article>
+<article class="scard" data-track="A" id="sA-6">
+ <div class="shead">
+  <span class="sid">A-6</span>
+  <h4>현장 소통 및 보고</h4>
+  <span class="pose">접힘 / 펼침</span>
+  <p class="swhy">지통실 · 증원조에게 발신</p>
+ </div>
+ <div class="sbody">
+  <div><div class="dev cover"><div class="w-lb">보고 대상</div><div class="w-li">▣ 지휘통제실</div><div class="w-li">▣ 증원 1팀</div><div class="w-btn">▶ 음성 보고</div><div class="w-lnk">취소도 기록됩니다</div></div></div>
+  <div>
+   <div class="reflist">
+    <div class="rl-h">iPadOS 26 레퍼런스 · 4컷</div>
+    <div class="ritem">
+      <img src="refs/88.jpg" alt="iPadOS #88 작은 모달" loading="lazy" width="2560" height="1280" data-n="88" data-cap="#88 · 10:41 · 작은 모달">
+      <div><span class="rnum">#88 · 10:41</span><div class="rtit">선택지 2개 = 작은 중앙 모달</div><div class="rdesc">큰 화면이라고 시트를 키우지 않는다</div></div>
+    </div><div class="ritem">
+      <img src="refs/77.jpg" alt="iPadOS #77 컨텍스트 메뉴" loading="lazy" width="2560" height="1280" data-n="77" data-cap="#77 · 8:57 · 컨텍스트 메뉴">
+      <div><span class="rnum">#77 · 8:57</span><div class="rtit">컨텍스트 메뉴</div><div class="rdesc">파괴적 항목을 색으로 분리하고 맨 아래로</div></div>
+    </div><div class="ritem">
+      <img src="refs/78.jpg" alt="iPadOS #78 서브메뉴 › Dock" loading="lazy" width="2560" height="1280" data-n="78" data-cap="#78 · 9:02 · 서브메뉴 › Dock">
+      <div><span class="rnum">#78 · 9:02</span><div class="rtit">「다음에 추가 › 목적지」 서브메뉴</div><div class="rdesc"><b>드래그와 메뉴가 같은 결과를 낸다.</b> 장갑 낀 손엔 메뉴가 유일한 길</div></div>
+    </div><div class="ritem">
+      <img src="refs/53.jpg" alt="iPadOS #53 Command+Tab 스트립" loading="lazy" width="2560" height="1280" data-n="53" data-cap="#53 · 5:29 · Command+Tab 스트립">
+      <div><span class="rnum">#53 · 5:29</span><div class="rtit">아이콘 스트립</div><div class="rdesc">수신자 선택을 한 줄로 — 커버에도 들어간다</div></div>
+    </div>
+   </div>
+   <div class="extlist"><div class="rl-h" style="margin-top:6px">외부 규범</div>
+    <div class="eitem"><span class="esrc">기획서 13-3</span><span>취소된 지원 요청도 기록에 남긴다</span></div></div>
+   <div class="pol"><div class="pol-h">경찰 현장 고려</div>취소 버튼 옆에 「취소도 기록됩니다」를 상시 표기. 나중에 놀라지 않게.</div>
+  </div>
+ </div>
+</article>
+<article class="scard" data-track="A" id="sA-7">
+ <div class="shead">
+  <span class="sid">A-7</span>
+  <h4>연결된 영상</h4>
+  <span class="pose">펼침</span>
+  <p class="swhy">이미 찍힌 영상에 좌표·시각을 붙여 모아 본다. <b>우리가 촬영하지 않는다</b></p>
+ </div>
+ <div class="sbody">
+  <div><div class="dev wide"><div class="vstrip"><i></i><i></i><i></i><i></i></div><div class="pane"><div class="w-vid">선택 영상 재생</div><div class="w-li">12:04 · 주방 · ⌐ 내 AR</div><div class="w-li">◉ 지도에서 이 위치</div></div><div class="fold"></div><div class="pane"><div class="w-grid4"><span>내 AR</span><span>동료 AR</span><span>CCTV</span><span>드론</span></div><div class="w-div"></div><div class="w-li">▣ 장면 캡처 — 좌표·시각 붙은 지점</div><div class="w-li">▣ 지휘실 선택 장면  ⌐ 지휘실 북마크</div></div></div></div>
+  <div>
+   <div class="reflist">
+    <div class="rl-h">iPadOS 26 레퍼런스 · 3컷</div>
+    <div class="ritem">
+      <img src="refs/25.jpg" alt="iPadOS #25 앱 엑스포제 그리드" loading="lazy" width="2560" height="1280" data-n="25" data-cap="#25 · 2:40 · 앱 엑스포제 그리드">
+      <div><span class="rnum">#25 · 2:40</span><div class="rtit">앱 엑스포제 카드 그리드</div><div class="rdesc">카드마다 아이콘 + 이름 + 문서명 2줄 라벨 → 출처 + 시각 + 구역</div></div>
+    </div><div class="ritem">
+      <img src="refs/83.jpg" alt="iPadOS #83 문서 브라우저" loading="lazy" width="2560" height="1280" data-n="83" data-cap="#83 · 10:09 · 문서 브라우저">
+      <div><span class="rnum">#83 · 10:09</span><div class="rtit">실제 콘텐츠 렌더링 썸네일</div><div class="rdesc">아이콘이 아니라 실제 프레임. 화면이 클수록 탐색 속도를 좌우</div></div>
+    </div><div class="ritem">
+      <img src="refs/86.jpg" alt="iPadOS #86 앵커 팝오버" loading="lazy" width="2560" height="1280" data-n="86" data-cap="#86 · 10:23 · 앵커 팝오버">
+      <div><span class="rnum">#86 · 10:23</span><div class="rtit">앵커 팝오버</div><div class="rdesc">영상 상세를 모달로 덮지 않고</div></div>
+    </div>
+   </div>
+   <div class="extlist"><div class="rl-h" style="margin-top:6px">외부 규범</div>
+    <div class="eitem"><span class="esrc">Apple HIG</span><span>내부 1:1.42에서 16:9 영상은 <b>레터박스가 화면의 약 1/5</b>. 영상 판을 절반으로 잡으면 실제 영상은 훨씬 작아진다</span></div></div>
+   <div class="pol"><div class="pol-h">경찰 현장 고려</div>썸네일마다 출처 배지 필수 — <b>⌐ 내 AR / ⌐ 동료 박○○ 바디캠 / ⌐ 공동현관 CCTV</b>. 없으면 「PARALLAX가 찍은 영상」으로 읽힌다.</div>
+  </div>
+ </div>
+</article>
+<article class="scard" data-track="A" id="sA-8">
+ <div class="shead">
+  <span class="sid">A-8</span>
+  <h4>인계 작성 · 발신</h4>
+  <span class="pose">펼침</span>
+  <p class="swhy">⚠ 이 화면에 「남은 구역」은 없다 — 다음 사람의 화면에서 처음 보인다 (3-3③)</p>
+ </div>
+ <div class="sbody">
+  <div><div class="dev wide"><div class="vstrip"><i></i><i></i><i></i><i></i></div><div class="pane"><div class="w-lb">넘어가는 것</div><div class="w-li">☑ 구역 상태 12구역</div><div class="w-li">☑ 음성 주석 3건</div><div class="w-li">☑ 연결 영상 4건</div><div class="w-li">☑ 지시 이력 2건</div><div class="w-li">☐ 개인 메모 (선택)</div><div class="w-note">이 기록은 성과평가·인사·감찰에 쓰이지 않습니다</div></div><div class="fold"></div><div class="pane"><div class="w-lb">받는 사람</div><div class="w-li">증원 1팀 · 김○○ 경위</div><div class="w-li">ETA 6분</div><div class="w-btn">인계 발신</div><div class="w-li">⏱ 수락까지 기다린 시간이 기록에 남습니다</div></div></div></div>
+  <div>
+   <div class="reflist">
+    <div class="rl-h">iPadOS 26 레퍼런스 · 4컷</div>
+    <div class="ritem">
+      <img src="refs/71.jpg" alt="iPadOS #71 목록 다중 컬럼" loading="lazy" width="2560" height="1280" data-n="71" data-cap="#71 · 8:25 · 목록 다중 컬럼">
+      <div><span class="rnum">#71 · 8:25</span><div class="rtit">목록 보기 다중 컬럼</div><div class="rdesc">넓어진 화면을 「큰 아이콘」이 아니라 <b>「더 많은 열」</b>로</div></div>
+    </div><div class="ritem">
+      <img src="refs/88.jpg" alt="iPadOS #88 작은 모달" loading="lazy" width="2560" height="1280" data-n="88" data-cap="#88 · 10:41 · 작은 모달">
+      <div><span class="rnum">#88 · 10:41</span><div class="rtit">작은 중앙 모달</div><div class="rdesc">발신 확인은 화면 전체를 덮지 않는다</div></div>
+    </div><div class="ritem">
+      <img src="refs/82.jpg" alt="iPadOS #82 캡처 패널" loading="lazy" width="2560" height="1280" data-n="82" data-cap="#82 · 9:53 · 캡처 패널">
+      <div><span class="rnum">#82 · 9:53</span><div class="rtit">지연 시작 · 대기 표시</div><div class="rdesc">기다리는 시간을 그대로 보여준다 (8장 단계 4)</div></div>
+    </div><div class="ritem">
+      <img src="refs/77.jpg" alt="iPadOS #77 컨텍스트 메뉴" loading="lazy" width="2560" height="1280" data-n="77" data-cap="#77 · 8:57 · 컨텍스트 메뉴">
+      <div><span class="rnum">#77 · 8:57</span><div class="rtit">파괴적 항목 분리</div><div class="rdesc">「인계 취소」를 발신 버튼과 멀리</div></div>
+    </div>
+   </div>
+   <div class="extlist"><div class="rl-h" style="margin-top:6px">외부 규범</div>
+    <div class="eitem"><span class="esrc">Apple HIG</span><span><i>“Keep text-based buttons to a minimum”</i> — 한국어 라벨이 길어 세로 스트립에 안 들어간다. 아이콘 우선</span></div></div>
+   <div class="pol"><div class="pol-h">경찰 현장 고려</div><b>이 화면이 수용성을 결정한다.</b> 4-4의 「성과평가·인사·감찰에 사용하지 않는다」를 약관이 아니라 <b>화면 안 고정 문구</b>로. 15-3에서 현직이 “공유하는 건 자기 업무 처리가 노출되는 거잖아요”라고 말한 지점이 정확히 여기.</div>
+  </div>
+ </div>
+</article>
+<article class="scard" data-track="B" id="sB-0">
+ <div class="shead">
+  <span class="sid">B-0</span>
+  <h4>인계 요청 수신</h4>
+  <span class="pose">접힘</span>
+  <p class="swhy">한 화면에 결정 하나 — 받을지 말지</p>
+ </div>
+ <div class="sbody">
+  <div><div class="dev cover"><div class="w-lb">인계 요청</div><div class="w-h1">흉기 의심 신고</div><div class="w-bd">⌐ 112 접수 · 코드1</div><div class="w-li">현장 2팀 → 증원 1팀</div><div class="w-li">ETA 6분</div><div class="w-btn">인계 받기</div><div class="w-btn2">▶ 음성 브리핑</div><div class="w-lnk">보류</div></div></div>
+  <div>
+   <div class="reflist">
+    <div class="rl-h">iPadOS 26 레퍼런스 · 3컷</div>
+    <div class="ritem">
+      <img src="refs/90.jpg" alt="iPadOS #90 잠금화면 위젯" loading="lazy" width="2560" height="1280" data-n="90" data-cap="#90 · 11:23 · 잠금화면 위젯">
+      <div><span class="rnum">#90 · 11:23</span><div class="rtit">잠금화면 위젯 슬롯</div><div class="rdesc">커버는 슬롯이다</div></div>
+    </div><div class="ritem">
+      <img src="refs/88.jpg" alt="iPadOS #88 작은 모달" loading="lazy" width="2560" height="1280" data-n="88" data-cap="#88 · 10:41 · 작은 모달">
+      <div><span class="rnum">#88 · 10:41</span><div class="rtit">선택지 2개 = 작은 모달</div><div class="rdesc">결정 개수에 맞춰 화면을 쓴다</div></div>
+    </div><div class="ritem">
+      <img src="refs/53.jpg" alt="iPadOS #53 Command+Tab 스트립" loading="lazy" width="2560" height="1280" data-n="53" data-cap="#53 · 5:29 · Command+Tab 스트립">
+      <div><span class="rnum">#53 · 5:29</span><div class="rtit">아이콘 스트립</div><div class="rdesc">경량 오버레이 — 배경 컨텍스트를 지우지 않는다</div></div>
+    </div>
+   </div>
+   <div class="extlist"><div class="rl-h" style="margin-top:6px">외부 규범</div>
+    <div class="eitem"><span class="esrc">Galaxy</span><span>App Continuity — 커버에서 「인계 받기」 → 펼치면 B-2가 <b>이미 열려 있어야</b> 한다</span></div></div>
+   <div class="pol"><div class="pol-h">경찰 현장 고려</div>정보구조도의 원문 문구를 그대로 쓰되 「위험도 높음」만 「⌐ 112 접수 · 코드1」로 교체. 이동 중에 받는 화면이라 주 버튼 2개가 한계.</div>
+  </div>
+ </div>
+</article>
+<article class="scard" data-track="B" id="sB-1">
+ <div class="shead">
+  <span class="sid">B-1</span>
+  <h4>음성 브리핑</h4>
+  <span class="pose">접힘</span>
+  <p class="swhy">이동 중. <b>화면을 보지 않는다</b></p>
+ </div>
+ <div class="sbody">
+  <div><div class="dev cover"><div class="w-st">▶ 음성 브리핑 재생중</div><div class="w-bar">━━━━━━━●───── 0:42</div><div class="w-li">“2층 서편까지 확인. 베란다 창 열려 있음. 3층은 아직…”</div><div class="w-lb">↑ 전사 텍스트 동기</div><div class="w-btn3"><span>◀◀ 15초</span><span>⏸</span><span>▶▶</span></div></div></div>
+  <div>
+   <div class="reflist">
+    <div class="rl-h">iPadOS 26 레퍼런스 · 3컷</div>
+    <div class="ritem">
+      <img src="refs/59.jpg" alt="iPadOS #59 Slide Over 카드" loading="lazy" width="2560" height="1280" data-n="59" data-cap="#59 · 6:07 · Slide Over 카드">
+      <div><span class="rnum">#59 · 6:07</span><div class="rtit">Slide Over 카드</div><div class="rdesc">재생 컨트롤만 남기는 극단적 축약</div></div>
+    </div><div class="ritem">
+      <img src="refs/65.jpg" alt="iPadOS #65 메뉴 바" loading="lazy" width="2560" height="1280" data-n="65" data-cap="#65 · 7:13 · 메뉴 바">
+      <div><span class="rnum">#65 · 7:13</span><div class="rtit">상태바 행 공유</div><div class="rdesc">세로 공간을 새로 쓰지 않고 상태 행에 정보를 얹는다</div></div>
+    </div><div class="ritem">
+      <img src="refs/84.jpg" alt="iPadOS #84 주석 · UI 은폐" loading="lazy" width="2560" height="1280" data-n="84" data-cap="#84 · 10:13 · 주석 · UI 은폐">
+      <div><span class="rnum">#84 · 10:13</span><div class="rtit">입력 중 UI 은폐</div><div class="rdesc">재생 중에는 컨트롤을 최소로</div></div>
+    </div>
+   </div>
+   <div class="extlist"><div class="rl-h" style="margin-top:6px">외부 규범</div>
+    <div class="eitem"><span class="esrc">기획서 9-3</span><span>STT는 변환이므로 허용 범위</span></div></div>
+   <div class="pol"><div class="pol-h">경찰 현장 고려</div><b>전사 텍스트를 음성과 동기해 함께 띄운다.</b> 시끄러운 현장에서 오디오만으로는 안 들린다. 재생 컨트롤 3개는 눈을 안 보고 누를 크기로.</div>
+  </div>
+ </div>
+</article>
+<article class="scard" data-track="B" id="sB-2">
+ <div class="shead">
+  <span class="sid">B-2</span>
+  <h4>사건 인사이트 (요약)</h4>
+  <span class="pose">펼침</span>
+  <p class="swhy">정보구조도 1번의 6개 항목을 한 화면에</p>
+ </div>
+ <div class="sbody">
+  <div><div class="dev wide"><div class="vstrip"><i></i><i></i><i></i><i></i></div><div class="pane"><div class="w-map">지도 (개요 축척) — ◉ 현장 · ● 내 위치 · ┈ 남은 경로 · ETA 6분</div></div><div class="fold"></div><div class="pane"><div class="w-h2">흉기 의심 신고</div><div class="w-bd">⌐ 112 접수 · 코드1</div><div class="w-div"></div><div class="w-lb">인계 요청자</div><div class="w-li">현장 2팀 이○○ 경사</div><div class="w-div"></div><div class="w-lb">후속 투입 이유</div><div class="w-li">3층 미진입 · 증원 요청</div><div class="w-div"></div><div class="w-li">긴급 변경 1건 ›  ⌐ 지휘실 12:11</div><div class="w-btn">남은 구역 보기  3곳</div></div></div></div>
+  <div>
+   <div class="reflist">
+    <div class="rl-h">iPadOS 26 레퍼런스 · 3컷</div>
+    <div class="ritem">
+      <img src="refs/26.jpg" alt="iPadOS #26 사진+노트 분할" loading="lazy" width="2560" height="1280" data-n="26" data-cap="#26 · 2:43 · 사진+노트 분할">
+      <div><span class="rnum">#26 · 2:43</span><div class="rtit">자료 좌 / 작업 우</div><div class="rdesc">A-1과 <b>같은 좌우 배치</b>. 두 트랙이 같은 골격을 쓰면 학습이 한 번으로 끝난다</div></div>
+    </div><div class="ritem">
+      <img src="refs/28.jpg" alt="iPadOS #28 목록+상세 2단" loading="lazy" width="2560" height="1280" data-n="28" data-cap="#28 · 2:53 · 목록+상세 2단">
+      <div><span class="rnum">#28 · 2:53</span><div class="rtit">목록 + 상세 2단</div><div class="rdesc">앱 스스로 2단이 되는 형태</div></div>
+    </div><div class="ritem">
+      <img src="refs/71.jpg" alt="iPadOS #71 목록 다중 컬럼" loading="lazy" width="2560" height="1280" data-n="71" data-cap="#71 · 8:25 · 목록 다중 컬럼">
+      <div><span class="rnum">#71 · 8:25</span><div class="rtit">넓은 화면 = 더 많은 열</div><div class="rdesc">요약을 큰 글씨가 아니라 더 많은 행으로</div></div>
+    </div>
+   </div>
+   <div class="extlist"><div class="rl-h" style="margin-top:6px">외부 규범</div>
+    <div class="eitem"><span class="esrc">Apple HIG</span><span><i>“show an additional level of hierarchy on the larger inner display”</i> — 접힘 = 요약 카드 1장 / 펼침 = 지도 + 요약</span></div></div>
+   <div class="pol"><div class="pol-h">경찰 현장 고려</div>요약에서는 남은 구역의 <b>개수만</b> 말하고 위치는 말하지 않는다. 위치는 B-3에서 지도와 함께 볼 때만 의미가 있다.</div>
+  </div>
+ </div>
+</article>
+<article class="scard" data-track="B" id="sB-3">
+ <div class="shead">
+  <span class="sid star">B-3</span>
+  <h4>지도 인사이트 — 남은 구역</h4>
+  <span class="pose">펼침</span>
+  <p class="swhy">★ 이 화면이 이 프로젝트다. 라벨은 「남은 구역」 — 「미확인 구역」이라 쓰지 않는다 (3-5)</p>
+ </div>
+ <div class="sbody">
+  <div><div class="dev wide"><div class="vstrip"><i></i><i></i><i></i><i></i></div><div class="pane"><div class="zones">
+   <div class="z z1"><b>주방</b>확인됨</div><div class="z z2"><b>거실</b>관찰됨</div>
+   <div class="z z3"><b>계단실</b>조건 미흡</div><div class="z z1"><b>안방</b>확인됨</div>
+   <div class="z z5"><b>범위 밖</b></div><div class="z z2"><b>현관</b>관찰됨</div>
+ </div></div><div class="fold"></div><div class="pane"><div class="zones" style="grid-template-rows:repeat(2,1fr)">
+   <div class="z z4" style="grid-column:1/3"><b>3층 전체</b>남은 구역 — 아무도 안 들어감</div>
+   <div class="z z4"><b>옥상 진입로</b>남은 구역</div><div class="z z4"><b>후면 주차장</b>남은 구역</div>
+ </div><div class="w-note">남은 구역 3곳 · 팀 전체 기준입니다</div></div></div></div>
+  <div>
+   <div class="reflist">
+    <div class="rl-h">iPadOS 26 레퍼런스 · 5컷</div>
+    <div class="ritem">
+      <img src="refs/20.jpg" alt="iPadOS #20 윈도우 타일링 프리셋" loading="lazy" width="2560" height="1280" data-n="20" data-cap="#20 · 2:13 · 윈도우 타일링 프리셋">
+      <div><span class="rnum">#20 · 2:13</span><div class="rtit">타일링 프리셋 팔레트</div><div class="rdesc">「지도만 / 지도+목록 / 지도+영상」 프리셋 — 현장에서 창을 끌 시간이 없다</div></div>
+    </div><div class="ritem">
+      <img src="refs/89.jpg" alt="iPadOS #89 플로팅 팔레트" loading="lazy" width="2560" height="1280" data-n="89" data-cap="#89 · 10:47 · 플로팅 팔레트">
+      <div><span class="rnum">#89 · 10:47</span><div class="rtit">이동 가능한 플로팅 팔레트</div><div class="rdesc">지도 도구를 접히는 선 밖으로</div></div>
+    </div><div class="ritem">
+      <img src="refs/87.jpg" alt="iPadOS #87 풀블리드+하단" loading="lazy" width="2560" height="1280" data-n="87" data-cap="#87 · 10:33 · 풀블리드+하단">
+      <div><span class="rnum">#87 · 10:33</span><div class="rtit">풀블리드 + 하단 클러스터</div><div class="rdesc">지도가 주인공. 컨트롤은 하단에 뭉쳐서</div></div>
+    </div><div class="ritem">
+      <img src="refs/86.jpg" alt="iPadOS #86 앵커 팝오버" loading="lazy" width="2560" height="1280" data-n="86" data-cap="#86 · 10:23 · 앵커 팝오버">
+      <div><span class="rnum">#86 · 10:23</span><div class="rtit">앵커 팝오버</div><div class="rdesc">구역 탭 → 상세를 모달 아닌 앵커로. <b>지도를 계속 보면서</b></div></div>
+    </div><div class="ritem">
+      <img src="refs/47.jpg" alt="iPadOS #47 가장자리 스와이프" loading="lazy" width="2560" height="1280" data-n="47" data-cap="#47 · 4:45 · 가장자리 스와이프">
+      <div><span class="rnum">#47 · 4:45</span><div class="rtit">가장자리 스와이프 리사이즈</div><div class="rdesc">접히는 선 위 divider 대신 가장자리에서 밀기</div></div>
+    </div>
+   </div>
+   <div class="extlist"><div class="rl-h" style="margin-top:6px">외부 규범</div>
+    <div class="eitem"><span class="esrc">Apple HIG</span><span>폴딩 리전 — <i>“content and controls that span the fold become harder to see”</i>. 남은 구역 하이라이트가 접히는 선에 걸리면 <b>지도를 자동 재중심</b></span></div><div class="eitem"><span class="esrc">기획서 14-4</span><span>미국 재난구조대 X 마킹 — 진입 전 사선, 나온 뒤 반대 사선. <b>인계 표시의 원형</b></span></div><div class="eitem"><span class="esrc">기획서 14-4</span><span>로봇청소기는 청소한 곳을 칠한다. <b>우리는 반대로 여백을 강조한다</b></span></div></div>
+   <div class="pol"><div class="pol-h">경찰 현장 고려</div>하단 시트에 <b>「팀 전체 기준입니다」</b> 고정 표기 (13-1② — 「누가」를 제거한다). 「미확인·누락·빠뜨림」을 화면 어디에도 쓰지 않는다. 남은 구역을 <b>정렬하지 않는다</b> — 순서를 매기면 우선순위 추천이 되고 9-2 위반. 공간 순서(층·방위)로만.</div>
+  </div>
+ </div>
+</article>
+<article class="scard" data-track="B" id="sB-4">
+ <div class="shead">
+  <span class="sid">B-4</span>
+  <h4>현장 자료 확인</h4>
+  <span class="pose">펼침</span>
+  <p class="swhy">정보구조도 6번의 6개 항목</p>
+ </div>
+ <div class="sbody">
+  <div><div class="dev wide"><div class="vstrip"><i></i><i></i><i></i><i></i></div><div class="pane"><div class="w-vid">선택 자료 재생</div><div class="w-li">12:04 · 주방 · ⌐ 내 AR (선행)</div><div class="w-li">◉ 이 위치를 지도에서</div></div><div class="fold"></div><div class="pane"><div class="w-li">▣ 선행 경찰 AR — 3건</div><div class="w-li">▣ CCTV · 드론 · 바디캠 — 4건</div><div class="w-li">▣ 장면 캡처 — 좌표·시각이 붙은 지점</div><div class="w-li">▣ 현장 사진 · 음성 — 3건</div><div class="w-li">▣ 위험 위치 연결 영상  ⌐ 지휘실 지정</div><div class="w-li">▣ 지휘통제실 선별 자료  ⌐ 지휘실 북마크</div></div></div></div>
+  <div>
+   <div class="reflist">
+    <div class="rl-h">iPadOS 26 레퍼런스 · 5컷</div>
+    <div class="ritem">
+      <img src="refs/25.jpg" alt="iPadOS #25 앱 엑스포제 그리드" loading="lazy" width="2560" height="1280" data-n="25" data-cap="#25 · 2:40 · 앱 엑스포제 그리드">
+      <div><span class="rnum">#25 · 2:40</span><div class="rtit">카드 그리드 + 2줄 라벨</div><div class="rdesc">카드마다 출처 + 시각 + 구역 3정보</div></div>
+    </div><div class="ritem">
+      <img src="refs/83.jpg" alt="iPadOS #83 문서 브라우저" loading="lazy" width="2560" height="1280" data-n="83" data-cap="#83 · 10:09 · 문서 브라우저">
+      <div><span class="rnum">#83 · 10:09</span><div class="rtit">실제 콘텐츠 렌더링 썸네일</div><div class="rdesc">아이콘 아니라 실제 프레임</div></div>
+    </div><div class="ritem">
+      <img src="refs/70.jpg" alt="iPadOS #70 사이드바 색상 태그" loading="lazy" width="2560" height="1280" data-n="70" data-cap="#70 · 8:23 · 사이드바 색상 태그">
+      <div><span class="rnum">#70 · 8:23</span><div class="rtit">사이드바 색상 태그 필터</div><div class="rdesc">색을 장식이 아니라 <b>내비게이션 축</b>으로 — 자료 출처별 필터로 응용</div></div>
+    </div><div class="ritem">
+      <img src="refs/74.jpg" alt="iPadOS #74 컬럼 순서 변경" loading="lazy" width="2560" height="1280" data-n="74" data-cap="#74 · 8:37 · 컬럼 순서 변경">
+      <div><span class="rnum">#74 · 8:37</span><div class="rtit">컬럼 순서 변경</div><div class="rdesc">자료 목록의 열 구성을 사용자가 조절</div></div>
+    </div><div class="ritem">
+      <img src="refs/86.jpg" alt="iPadOS #86 앵커 팝오버" loading="lazy" width="2560" height="1280" data-n="86" data-cap="#86 · 10:23 · 앵커 팝오버">
+      <div><span class="rnum">#86 · 10:23</span><div class="rtit">앵커 팝오버</div><div class="rdesc">자료 상세를 지도 위에 겹치지 않게</div></div>
+    </div>
+   </div>
+   <div class="extlist"><div class="rl-h" style="margin-top:6px">외부 규범</div>
+    <div class="eitem"><span class="esrc">기획서 9-3</span><span>검출은 허용, 판단은 금지</span></div></div>
+   <div class="pol"><div class="pol-h">경찰 현장 고려</div>「<s>주요</s> 장면 캡처」에서 <b>「주요」를 뺐다</b>. 시스템은 무엇이 중요한지 정하지 않는다. 지휘실이 고른 것에는 <b>⌐ 지휘실 북마크</b> 배지.</div>
+  </div>
+ </div>
+</article>
+<article class="scard" data-track="B" id="sB-5">
+ <div class="shead">
+  <span class="sid">B-5</span>
+  <h4>인계 수락 · 보류</h4>
+  <span class="pose">접힘 / 펼침</span>
+  <p class="swhy">명시적 수락. 이력이 남는다</p>
+ </div>
+ <div class="sbody">
+  <div><div class="dev cover"><div class="w-h2">인계를 받습니다</div><div class="w-li">현장 2팀 이○○ 경사</div><div class="w-li">→ 증원 1팀 김○○ 경위</div><div class="w-div"></div><div class="w-lb">넘겨받는 것</div><div class="w-li">구역 상태 12 · 음성 3 · 영상 4</div><div class="w-li">남은 구역 3곳</div><div class="w-note">ⓘ 수락 시각과 열람 이력이 남습니다</div><div class="w-btn">수 락</div><div class="w-lnk">보류</div></div></div>
+  <div>
+   <div class="reflist">
+    <div class="rl-h">iPadOS 26 레퍼런스 · 3컷</div>
+    <div class="ritem">
+      <img src="refs/88.jpg" alt="iPadOS #88 작은 모달" loading="lazy" width="2560" height="1280" data-n="88" data-cap="#88 · 10:41 · 작은 모달">
+      <div><span class="rnum">#88 · 10:41</span><div class="rtit">작은 중앙 모달</div><div class="rdesc">결정 1개 = 작은 모달</div></div>
+    </div><div class="ritem">
+      <img src="refs/82.jpg" alt="iPadOS #82 캡처 패널" loading="lazy" width="2560" height="1280" data-n="82" data-cap="#82 · 9:53 · 캡처 패널">
+      <div><span class="rnum">#82 · 9:53</span><div class="rtit">대기 상태 표시</div><div class="rdesc">수락 후 서버 동기화까지의 시간을 감추지 않는다</div></div>
+    </div><div class="ritem">
+      <img src="refs/77.jpg" alt="iPadOS #77 컨텍스트 메뉴" loading="lazy" width="2560" height="1280" data-n="77" data-cap="#77 · 8:57 · 컨텍스트 메뉴">
+      <div><span class="rnum">#77 · 8:57</span><div class="rtit">파괴적 항목 분리</div><div class="rdesc">「보류」를 「수락」과 다른 무게로</div></div>
+    </div>
+   </div>
+   <div class="extlist"><div class="rl-h" style="margin-top:6px">외부 규범</div>
+    <div class="eitem"><span class="esrc">I-PASS · ICS 201</span><span>두 표준의 마지막 칸이 공통으로 <b>「받는 사람이 되읽는다」</b>. 인계 수락이 그 자리 — 형식적 확인이 아니라 되읽음의 자리로</span></div></div>
+   <div class="extlist"><div class="rl-h" style="margin-top:10px">인계 수락의 4단계 · FAA JO 7110.65 Appendix A</div>
+<div class="eitem"><span class="esrc">① preview</span><span>B-2 · B-3 · B-4 — 받는 사람이 먼저 훑는다</span></div>
+<div class="eitem"><span class="esrc">② verbal</span><span>B-1 음성 브리핑 — 이동 중 귀로</span></div>
+<div class="eitem"><span class="esrc">③ assumption</span><span>B-5 수락 — 명시적 인수 + 이력</span></div>
+<div class="eitem"><span class="esrc">④ review</span><span><b>⚠ 없음 — 추가해야 한다.</b> I-PASS의 마지막 칸도 「Synthesis <b>by receiver</b>」. 수락 직후 <b>받은 항목을 되읽는 1스크린</b>을 제안</span></div>
+<div class="eitem"><span class="esrc">I-PASS 실측</span><span>NEJM 2014 — 의료 오류 <b>−23%</b>, 예방가능 유해사건 <b>−30%</b>, 그런데 <b>인계 시간은 늘지 않았다</b>(2.4→2.5분, p=0.55). 기획서 4-3④ 「1건이 터지면 999건에 절차가 붙는다」에 대한 직접 반론</span></div>
+</div>
+<div class="pol"><div class="pol-h">경찰 현장 고려</div>15-1 — <b>수용 조건 1위가 「열람 이력이 남을 것」(5/11)</b>. 이력 고지를 작은 주의문이 아니라 <b>수락 버튼 바로 위</b>에. 감추면 불신, 드러내면 수용 조건.</div>
+  </div>
+ </div>
+</article>
+<article class="scard" data-track="B" id="sB-6">
+ <div class="shead">
+  <span class="sid">B-6</span>
+  <h4>AR 글래스 이어받기</h4>
+  <span class="pose">반접힘</span>
+  <p class="swhy">A-4와 같은 화면. <b>B가 A가 되는 지점</b></p>
+ </div>
+ <div class="sbody">
+  <div><div class="dev wide"><div class="vstrip"><i></i><i></i><i></i><i></i></div><div class="pane"><div class="w-fig">글래스 도해</div></div><div class="fold"></div><div class="pane"><div class="w-lb">인계 완료 12:17</div><div class="w-h2">착용 확인</div><div class="w-li">○ 연결됨</div><div class="w-li">○ 배터리 91%</div><div class="w-btn">기록 시작</div><div class="w-lb">↳ A-1로 순환</div></div></div></div>
+  <div>
+   <div class="reflist">
+    <div class="rl-h">iPadOS 26 레퍼런스 · 3컷</div>
+    <div class="ritem">
+      <img src="refs/02.jpg" alt="iPadOS #02 모드 선택 카드" loading="lazy" width="2560" height="1280" data-n="02" data-cap="#02 · 0:47 · 모드 선택 카드">
+      <div><span class="rnum">#02 · 0:47</span><div class="rtit">미니어처 프리뷰 카드</div><div class="rdesc">착용 상태를 도해로</div></div>
+    </div><div class="ritem">
+      <img src="refs/82.jpg" alt="iPadOS #82 캡처 패널" loading="lazy" width="2560" height="1280" data-n="82" data-cap="#82 · 9:53 · 캡처 패널">
+      <div><span class="rnum">#82 · 9:53</span><div class="rtit">지연 시작 · 대기</div><div class="rdesc">조건 미충족 시 대기 상태</div></div>
+    </div><div class="ritem">
+      <img src="refs/18.jpg" alt="iPadOS #18 이전 크기·위치 복원" loading="lazy" width="2560" height="1280" data-n="18" data-cap="#18 · 2:05 · 이전 크기·위치 복원">
+      <div><span class="rnum">#18 · 2:05</span><div class="rtit">이전 크기·위치 복원</div><div class="rdesc"><b>접었다 펴도 배치가 그대로.</b> 인계 직후 화면이 리셋되지 않아야</div></div>
+    </div>
+   </div>
+   <div class="extlist"><div class="rl-h" style="margin-top:6px">외부 규범</div>
+    <div class="eitem"><span class="esrc">Apple HIG</span><span><i>“iPhone Duo is the first iPhone to support multiple instances of your app’s UI”</i> — 인계 문서와 지도를 별개 창으로</span></div></div>
+   <div class="pol"><div class="pol-h">경찰 현장 고려</div>이 화면이 플로우를 닫는다. B-6 → A-1 순환이 성립하면 정보구조도의 두 트랙이 하나의 릴레이로 이어진다.</div>
+  </div>
+ </div>
+</article></section>
+
+<section class="sec" id="gap">
+<h2>공백을 보여준다는 주장의 근거</h2>
+<p class="sub">기획서 9장은 「이 서비스가 하는 가장 지적인 연산은 <b>뺄셈</b>이다」라고 썼습니다. 탐색 이론은 한 겹 더 들어갑니다 — <b>본 곳도 100%가 아닙니다.</b></p>
+
+<h3>미 해안경비대 탐색 이론 — 「남은 구역」은 판정이 아니라 산술이다</h3>
+<div class="tw"><table>
+<tr><th>식</th><th>내용</th></tr>
+<tr><td class="mono">C = W·L / A</td><td>커버리지 — W = sweep width, L = 이동거리, A = 면적</td></tr>
+<tr><td class="mono">[2-4]</td><td><b>POC<sub>after</sub> = POC<sub>before</sub> × (1 − POD)</b></td></tr>
+<tr><td class="mono">[2-1]</td><td>누적 POD = 1 − Π(1 − POD<sub>i</sub>)</td></tr>
+</table></div>
+<div class="tw"><table>
+<tr><th>탐지 모델</th><th class="mono">커버리지 1.0일 때 POD</th></tr>
+<tr><td>Definite range</td><td class="mono">1.00</td></tr>
+<tr><td><b>Inverse cube</b></td><td class="mono"><b>0.79</b></td></tr>
+<tr><td><b>Random</b></td><td class="mono"><b>0.632</b></td></tr>
+</table></div>
+<div class="callout">POC 60%인 구역을 POD 75%로 수색해도 <b>15%가 남습니다.</b> 그리고 잃어버린 45%p는 사라지는 게 아니라 <b>아직 수색하지 않은 구역으로 재분배됩니다.</b><br><br>
+<b>「아무도 안 본 곳」의 중요도는 수색이 진행될수록 올라갑니다.</b> 기획서 16-1이 「사고를 막는다」로 말하지 못하고 「남은 구역을 남긴다」까지만 말한 절제를, 이 식이 수학적으로 방어해 줍니다 — 남은 구역은 「위험한 곳」이 아니라 <b>「확률이 몰려 있는 곳」</b>입니다.</div>
+
+<h3>「조건 미흡」이 왜 반드시 필요한가</h3>
+<div class="callout" style="border-left-color:var(--ink)"><b class="mono">실측 sweep width — 주간 64 m / 야간 22 m</b> (Koester 2020, JSAR v4-1, 동일 지형 n=54)<br><br>
+<b>같은 거리를 걸어도 야간에는 3분의 1밖에 못 봅니다.</b> 기획서 6-4의 「조건 미흡」은 정성적 배려가 아니라 <b>커버리지 계산의 필수 입력값</b>입니다. 이 상태가 없으면 야간 수색을 주간과 같은 커버리지로 계산하게 되고, 서비스가 거짓말을 합니다.</div>
+<div class="warn"><b>⚠ 다만 이 수치를 화면에 띄우면 안 됩니다.</b> POD·POC를 표시하는 순간 12장의 「위험도 점수」가 됩니다. <b>계산에는 쓰되 화면에는 다섯 상태로만 표현합니다.</b></div>
+
+<h3>「모름」은 이미 표준의 1급 상태다</h3>
+<div class="tw"><table>
+<tr><th>표준</th><th>무엇을 구분하나</th></tr>
+<tr><td><b>MIL-STD-2525D</b> Table A-II</td><td><b>Pending</b>(식별 절차를 아직 시작 안 함) vs <b>Unknown</b>(평가했으나 식별 실패) — <b>PARALLAX의 「남은 구역」 vs 「조건 미흡」과 정확히 같은 구분</b></td></tr>
+<tr><td><b>ROS</b> OccupancyGrid</td><td>unknown = <b class="mono">−1</b> — 0~100 점유확률 스케일 <b>바깥</b>. 정도의 문제가 아니라 종류의 문제</td></tr>
+<tr><td><b>ROS</b> costmap_2d</td><td><span class="mono">NO_INFORMATION 255 &gt; LETHAL_OBSTACLE 254</span></td></tr>
+</table></div>
+
+<h3>FEMA US&amp;R 마킹 — 스프레이 페인트로 만든 4상태 기계</h3>
+<p>기획서 14-4가 「미국 재난구조대의 X 마킹」을 인계 표시의 원형으로 들었습니다. 실제로는 <b>X 하나가 아니라 완전한 상태 기계</b>입니다.</p>
+<div class="tw"><table>
+<tr><th class="mono">표시</th><th>뜻</th></tr>
+<tr><td><b>표시 없음</b></td><td>아무도 들어가지 않음</td></tr>
+<tr><td class="mono"><b>/</b></td><td>수색 진행 중</td></tr>
+<tr><td class="mono"><b>/ + ● + F 1-4</b></td><td>부분 수색 — <b>몇 층까지 봤는지 층 번호를 적는다</b></td></tr>
+<tr><td class="mono"><b>X + 0</b></td><td>수색 완료 — <b><span class="mono">0</span>은 「아무것도 없었음」을 명시</b></td></tr>
+</table></div>
+<div class="callout"><b>가져올 것 세 가지</b><br>
+① <b>「부분 수색」이 1급 상태입니다.</b> 완료/미완료 이분법이 아니라 <b>어디까지 봤는지를 적는 칸</b>이 있습니다 — 기획서 2-2의 「경찰 서식 457개에 그 칸이 0개」와 정확히 대비됩니다.<br>
+② <b><span class="mono">0</span>을 명시합니다.</b> 「아무것도 없었다」를 빈칸이 아니라 적어 둡니다. 빈칸은 「안 봤음」과 구별되지 않기 때문입니다.<br>
+③ <b>갱신은 지우지 않고 줄을 그어 남깁니다</b>(struck through, not erased). 기획서 4-4의 「열람·수정·삭제 이력」과 같은 사상입니다.</div>
+
+<h3>경쟁 분석을 한 줄로 다시 쓸 수 있다</h3>
+<div class="tw"><table>
+<tr><th>도구</th><th>확인된 사실</th></tr>
+<tr><td><b>CalTopo</b></td><td>GPS 트랙에서 커버리지를 <b>자동 도출하지 않는다.</b> 자체 문서 원문 — <i>“these tracks are not going to match the assignments you drew”</i> → 수동 정리를 요구</td></tr>
+<tr><td><b>IRWIN</b> (미 산불 데이터 표준)</td><td><span class="mono">PercentPerimToBeContained</span> 필드가 <b>존재하지만 채워지지 않는다</b></td></tr>
+<tr><td><b>NWCG</b></td><td><span class="mono">MapMethod</span>가 GPS-Walked / Hand Sketch / Modeled를 <b>데이터에서는 구분하는데 지도에 렌더링하지 않는다</b></td></tr>
+</table></div>
+<div class="callout"><b>그래서 PARALLAX의 새로움은 기호가 아니라 「계산」입니다.</b><br>
+「안 본 곳을 그리는 방법」은 이미 있습니다(FEMA · MIL-2525D · RViz). <b>그것을 사람이 손으로 칠하지 않고 자동으로 남기는 것</b>이 없습니다. 기획서 14-3의 차별점 3개(입체 공간 / 시선 / 인계 문서)에 <b>「④ 사람이 표시하지 않는다」</b>를 더할 수 있습니다.</div>
+
+<h3>폴더블이어야 하는 이유 — 지도를 두 개 놓는다</h3>
+<p>지도 한 장에 「확인 여부」와 「관찰 조건」을 동시에 넣으면 <b>이변량 인코딩</b>이 됩니다(색상 = 결과, 채도 = 신뢰도). <b>MacEachren의 연구는 이 방식이 훈련받지 않은 사용자에게 어렵다는 것을 보여줍니다.</b></p>
+<div class="callout"><b>원칙적 해법은 나란히 두 장을 놓는 것이고, 그것이 가능한 화면이 펼친 폴더블입니다.</b><br>
+접힘에서는 결과 지도만 보이고, 펼치면 조건 지도가 옆에 붙습니다 — Apple HIG의 <i>“show an additional level of hierarchy on the larger inner display”</i>와 정확히 맞습니다.<br><br>
+<b>이것이 「왜 폴더블인가」에 대한 가장 강한 답입니다.</b> ⚠ 본 설계의 B-3은 한 장짜리로 그려 두었습니다. <b>두 장짜리를 대안으로 함께 제시하고 팀이 고르기를 제안합니다.</b></div>
+<div class="dev wide" style="max-width:660px;margin:16px 0">
+ <div class="vstrip"><i></i><i></i><i></i><i></i></div>
+ <div class="pane"><div class="w-lb">무엇을 확인했는가 · 결과 지도</div><div class="zones" style="grid-template-rows:repeat(2,1fr)">
+  <div class="z z1"><b>주방</b>확인됨</div><div class="z z2"><b>거실</b>관찰됨</div>
+  <div class="z z1"><b>안방</b>확인됨</div><div class="z z4"><b>3층</b>남은 구역</div></div></div>
+ <div class="fold"></div>
+ <div class="pane"><div class="w-lb">얼마나 잘 봤는가 · 조건 지도</div><div class="zones" style="grid-template-rows:repeat(2,1fr)">
+  <div class="z z2"><b>주방</b>주간</div><div class="z z3"><b>거실</b>야간</div>
+  <div class="z z2"><b>안방</b>주간</div><div class="z z5"><b>3층</b>—</div></div></div>
+</div>
+<p style="font-size:13px;color:var(--ink-3)">각 지도는 <b>단변량</b>입니다 — 한 장에 하나의 변수만.</p>
+</section>
+
+<section class="sec" id="risk">
+<h2>데이터가 반박하는 전제 하나</h2>
+<p class="sub">정보구조도는 양쪽 트랙에 지도를 큰 축으로 두었고 본 설계도 펼침 화면의 왼쪽 절반을 지도에 배정했습니다. <b>그런데 이 전제를 정면으로 반박하는 데이터가 있습니다.</b></p>
+<div class="tw"><table>
+<tr><th>직군</th><th>Mapping / navigation 사용 빈도 순위</th></tr>
+<tr><td>소방</td><td class="mono">3위</td></tr>
+<tr><td>EMS</td><td class="mono">4위</td></tr>
+<tr><td>911</td><td class="mono">5위</td></tr>
+<tr><td><b>경찰</b></td><td class="mono"><b>7위</b></td></tr>
+</table></div>
+<p>NIST 전국 설문(응답자 <b class="mono">7,182명</b>)에서 <b>법집행 직군만 지도가 7위</b>입니다. 경찰은 <b>보고서 작성 · 법령 조회 · 범죄 DB 조회를 지도보다 더 자주</b> 씁니다. Mark43의 동승 관찰도 같은 결론입니다 — 현장경찰은 차량 단말을 주로 상황 파악과 조회에만 쓰고, 이벤트 생성은 무전으로 디스패처에게 넘깁니다.</p>
+<div class="callout"><b>지도를 빼라는 뜻이 아닙니다.</b> 「왜 이 사건 유형에서는 지도가 1순위인가」를 <b>별도로 논증해야 한다</b>는 뜻입니다.<br><br>
+논증이 가능한 사례가 있습니다 — <b>실종자 수색과 다중 대원 구역 분담.</b> 이 두 경우에만 「누가 어디까지 봤는가」가 지도 없이는 성립하지 않습니다. 그리고 <b>이것이 프로젝트의 유효한 범위 한정이 됩니다.</b><br><br>
+기획서 3-2가 이미 범위를 「현장 확인 → 인계」로 좁혔습니다. 여기서 한 번 더 좁혀 <b>「여러 사람이 한 공간을 나눠 확인하는 사건」</b>으로 한정하면 지도 중심 설계가 데이터와 충돌하지 않습니다.</div>
+
+<h3>뒤집어 보면 — 폴더블 펼침은 공공안전 앱의 완전한 사각지대다</h3>
+<div class="warn">FirstNet PTT 공식 Android 가이드 원문 — <i>“Portrait mode is supported for handset and tablet devices. <b>Landscape mode is only supported for tablet devices.</b>”</i></div>
+<p><b>현행 공공안전 앱은 폰의 가로 방향을 지원하지 않습니다.</b> 폴더블 펼침 상태는 거의 정사각형이라 「handset」에도 「tablet」에도 속하지 않습니다. 그런데 <b>FirstNet 단말 목록에는 Z Fold / Flip이 8종 이상 등재</b>돼 있고 삼성 러기드폰은 1종뿐입니다.</p>
+<div class="callout"><b>하드웨어는 이미 배치 가능한데 소프트웨어가 준비되지 않았습니다.</b> 졸업작품이 이 자리를 여는 이유로 쓸 수 있는, 문서로 확인되는 공백입니다.</div>
+</section>
+
+<section class="sec" id="open">
+<h2>남은 결정 사항</h2>
+<p class="sub">본 설계가 임의로 정할 수 없어 팀에 넘기는 항목입니다.</p>
+<div class="tw"><table>
+<tr><th>#</th><th>무엇</th><th>왜 팀이 정해야 하나</th></tr>
+<tr><td class="mono">1</td><td><b>현장 경찰이 자기 「남은 구역」을 볼 수 있는가</b></td><td>기획서 3-3③은 「안 보여준다」다. 그런데 A-8에서 A가 무엇을 넘기는지 모른 채 발신하게 된다. <b>감시 방지 vs 발신자의 알 권리</b>가 충돌한다. 본 설계는 기획서를 따라 「안 보여줌」으로 그렸다</td></tr>
+<tr><td class="mono">2</td><td><b>반접힘은 어느 그립인가</b></td><td>북 타입은 정상 그립에서 반접으면 <b>좌·우</b>로 갈린다. Flex Mode식 「위=보기 / 아래=조작」을 쓰려면 90° 세워야 한다. 기획서 7-3 산출물에 명시 필요</td></tr>
+<tr><td class="mono">3</td><td><b>커버에서 지도를 뺀 것</b></td><td>정보구조도는 접힌 화면에 지도를 넣었다. 466pt에서 의미 있는 축척은 반경 20~30m가 한계라 6-3의 원거리 밴드가 화면 밖으로 나간다. 본 설계는 뺐다</td></tr>
+<tr><td class="mono">4</td><td><b>판 비율 50/50 vs 70/30</b></td><td>삼성은 폴더블 <b>50/50</b> 권장, 구글 Supporting Pane은 <b>70/30</b>. 지도와 카드를 대등하게 볼지 지도 우위로 볼지</td></tr>
+<tr><td class="mono">5</td><td><b>접수 코드 표시 자체</b></td><td>「위험도」를 「접수 코드」로 바꿨지만 코드도 결국 위험 서열이다. 아예 빼는 선택지도 있다</td></tr>
+<tr><td class="mono">6</td><td>기획서 17-1 #4 — <b>경찰 업무폰이 폴더블인가</b></td><td>아직 미확인. 이 설계 전체의 전제다</td></tr>
+</table></div>
+<div class="warn"><b>본 설계가 기획서를 넘어선 지점 하나</b> — 기획서 11장은 휴대전화 화면을 <b>3개</b>(접힘·반접힘·펼침)로 잡았고, 정보구조도는 훨씬 많습니다. 본 설계는 <b>16개</b>로 늘렸습니다. 늘린 근거는 「정보구조도에 맞게」라는 지시이며, 기획서 11장의 화면 수를 갱신할지는 팀 결정 사항입니다.</div>
+</section>
+
+</main>
+
+<footer><div class="wrap">
+<span>설계 문서 — <span class="mono">PARALLAX_폴더블_UI설계/00~04</span></span>
+<span>리서치 원문 — <span class="mono">research/01~03</span></span>
+<span>iPadOS 레퍼런스 90컷 — <span class="mono">iPadOS26_UI_Reference/</span></span>
+</div></footer>
+
+<dialog class="lb" id="lb"><img id="lbimg" alt=""><div class="cap" id="lbcap"></div></dialog>
+
+<script>
+const bar=document.querySelector('.nav-in');
+bar.addEventListener('click',e=>{
+ const b=e.target.closest('.chip'); if(!b) return;
+ const tr=b.dataset.tr;
+ bar.querySelectorAll('.chip').forEach(c=>c.setAttribute('aria-pressed',String(c.dataset.tr===tr)));
+ document.querySelectorAll('.scard').forEach(c=>{c.hidden = tr!=='all' && c.dataset.track!==tr;});
+});
+const lb=document.getElementById('lb'),lbimg=document.getElementById('lbimg'),lbcap=document.getElementById('lbcap');
+document.addEventListener('click',e=>{
+ const im=e.target.closest('.ritem img'); if(!im) return;
+ lbimg.src=im.src; lbimg.alt=im.alt; lbcap.textContent=im.dataset.cap; lb.showModal();
+});
+lb.addEventListener('click',()=>lb.close());
+</script>

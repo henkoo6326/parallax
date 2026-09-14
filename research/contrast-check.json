@@ -1,0 +1,86 @@
+[
+  {
+    "theme": "day",
+    "label": "본문 / 바탕",
+    "foreground": "#142C38",
+    "background": "#F4F6F7",
+    "ratio": 13.39
+  },
+  {
+    "theme": "day",
+    "label": "보조 글자 / 패널",
+    "foreground": "#52636B",
+    "background": "#FFFFFF",
+    "ratio": 6.26
+  },
+  {
+    "theme": "day",
+    "label": "남은 구역 / 전용 바탕",
+    "foreground": "#006B64",
+    "background": "#E3F1ED",
+    "ratio": 5.5
+  },
+  {
+    "theme": "day",
+    "label": "장비 상태 / 전용 바탕",
+    "foreground": "#845400",
+    "background": "#FFF1D6",
+    "ratio": 5.79
+  },
+  {
+    "theme": "day",
+    "label": "오류 / 패널",
+    "foreground": "#A12B32",
+    "background": "#FFFFFF",
+    "ratio": 7.22
+  },
+  {
+    "theme": "day",
+    "label": "컨트롤 경계 / 패널",
+    "foreground": "#697D87",
+    "background": "#FFFFFF",
+    "ratio": 4.3
+  },
+  {
+    "theme": "night",
+    "label": "본문 / 바탕",
+    "foreground": "#F3F7F8",
+    "background": "#13252F",
+    "ratio": 14.6
+  },
+  {
+    "theme": "night",
+    "label": "보조 글자 / 패널",
+    "foreground": "#ADBEC5",
+    "background": "#1C3441",
+    "ratio": 6.77
+  },
+  {
+    "theme": "night",
+    "label": "남은 구역 / 전용 바탕",
+    "foreground": "#9FDDD0",
+    "background": "#153E3A",
+    "ratio": 7.7
+  },
+  {
+    "theme": "night",
+    "label": "장비 상태 / 전용 바탕",
+    "foreground": "#F5CE82",
+    "background": "#45381F",
+    "ratio": 7.63
+  },
+  {
+    "theme": "night",
+    "label": "오류 / 패널",
+    "foreground": "#FFB6B9",
+    "background": "#1C3441",
+    "ratio": 7.82
+  },
+  {
+    "theme": "night",
+    "label": "컨트롤 경계 / 패널",
+    "foreground": "#90A5AE",
+    "background": "#1C3441",
+    "ratio": 5.06
+  }
+]

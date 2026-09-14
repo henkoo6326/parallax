@@ -1,0 +1,153 @@
+[
+  {
+    "name": "UIbowl · 오일나우 지도와 필터",
+    "url": "https://uibowl.io/?detail=1&patterns=%EC%A7%80%EB%8F%84%EB%B7%B0%C2%B7%EB%82%B4%EC%A3%BC%EB%B3%80",
+    "status": "공개 화면 시각 확인",
+    "observed": "지도 위 장소 라벨, 하단 목록보기와 현재위치 버튼, 별도 세부 설정 화면의 그룹별 선택 및 하단 저장.",
+    "adopt": "지도-목록 전환은 유지하고 선택 상태와 저장 범위를 분명히 한다. 지도 상시 필터는 최소화한다.",
+    "reject": "가격 핀처럼 많은 숫자 라벨, 추천순, 마케팅 배너는 작전 화면에 가져오지 않는다.",
+    "screens": [
+      "A-1",
+      "A-3",
+      "B-2",
+      "B-3"
+    ]
+  },
+  {
+    "name": "UIbowl · daglo 녹음",
+    "url": "https://uibowl.io/?patterns=%EB%85%B9%EC%9D%8C%ED%95%98%EA%B8%B0&detail=1",
+    "status": "공개 화면 시각 확인",
+    "observed": "경과시간, 녹음 날짜, 파형, 북마크 추가, 하단 일시정지와 정지, 녹음 종료 확인 대화상자.",
+    "adopt": "녹음 상태를 시간과 문장으로 함께 표시하고 정지와 일시정지를 분리한다. 원문 재생과 인간 북마크를 보존한다.",
+    "reject": "작동 중 화면 조작을 요구하거나 AI 요약·퀴즈 기능을 기록에 섞지 않는다. 일반 녹음 종료마다 모달을 복제하지 않는다.",
+    "screens": [
+      "A-5",
+      "A-6",
+      "B-1"
+    ]
+  },
+  {
+    "name": "UIbowl · daglo 종료 후 처리 상태",
+    "url": "https://uibowl.io/?patterns=%EB%85%B9%EC%9D%8C%ED%95%98%EA%B8%B0&detail=1",
+    "status": "공개 화면 시각 확인 · 같은 흐름의 후속 상태",
+    "observed": "종료 후 작업이 추가되었다는 toast, 최근 작업 내역의 업로드 상태, 받아쓰기 완료 안내.",
+    "adopt": "로컬 저장됨·업로드 대기·전사 처리 중·동기화 완료를 별개 상태로 설계한다. 일시적인 toast 뒤에도 내역에 상태를 남긴다.",
+    "reject": "받아쓰기 완료를 기록 정확성 검증 완료로 취급하지 않는다.",
+    "screens": [
+      "A-5",
+      "A-8",
+      "B-4"
+    ]
+  },
+  {
+    "name": "UIbowl · 앳플리 기기연동",
+    "url": "https://uibowl.io/?patterns=%EC%A0%9C%EC%96%B4&detail=1",
+    "status": "공개 화면 시각 확인",
+    "observed": "체중계 활성화 안내, 블루투스 아이콘, 검색 중 안내, 기기 모델 행, 1/3·2/3 단계, 기기 추가 버튼.",
+    "adopt": "글래스 연결에서 무엇을 해야 하는지 한 문장으로 안내하고 발견·연결·기록 준비 상태를 분리한다. 모델명/기기 식별자를 표시한다.",
+    "reject": "넓은 장식용 블루투스 애니메이션, 광고, 여러 페이지의 온보딩은 반복 인계에서 제외한다.",
+    "screens": [
+      "A-4",
+      "B-6"
+    ]
+  },
+  {
+    "name": "UIbowl · 오일나우 알림",
+    "url": "https://uibowl.io/?patterns=%EC%95%8C%EB%A6%BC&detail=1",
+    "status": "공개 화면 시각 확인",
+    "observed": "알림 종류별 토글과 변경 확인 toast, 얇은 구분선으로 나눈 알림 목록, 오른쪽 날짜.",
+    "adopt": "발신자·발신 시각·본문을 일정한 행 구조로 표시한다. 읽음과 지시 확인을 별개로 정의한다.",
+    "reject": "소비자 앱의 알림 전체 차단 토글이나 일괄 읽음이 지휘 지시 수신 확인을 대체하지 않게 한다.",
+    "screens": [
+      "A-0",
+      "A-2",
+      "A-6",
+      "B-0",
+      "B-2"
+    ]
+  },
+  {
+    "name": "UIbowl · 차봇 초대 코드",
+    "url": "https://uibowl.io/?patterns=%EC%B4%88%EB%8C%80%ED%95%98%EA%B8%B0%C2%B7%EB%B0%9B%EA%B8%B0&detail=1",
+    "status": "공개 화면 시각 확인 · 차용 제한",
+    "observed": "초대코드 등록 입력, 코드 공유 버튼, 복사 완료 toast, 한 번만 등록할 수 있다는 안내.",
+    "adopt": "행동 직전 제약 문구와 행동 후 결과 확인을 가까이 둔다는 원칙만 차용한다.",
+    "reject": "추천인·보상·초대 코드로 사람을 연결하는 방식은 경찰 인계 부적합. 수신 팀과 인계 범위를 직접 확인해야 한다.",
+    "screens": [
+      "A-8",
+      "B-0",
+      "B-5"
+    ]
+  },
+  {
+    "name": "UIbowl · 랭플릭스 라이브·플레이어",
+    "url": "https://uibowl.io/?patterns=%EB%9D%BC%EC%9D%B4%EB%B8%8C%C2%B7%ED%94%8C%EB%A0%88%EC%9D%B4%EC%96%B4&detail=1",
+    "status": "공개 화면 시각 확인",
+    "observed": "현재 재생 단어 강조 자막, 영상 중앙 일시정지, 자막을 좌우로 밀어 구간 이동 안내, 북마크.",
+    "adopt": "영상/음성과 현재 원문 구간을 동기 표시하고 해당 구간을 명시적으로 재생할 수 있게 한다.",
+    "reject": "숨은 스와이프 탐색, 화면 양측 다수 도구, 추천 피드·좋아요 패턴은 배제한다.",
+    "screens": [
+      "A-7",
+      "B-1",
+      "B-4"
+    ]
+  },
+  {
+    "name": "Refero Styles · Visitors",
+    "url": "https://styles.refero.design/style/e7876363-181a-44a9-9e5c-2255cf98aea5",
+    "status": "공개 토큰 문서 확인 · 실제 앱 실측 아님",
+    "observed": "색상 역할, 타입 스케일, 4px 간격 단위, radius, Do/Don’t와 CSS Variables/Design Tokens를 함께 정리한 문서.",
+    "adopt": "색상표만 내놓지 않고 토큰의 역할과 금지 용도를 같이 문서화한다. 표면을 얕은 경계로 구분한다.",
+    "reject": "라벤더 팔레트·12px 캡션·모든 버튼 pill·대형 히어로를 현장 앱으로 복제하지 않는다.",
+    "screens": [
+      "전체",
+      "디자인 시스템 문서"
+    ]
+  },
+  {
+    "name": "Mobbin iOS latest",
+    "url": "https://mobbin.com/discover/apps/ios/latest",
+    "status": "접근 제한 · 상세 화면 미확인",
+    "observed": "웹 및 브라우저에서 상단 Pricing/MCP/Log in과 빈 콘텐츠 영역만 확인됨.",
+    "adopt": "추후 접근 가능한 경우 지도·인계 확인·audio player·device pairing 중심 검색 후보.",
+    "reject": "이 세션에서 Mobbin의 개별 앱을 보았다고 주장하지 않는다.",
+    "screens": [
+      "후속 리서치"
+    ]
+  },
+  {
+    "name": "Refero 검색",
+    "url": "https://refero.design/",
+    "status": "검색 실행 · 로그인 요구",
+    "observed": "Audio player transcript 입력 후 Log In or Sign Up 모달. 공개 카테고리에 Map, Table, Audio Player, Activity & Notification Feed 존재.",
+    "adopt": "후속 검색 분류로 활용.",
+    "reject": "결과 화면을 검증했다고 쓰지 않는다.",
+    "screens": [
+      "후속 리서치"
+    ]
+  },
+  {
+    "name": "Page Flows · Turo",
+    "url": "https://pageflows.com/post/ios/general-browsing/turo/",
+    "status": "검색 색인 텍스트만 확인 · 직접 403",
+    "observed": "공개 검색 색인에 01:06 Search map, 01:55 Trips, 01:57 History, 01:58 Inbox 등 흐름 목차 확인.",
+    "adopt": "정적 화면보다 시간 순서와 전환 비용을 함께 연구하는 방법을 참고.",
+    "reject": "색인 목차로 시각 디자인을 추정하지 않는다.",
+    "screens": [
+      "A-3",
+      "B-3",
+      "후속 리서치"
+    ]
+  },
+  {
+    "name": "Screenlane",
+    "url": "https://screenlane.com/",
+    "status": "직접 접근 403 · 화면 미확인",
+    "observed": "직접 페이지 가져오기 실패.",
+    "adopt": "검증된 시각 근거에서 제외.",
+    "reject": "다른 아카이브와 중복 검증된 것처럼 계산하지 않는다.",
+    "screens": [
+      "후속 리서치"
+    ]
+  }
+]
