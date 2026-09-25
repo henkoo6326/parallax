@@ -1,0 +1,93 @@
+/* Apple-inspired web foundation. Native Liquid Glass is not used by this web app. */
+:root{font-family:-apple-system,BlinkMacSystemFont,'Apple SD Gothic Neo','Noto Sans KR',sans-serif;--accent:#2446f0;--success:#5fcb5b;--warning:#f5c744;--critical:#e9392f;--glass:rgba(255,255,255,.88);--glass-line:rgba(255,255,255,.9)}
+html[data-theme="light"]{--text:#20242b;--muted:#626b78;--green:#2446f0;--mint:#2446f0;--line:#20242b14;--raised:#f3f4f7;--glass:rgba(255,255,255,.88)}
+html[data-theme="dark"]{--text:#f2f3f5;--muted:#adb6c4;--green:#91baff;--glass:rgba(30,36,46,.94);--glass-line:#ffffff24;--accent:#91baff}
+.device :is(h1,h2,h3,p,small,button,label){letter-spacing:normal;font-stretch:normal}
+.device :is(.tool-heading,.panel-content>h2){font-size:26px;line-height:1.3;font-weight:650}
+.device .case-head h1{font-size:19px;line-height:1.4;letter-spacing:0}
+.device .case-head p{font-size:12px;line-height:1.5}
+.device .panel-content{padding:24px}
+.device .panel-content p,.device :is(.request-card p,.check-item strong,.summary-line,.info-list,.record-title){font-size:16px;line-height:1.65}
+.device :is(.subcopy,.eyebrow,.muted,.field-label,.request-card small,.panel-content small,.mission-meta small){font-size:13px;line-height:1.6}
+.device :is(.panel-toolbar h2,.section-label,.mission-meta strong){font-size:16px;line-height:1.5}
+.device :is(.primary-button,.secondary-button,.text-input,textarea,.form-select){font-size:16px;line-height:1.5;min-height:46px;border-radius:14px}
+.device :is(.primary-button,.secondary-button){padding:12px 18px}
+.device :is(.icon-button,.mode-switch button,.map-style-tabs button,.floor-controls button,.context-note-bar button){min-height:44px;min-width:44px}
+.device :is(.mode-switch button,.panel-toolbar select,.context-note-bar button,.voice-button){font-size:13px}
+.device .panel-tools{flex-wrap:wrap;justify-content:flex-end}
+.device .panel-toolbar{gap:12px;align-items:center}
+html[data-theme="light"] .device .panel-toolbar{background:#fff}
+html[data-theme="light"] .device .primary-button{background:#2446f0;color:#fff;border:0;box-shadow:none}
+html[data-theme="light"] .device .primary-button:hover{background:#1e3bcd}
+html[data-theme="light"] .device .secondary-button{background:#f2f4f8;color:#2446f0;border:1px solid #dae1eb}
+html[data-theme="light"] .device :is(.mission-card,.handoff-card){background:#f5f7fb;border:1px solid #e1e6ef;color:#26344b}
+html[data-theme="light"] .device .mission-card:after{display:none}
+html[data-theme="light"] .device .nav-item{color:#68717d}
+html[data-theme="light"] .device .nav-item.active{background:#e9effb;color:#2446f0}
+html[data-theme="light"] .device :is(.tag.danger){color:#ad302e;background:#fcedeb}
+html[data-theme="light"] .device .tag.amber{color:#815300;background:#fff3db}
+html[data-theme="light"] .device .check-item.done .check-box{background:#5fcb5b;border-color:#5fcb5b;color:#fff}
+.device .nav-item{font-size:12px;gap:6px;font-weight:500}
+.device :is(.bottom-nav,.voice-button,.live-map-view .map-style-tabs,.live-map-tools .icon-button){background:var(--glass);border:1px solid var(--glass-line);backdrop-filter:blur(18px) saturate(1.25);-webkit-backdrop-filter:blur(18px) saturate(1.25);box-shadow:0 3px 14px #23334c0a}
+.device .bottom-nav{border-radius:24px;margin:0 10px 10px;padding:6px;gap:3px}
+.device .bottom-nav .nav-item{flex:1;min-width:0;min-height:54px}
+.device .voice-button{color:var(--accent);min-height:44px}
+.device :is(button,input,textarea,select):focus-visible{outline:3px solid var(--accent);outline-offset:3px}
+.device button:active:not(:disabled){filter:brightness(.95)}
+.device :is(.scene-list,.request-list){line-height:1.6}
+.device .scene-list button{min-height:44px}
+.device .source-grid{grid-template-columns:1fr}
+.device .source-card{text-align:left;min-height:60px;display:block}
+.device .source-card :is(strong,small){line-height:1.6}
+.compact .device .case-head h1{font-size:17px}
+.compact .device .panel-content{padding:20px}
+.compact .device .tool-heading{font-size:25px}
+.compact .device .mission-card h2{font-size:25px;line-height:1.4}
+.compact .device .mode-switch button{padding:8px 12px}
+.compact .device .app-footer{height:auto;min-height:58px;padding:7px 13px}
+.compact .device .panel-toolbar{padding:14px 18px}
+.compact .device .panel-toolbar h2{font-size:16px}
+.compact .device .source-grid{grid-template-columns:1fr}
+.compact .device .live-map-view .map-top{top:69px}
+.compact .device .live-map-view .map-style-tabs button{padding:8px;font-size:12px}
+.map-pane:has(.live-map-view)>.context-note-bar{top:179px}
+.compact .map-pane:has(.live-map-view)>.context-note-bar{top:14px}
+@media(prefers-reduced-transparency:reduce){.device :is(.bottom-nav,.voice-button,.map-style-tabs,.live-map-tools .icon-button){backdrop-filter:none;-webkit-backdrop-filter:none;background:var(--surface)}}
+@media(prefers-reduced-motion:reduce){.device *{scroll-behavior:auto!important;transition:none!important}}
+.ops-row{padding:20px 0;border-bottom:1px solid var(--line);text-align:left}.ops-row h3{margin:12px 0;font-size:18px;line-height:1.5}.ops-row p{font-size:16px!important;line-height:1.65;margin:10px 0}.ops-row .ops-meta{font-size:13px!important;color:var(--muted)}.ops-row .button-row{flex-wrap:wrap}.ops-row .button-row button{min-height:44px;flex:1}.ops-done{color:#5fcb5b!important;background:#e9f5ee!important}.modal{width:560px}.modal :is(input,textarea,select){font-size:16px;line-height:1.6}.modal .primary-button,.modal .secondary-button{min-height:44px;font-size:15px}.live-map-tools{gap:4px}.live-map-tools .icon-button{width:38px;min-width:38px}
+@media(max-width:700px){.modal-backdrop{align-items:flex-end;padding:10px}.modal{width:100%;border-radius:26px 26px 16px 16px;max-height:88dvh}}
+
+/* Source: teammate PARALLAXConsole/Theme.swift — default KeyStore preset.
+   Native system materials remain a CSS approximation; semantic base hues are exact. */
+:root[data-theme="light"],:root[data-theme="dark"]{--accent:#2446f0;--green:#2446f0;--mint:#2446f0;--critical:#e9392f;--red:#e9392f;--warning:#f5c744;--success:#5fcb5b;--accent-soft:#2446f014;--accent-line:#2446f033}
+html[data-theme="light"] :is(.primary-button,.nav-item.active,.mode-switch button.active){background:var(--accent);color:#fff;box-shadow:none}
+html[data-theme="light"] .device .nav-item.active{background:var(--accent);color:#fff}
+html[data-theme="light"] .primary-button:hover{background:#1e3bcd}
+html[data-theme="light"] :is(.case-avatar,.source-card.active,.note-filters .active,.map-style-tabs .active,.floor-controls .active,.live-site-card button){background:var(--accent-soft);color:var(--accent);border-color:var(--accent-line)}
+html[data-theme="light"] .device .context-note-bar button{background:var(--accent-soft);color:var(--accent);border-color:var(--accent-line)}
+html[data-theme="light"] .context-note-bar b,html[data-theme="light"] .brand-icon i{background:var(--accent)}
+html[data-theme="light"] :is(.live-pin,.live-map-tools button,.live-map-view .leaflet-control-attribution a){color:var(--accent)}
+html[data-theme="light"] :is(.pane:not(.map-pane),.modal,.device) .tag.danger{color:var(--critical);background:#e9392f24}
+html[data-theme="light"] :is(.pane:not(.map-pane),.modal,.device) .tag.amber{color:#735400;background:#f5c74459}
+html[data-theme="light"] .device .check-item.done .check-box{background:var(--success);border-color:var(--success);color:#183a17}
+html[data-theme="light"] :is(.mission-card,.handoff-card) :is(p,small,.eyebrow,.handoff-people){color:var(--muted)!important}
+.ops-done{color:#183a17!important;background:#5fcb5b26!important}
+
+.zone-counts{display:flex;gap:20px;flex-wrap:wrap;padding:16px 0;border-block:1px solid var(--line);font-size:13px;color:var(--muted)}.zone-counts strong{font-size:24px;color:var(--text);margin-right:4px;font-variant-numeric:tabular-nums}.zone-evidence{padding:14px;background:var(--raised);border-radius:14px;font-size:14px!important;color:var(--muted)}
+
+/* Handoff: decision context stays with the next action. */
+.handoff-change{display:flex;align-items:center;gap:16px;padding:14px 0;border-bottom:1px solid var(--line);margin-bottom:12px}
+.handoff-change>div{flex:1;min-width:0;overflow-wrap:anywhere}
+.handoff-change small,.handoff-change strong,.handoff-label{display:block}
+.handoff-change small,.handoff-label{font-size:13px;color:var(--muted);margin-bottom:5px}
+.handoff-change-fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 16px}
+@media(max-width:540px){.handoff-change-fields{grid-template-columns:1fr}}
+
+/* Situation review and illustrative CCTV coverage. */
+.history-banner{display:flex;align-items:center;gap:12px;padding:12px 24px;background:var(--raised);border-bottom:1px solid var(--line);font-size:14px}
+.history-banner>div{flex:1;min-width:0}.history-banner strong,.history-banner span{display:block}.history-banner span{color:var(--muted);font-size:12px;margin-top:4px}.history-banner button{min-height:44px;color:var(--green);padding:8px;flex-shrink:0}
+.compact .history-banner{padding:10px 18px;flex-wrap:wrap;gap:4px 12px}.compact .history-banner>div{flex-basis:100%}
+.history-list{display:grid;gap:8px;margin:20px 0}.history-item{display:grid;grid-template-columns:64px minmax(0,1fr);gap:6px 12px;text-align:left;padding:14px;border:1px solid var(--line);border-radius:14px;background:var(--raised)}.history-item strong{font-size:16px;overflow-wrap:anywhere}.history-item small{grid-column:2;color:var(--muted)}.history-item.selected{border-color:var(--green)}
+.map-context-note{position:absolute;top:170px;left:20px;right:20px;z-index:3;max-width:350px;display:grid;gap:4px;padding:10px 12px;border-radius:12px;background:var(--glass);color:var(--text);font-size:12px;pointer-events:none}.map-context-note button{justify-self:start;min-height:32px;color:var(--green);pointer-events:auto}.compact .map-context-note{top:207px;left:15px;right:70px;font-size:11px}.live-map-canvas[data-detail="false"] .detail-marker{display:none}.live-map-tools button[aria-pressed="true"]{color:#fff;background:#2446f0}.live-map-tools .icon-button{min-width:44px;width:44px;height:44px}
+.preview:not(.compact) .map-pane:has(.live-map-view)>.context-note-bar{left:auto;right:20px;top:179px}
+.preview:not(.compact) .map-context-note{right:125px;max-width:none}

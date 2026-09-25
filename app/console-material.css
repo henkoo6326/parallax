@@ -1,0 +1,23 @@
+/* Soft matte materials, following the supplied Dribbble video.
+   Existing token names are kept for component compatibility. */
+:root{
+ --key:#2446f0;--info:var(--key);--focus:var(--key);--info-tx:#2446f0;
+ --info-dim:#e9edfd;--accent-soft:#e9edfd;
+ --glass:#f9fafbeF;--glass-strong:#fff;--glass-soft:#f3f5f7;
+ --glass-edge:#e6eaee;--glass-hi:0 0 0 transparent;
+ --glass-shadow:0 3px 14px -6px #24344718;
+ --glass-blur:none;--lg-blur-clear:blur(6px);
+ --lg-rim:none;--lg-prom:#2446f0;--lg-prom-shadow:0 2px 4px #2446f00c;
+ --lg-glint:transparent;--float:#fafbfced;--canvas:#edf1f3;
+}
+:root[data-theme="dark"]{
+ --info:#a7b9ff;--focus:#a7b9ff;--info-tx:#a7b9ff;
+ --info-dim:#29324a;--accent-soft:#29324a;
+ --glass:#20262df5;--glass-strong:#282f37;--glass-soft:#2a3139;
+ --glass-edge:#ffffff0c;--glass-hi:0 0 0 transparent;
+ --glass-shadow:0 3px 14px -6px #0003;
+ --glass-blur:none;--lg-blur-clear:blur(6px);
+ --lg-rim:none;--lg-prom:#2446f0;--lg-prom-shadow:0 2px 4px #0001;
+ --lg-glint:transparent;--float:#252c34f2;--canvas:#191e24;
+}
+html[data-theme] .device{background:var(--canvas);background-attachment:initial}

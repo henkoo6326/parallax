@@ -1,0 +1,35 @@
+/* Reference: restrained matte cards, neutral canvas, soft elevation; blue actions. */
+html[data-theme="light"]{--text:#282e35;--muted:#69727d;--surface:#fafbfc;--raised:#f0f3f5;--line:#e6eaee;--console-card:#ffffffa6;--console-input:#ffffffc9;--glass-surface:#f8fafb;--glass-hover:#fff}
+html[data-theme="dark"]{--text:#e9edf2;--muted:#a7b1bd;--surface:#20262d;--raised:#2a3139;--line:#ffffff0c;--console-card:#ffffff04;--console-input:#191f26;--glass-surface:#2a3139;--glass-hover:#323a44}
+html[data-theme] .device{box-shadow:0 20px 60px -24px #24344730}
+html[data-theme] .device :is(.workspace-presets button,.header-actions .icon-button,.bottom-nav)::after{display:none}
+html[data-theme] .device .header-actions .icon-button{background:var(--glass-soft);border-color:transparent;box-shadow:none;backdrop-filter:none;-webkit-backdrop-filter:none}
+html[data-theme] .device .workspace-presets button{background:var(--glass-soft);border:1px solid transparent;box-shadow:none;backdrop-filter:none;-webkit-backdrop-filter:none;border-radius:16px;font-weight:500}
+html[data-theme] .device .workspace-presets button[aria-pressed=true]{background:var(--accent-soft);color:var(--action-text);border-color:transparent;box-shadow:none}
+html[data-theme] .device .pane{border:1px solid var(--glass-edge);border-radius:20px;box-shadow:var(--glass-shadow);background:var(--glass);backdrop-filter:none;-webkit-backdrop-filter:none}
+html[data-theme] .device .panel-toolbar{background:transparent;border-bottom:1px solid var(--line);backdrop-filter:none;-webkit-backdrop-filter:none}
+html[data-theme] :is(.device,.modal) :is(.mission-card,.handoff-card,.transfer-overview,.transfer-request,.source-card,.note-card,.briefing-box,.info-list,.message,.history-item,.zone-evidence,.device-metrics,.capture-card){border-color:transparent;border-radius:16px;box-shadow:0 2px 10px -6px #17273a12}
+html[data-theme] :is(.device,.modal) :is(.primary-button,.secondary-button,.icon-button,.voice-button,.tool-pill,.scene-jump,.request-read,.context-note-bar button,.close){border-radius:12px;backdrop-filter:none;-webkit-backdrop-filter:none;box-shadow:none;border-color:transparent}
+html[data-theme] :is(.device,.modal) :is(.secondary-button,.voice-button,.tool-pill,.scene-jump,.request-read,.context-note-bar button,.close){background:var(--glass-soft)}
+html[data-theme] .device .composer>button{border-radius:14px;box-shadow:none}
+html[data-theme] .device :is(.nav-item.active,.segment button.active,.note-filters button.active,.map-style-tabs button.active,.floor-controls button.active){background:var(--accent-soft);color:var(--action-text);box-shadow:none}
+html[data-theme] .device :is(.segment,.note-filters){border-radius:14px;background:var(--glass-soft)}
+html[data-theme] .device :is(.segment button,.note-filters button,.map-style-tabs button,.floor-controls button){border-radius:10px}
+html[data-theme] .device .bottom-nav{background:var(--float);border-radius:20px;box-shadow:0 3px 16px -8px #17243d20;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
+html[data-theme] :is(.device,.modal) :is(.primary-button,.secondary-button,.workspace-presets button,.icon-button){transition:background-color .16s,color .16s,box-shadow .16s;transform:none}
+html[data-theme] :is(.device,.modal) :is(.primary-button,.secondary-button,.workspace-presets button,.icon-button):active:not(:disabled){transform:none;filter:brightness(.97)}
+@media(hover:hover){html[data-theme] :is(.device,.modal) :is(.secondary-button,.workspace-presets button:not([aria-pressed=true]),.icon-button):hover{background:var(--glass-hover);transform:none}html[data-theme] .device .workspace-presets button[aria-pressed=true]:hover{background:var(--accent-soft);color:var(--action-text)}}
+html[data-theme] :is(.device,.modal) :is(input,textarea,select.form-select){box-shadow:none;border-color:var(--line)}
+html[data-theme] .modal{background:var(--float);border:1px solid var(--glass-edge);border-radius:20px;box-shadow:0 18px 60px -20px #101c3040;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
+html[data-theme] .modal-backdrop{background:#111c2b30;backdrop-filter:blur(2px);-webkit-backdrop-filter:blur(2px)}
+/* Floating map UI retains just enough diffusion to separate it from map labels. */
+html[data-theme] .device .live-map-view :is(.map-top>.row,.map-style-tabs,.map-scope,.live-map-tools,.live-site-card,.map-detail-hint){background:var(--float);border:1px solid var(--glass-edge);box-shadow:0 3px 14px -6px #17243d26;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
+html[data-theme] .device .live-map-view :is(.map-style-tabs,.map-scope){border-radius:14px}
+html[data-theme] .device .live-map-tools{border-radius:16px}
+html[data-theme] .device .live-map-tools .icon-button{border-radius:10px}
+html[data-theme] .device .live-map-tools .icon-button[aria-pressed=true]{background:var(--accent-soft);color:var(--action-text);box-shadow:none}
+html[data-theme] .device :is(.live-site-card,.location-card){border-radius:18px;box-shadow:var(--glass-shadow)}
+html[data-theme] .device .live-site-card button{background:var(--accent-soft);color:var(--action-text);box-shadow:none;border-radius:12px}
+html[data-theme] .device .live-pin>span{box-shadow:0 2px 5px #10203826}
+html[data-theme] .compact .device .pane{border-radius:0;border:0;box-shadow:none}
+@media(prefers-reduced-transparency:reduce){html[data-theme] .device .live-map-view :is(.map-top>.row,.map-style-tabs,.map-scope,.live-map-tools,.live-site-card,.map-detail-hint),html[data-theme] :is(.modal,.device .bottom-nav){background:var(--surface);backdrop-filter:none;-webkit-backdrop-filter:none}}

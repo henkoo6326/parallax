@@ -1,0 +1,113 @@
+/* Shared control geometry for panels and dialogs. Loaded after screen layouts. */
+:root{--control-height:48px;--control-radius:14px;--action-text:#2446f0}
+html[data-theme="dark"]{--action-text:#b7c6ff}
+:is(.device,.modal) :is(button,input,textarea,select){font-family:inherit;letter-spacing:normal}
+:is(.device,.modal) button{line-height:1.4}
+:is(.device,.modal) button>.icon{display:block;flex:none}
+html[data-theme] :is(.device,.modal) :is(.primary-button,.secondary-button){min-height:var(--control-height);border:1px solid transparent;border-radius:var(--control-radius);padding:11px 16px;font-size:15px;line-height:24px;gap:8px;min-width:0;text-align:center;overflow-wrap:anywhere;box-shadow:none}
+html[data-theme] :is(.device,.modal) .primary-button{background:var(--accent);color:#fff}
+html[data-theme] :is(.device,.modal) .primary-button:hover:not(:disabled){background:#1e3bcd}
+html[data-theme] :is(.device,.modal) .secondary-button{background:var(--raised);border-color:var(--line);color:var(--action-text)}
+:is(.device,.modal) .button-row{gap:10px;align-items:stretch;flex-wrap:wrap}
+:is(.device,.modal) .button-row>button{flex:1 1 0;min-width:0}
+html[data-theme] :is(.device,.modal) :is(.text-input,select.form-select){height:var(--control-height);min-height:var(--control-height);border-radius:var(--control-radius);padding:11px 12px;font-size:16px;line-height:24px;width:100%;min-width:0}
+html[data-theme] :is(.device,.modal) textarea{min-height:144px;border-radius:var(--control-radius);padding:12px;font-size:16px;line-height:1.6;width:100%;margin-top:8px}
+:is(.device,.modal) .field-label{font-size:14px;line-height:1.5;color:var(--text);margin:20px 0 8px}
+:is(.device,.modal) .field-label>:is(input,select,textarea){display:block;margin-top:8px}
+html[data-theme] .device .composer{display:grid;grid-template-columns:minmax(0,1fr) var(--control-height);align-items:center;gap:10px}
+html[data-theme] .device .composer>button{display:grid;place-items:center;width:var(--control-height);height:var(--control-height);padding:0;border-radius:var(--control-radius);background:var(--accent);color:#fff;line-height:1}
+.device .composer>button .icon{width:22px;height:22px;margin:0}
+html[data-theme] :is(.device,.modal) .text-button{display:inline-flex;align-items:center;justify-content:center;gap:6px;min-height:44px;padding:10px 8px;font-size:13px;line-height:1.5;color:var(--action-text);white-space:normal}
+:is(.device,.modal) :is(.icon-button,.context-note-bar button){min-width:44px;min-height:44px}
+.device .panel-toolbar{flex-wrap:wrap;gap:12px}
+.device .panel-toolbar h2{min-width:0;flex-shrink:0}
+.device .panel-tools{gap:8px;min-width:0;margin-left:auto}
+.device .panel-toolbar select{height:44px;min-height:44px;padding:8px 12px;font-size:13px;line-height:1.4;max-width:150px}
+.device :is(.segment button,.note-filters button){min-height:44px;padding:10px 12px;font-size:13px;line-height:1.5}
+html[data-theme] .device :is(.segment button.active,.note-filters button.active){color:var(--action-text);background:var(--accent-soft)}
+:is(.device,.modal) :is(.scene-jump,.request-read){display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:44px;padding:8px 10px;font-size:13px;line-height:1.5;border-radius:12px;white-space:normal}
+html[data-theme] :is(.device,.modal) :is(.scene-jump,.request-read,.tool-pill){color:var(--action-text)}
+.device .tool-pill{min-height:44px;font-size:13px;padding:9px 12px}
+.device .video-tools{flex-wrap:wrap;gap:8px;font-size:12px}
+.device .video-bottom{gap:8px;align-items:center}
+.device .video-bottom .icon-button{width:44px;min-width:44px;height:44px;padding:0}
+.device .video-bottom .media-seek{height:44px;min-width:30px;margin:0;accent-color:var(--accent);background:transparent}
+.device .video-bottom [data-play-time]{font-size:11px}
+.device .product-hotspot{width:44px;height:44px;transform:translate(-9px,-9px);background:var(--accent);border:3px solid var(--surface);box-shadow:0 0 0 3px var(--accent-line)}
+.device .product-hotspot .icon{width:18px;height:18px}
+:is(.device,.modal) .record-item{align-items:center;gap:12px}
+:is(.device,.modal) .record-item>div{min-width:0;overflow-wrap:anywhere}
+:is(.device,.modal) .record-time{flex-shrink:0;white-space:nowrap;font-size:12px}
+:is(.device,.modal) :is(.record-item strong,.source-card strong){font-size:15px;line-height:1.5}
+:is(.device,.modal) :is(.record-item small,.source-card small,.message-status,.draft-hint){font-size:12px;line-height:1.6}
+:is(.device,.modal) :is(.request-next,.request-reason,.message p){overflow-wrap:anywhere}
+.modal{font-size:16px;line-height:1.5;padding:24px;max-width:calc(100vw - 24px)}
+.modal h2{font-size:24px;line-height:1.4;padding-right:42px;margin:12px 0}
+.modal p{font-size:14px;line-height:1.65;color:var(--muted)}
+.modal .close{width:44px;height:44px;margin:0 0 8px 12px}
+.modal .secondary-button{color:var(--action-text)}
+.modal :is(button,input,textarea,select):focus-visible{outline:3px solid var(--action-text);outline-offset:3px}
+html[data-theme="light"] .map-pane{--green:#2446f0;--mint:#2446f0}
+html[data-theme] .device .live-map-tools button[aria-pressed="true"]{background:var(--accent);color:#fff}
+html[data-theme="dark"] .device :is(.live-site-card,.map-context-note){background:var(--surface);color:var(--text);border-color:var(--line)}
+html[data-theme="dark"] .device .live-site-card button{background:var(--raised);color:var(--action-text)}
+html[data-theme="dark"] :is(.device,.modal) :is(.text-input,textarea,select.form-select){background:var(--surface);color:var(--text);border-color:var(--line)}
+@media(max-width:540px){.modal{padding:20px}.modal .button-row>button{flex-basis:120px}.modal h2{font-size:22px}}
+/* Map header is one flow layout, not independently positioned overlays. */
+html[data-theme] .device .live-map-view .map-top{top:14px;left:14px;right:14px}
+.device .map-header-actions{display:flex;align-items:center;gap:8px;flex-shrink:0}
+.device .map-header-actions .context-note-bar{position:static;padding:0}
+.device .live-map-view .map-top>.row{align-items:center;gap:10px;flex-wrap:wrap}
+.device .live-map-view .map-top .eyebrow{font-size:11px}
+.device .live-map-view .map-top h2{font-size:18px;margin-top:4px}
+html[data-theme] .device .live-map-view .map-context-note{position:static;max-width:none;display:flex;align-items:center;justify-content:space-between;gap:8px;padding:6px 10px;margin-top:8px;width:100%;pointer-events:auto;font-size:11px}
+.device .map-context-copy{min-width:0;line-height:1.5}
+.device .map-context-copy>span{display:block}
+.device .map-context-note button{min-height:44px;flex-shrink:0;padding:6px;font-size:12px;line-height:1.5}
+.device .live-map-view .map-style-tabs{margin-top:8px}
+.compact .device .map-header-actions select{display:none}
+.compact .device .map-header-actions .context-note-bar button{padding:8px;font-size:12px}
+html[data-theme="dark"] .device .live-map-view .map-top>.row{background:var(--surface);border-color:var(--line)}
+html[data-theme="dark"] .device .live-map-view .map-top h2{color:var(--text)}
+/* Dialogs must cover the preview's floating fold control. */
+.modal-backdrop{z-index:90}
+.modal{position:relative}
+.modal .close{position:absolute;top:20px;right:20px;float:none;margin:0}
+.modal h2{padding-right:48px}
+html[data-theme="dark"] .device :is(.nav-item.active,.mode-switch button.active){background:var(--accent);color:#fff}
+html[data-theme="dark"] .device :is(.voice-button,.case-avatar,.message-status,.record-mark,.history-banner button,.map-context-note button,.live-map-tools button){color:var(--action-text)}
+html[data-theme="dark"] .device .case-avatar{background:#29354d}
+html[data-theme="dark"] .device :is(.scene-index-row>span,.source-card.active){color:var(--action-text)}
+.device .map-view:not(.live-map-view) .map-top{top:14px;left:14px;right:14px}
+.device .map-view:not(.live-map-view) .map-top>.row{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;padding:12px;border-radius:16px;background:var(--glass);border:1px solid var(--line)}
+.device .map-view:not(.live-map-view) .map-top h2{font-size:18px;margin-top:4px;color:var(--text)}
+.device .map-view:not(.live-map-view) .map-top .eyebrow{font-size:11px;color:var(--muted)}
+.device .map-view:not(.live-map-view) .map-style-tabs{margin-top:8px}
+.device .map-view:not(.live-map-view) .floor-controls{top:164px;left:14px;right:auto;flex-direction:row;padding:4px;gap:4px}
+.device .map-view:not(.live-map-view) .floor-controls button{width:44px;height:44px;min-width:44px;min-height:44px}
+.device .map-view:not(.live-map-view) .map-north{top:181px;right:18px}
+.device .map-tools .icon-button{width:44px;height:44px;min-width:44px}
+.compact .device .map-style-tabs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr)) 44px;width:100%;gap:2px}
+.compact .device .map-view .map-style-tabs button{padding:8px 4px;min-width:0;gap:4px;font-size:11px;white-space:nowrap}
+.compact .device .map-style-tabs .icon{width:16px;height:16px}
+html[data-theme="dark"] .device .map-style-tabs button{color:var(--muted)}
+html[data-theme="dark"] .device .map-style-tabs button.active{background:var(--accent);color:#fff}
+@media(max-width:700px){.fold-cta{position:static;width:max-content;margin:16px 12px 0 auto}.preview-foot{padding-bottom:20px}}
+/* Keep the visible product marker small while preserving a 44px hit area. */
+.device .product-hotspot{background:transparent;border:0;box-shadow:none}
+.device .product-hotspot::before{content:'';position:absolute;width:28px;height:28px;border-radius:50%;border:2px solid var(--surface);background:var(--accent);box-shadow:0 0 0 3px var(--accent-line)}
+.device .product-hotspot .icon{width:14px;height:14px;position:relative}
+/* The panel title itself is the native, keyboard-accessible task selector. */
+.device .panel-switch-wrap{position:relative;display:inline-flex;align-items:center;min-width:0;max-width:100%;gap:8px;color:var(--text);border-radius:8px}
+.device .panel-switch-wrap>.icon:first-child{width:20px;height:20px;pointer-events:none}
+.device .panel-switch-wrap>.icon:last-child{position:absolute;right:7px;top:14px;width:16px;height:16px;pointer-events:none;color:var(--muted)}
+html[data-theme] .device .panel-switch-wrap .panel-switch{display:block;appearance:none;-webkit-appearance:none;height:44px;min-height:44px;max-width:100%;width:auto;min-width:0;border:0;border-radius:8px;background:transparent;color:var(--text);box-shadow:none;padding:8px 28px 8px 0;margin:0;font-size:16px;font-weight:600;line-height:24px;cursor:pointer}
+html[data-theme] .device .panel-switch-wrap .panel-switch:hover{background:var(--raised)}
+html[data-theme] .device .panel-switch-wrap .panel-switch:focus{outline:none}
+html[data-theme] .device .panel-switch-wrap .panel-switch:focus-visible{outline:2px solid var(--action-text);outline-offset:0}
+.device .map-header-actions .panel-switch-wrap{font-size:13px}
+.device .map-header-actions .panel-switch-wrap>.icon:first-child{display:none}
+html[data-theme] .device .map-header-actions .panel-switch{font-size:13px;font-weight:500}
+.compact .device .map-header-actions .panel-switch-wrap{display:none}
+@media(max-width:380px){html[data-theme] .device .panel-toolbar .panel-switch{font-size:14px}.device .panel-toolbar{gap:8px}.device .panel-switch-wrap{gap:5px}}
+.device .panel-switch-wrap>.icon:last-child{transform:rotate(90deg)}

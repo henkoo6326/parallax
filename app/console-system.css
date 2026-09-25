@@ -1,0 +1,71 @@
+/* Adapter: teammate console materials -> foldable field components.
+   Layout remains field-specific. Shared materials live in console-material.css. */
+@font-face{font-family:Pretendard;src:url('../assets/fonts/PretendardVariable.woff2') format('woff2');font-weight:45 920;font-display:swap}
+html[data-theme="light"]{--text:#111418;--muted:#4a515c;--surface:#fff;--raised:#f4f5f7;--line:#e3e6eb;--console-card:#ffffff66;--console-input:#ffffffb8;--console-muted:#4a515c;--action-text:#1f3fd6;--glass-surface:var(--glass);--glass-ink:#111418}
+html[data-theme="dark"]{--text:#f2f4f8;--muted:#b5bfce;--surface:#18202c;--raised:#263142;--line:#ffffff1c;--console-card:#ffffff08;--console-input:#101824aa;--console-muted:#b5bfce;--action-text:var(--info-tx);--glass-surface:var(--glass);--glass-ink:#f2f4f8}
+html[data-theme] :is(.device,.modal){font-family:Pretendard,'Apple SD Gothic Neo',system-ui,sans-serif;font-size:16px;line-height:1.55;color:var(--text);font-variant-numeric:tabular-nums;-webkit-font-smoothing:antialiased}
+html[data-theme] .device :is(.workspace,.panels,.rail,.app-footer,.app-header){background:transparent;border-color:transparent}
+html[data-theme] .device .panels{gap:12px;padding:12px}
+html[data-theme] .device .rail{padding:16px 6px}
+/* Regular glass: windows and controls floating over a scene. */
+html[data-theme] :is(.device .pane,.modal,.device .bottom-nav,.device .live-site-card,.device .location-card,.device .map-top>.row,.device .map-style-tabs,.device .floor-controls,.device .map-context-note){background:var(--glass);border:1px solid var(--glass-edge);box-shadow:var(--glass-shadow),var(--glass-hi);backdrop-filter:var(--glass-blur);-webkit-backdrop-filter:var(--glass-blur);color:var(--text);border-radius:24px}
+html[data-theme] .device .map-pane{background:var(--glass);isolation:isolate}
+html[data-theme] .device .panel-toolbar{background:var(--glass-soft);border-bottom:1px solid var(--line);backdrop-filter:var(--lg-blur-clear);-webkit-backdrop-filter:var(--lg-blur-clear)}
+html[data-theme] .device .panel-content{padding:22px}
+/* Inner content uses a tint, as in CertChip, rather than stacked blur. */
+html[data-theme] :is(.device,.modal) :is(.mission-card,.handoff-card,.transfer-overview,.transfer-request,.source-card,.note-card,.briefing-box,.info-list,.message,.history-item,.zone-evidence,.device-metrics,.capture-card){background:var(--console-card);color:var(--text);border:1px solid var(--line);border-radius:16px;box-shadow:none}
+html[data-theme] .device .mission-card:after{display:none}
+html[data-theme] :is(.device,.modal) :is(.mission-card,.handoff-card,.transfer-overview) :is(p,small,.eyebrow,.handoff-people){color:var(--muted)!important}
+html[data-theme] :is(.device,.modal) :is(.mission-meta,.mission-foot,.transfer-counts,.handoff-change,.info-list .row,.check-item,.record-item){border-color:var(--line)}
+html[data-theme] :is(.device,.modal) :is(.tool-heading,.mission-card h2){font-size:28px;font-weight:600;line-height:1.4;letter-spacing:-.4px}
+html[data-theme] :is(.device,.modal) :is(.section-label,.ops-row h3,.transfer-request h3){font-size:18px;line-height:1.5;font-weight:600}
+html[data-theme] :is(.device,.modal) :is(.subcopy,.message p,.request-next,.request-reason,.check-item strong,.source-card strong,.record-item strong,.mission-card p,.alert-card strong,.field-label){font-size:16px;line-height:1.6}
+html[data-theme] :is(.device,.modal) :is(small,.ops-meta,.eyebrow,.draft-hint,.message-status,.record-time,.check-item small,.source-card small,.alert-card p){color:var(--muted);font-size:13px;line-height:1.5}
+/* Clear glass: ordinary actions. */
+html[data-theme] :is(.device,.modal) :is(.secondary-button,.icon-button,.voice-button,.tool-pill,.scene-jump,.request-read,.context-note-bar button,.workspace-presets button,.close){background:var(--glass-soft);color:var(--text);border:1px solid var(--glass-edge);box-shadow:var(--glass-hi),var(--glass-shadow);backdrop-filter:var(--lg-blur-clear);-webkit-backdrop-filter:var(--lg-blur-clear);border-radius:999px}
+html[data-theme] :is(.device,.modal) :is(.primary-button,.secondary-button){font-size:16px;min-height:48px}
+html[data-theme] .device :is(.segment,.note-filters){background:var(--glass-soft);border:1px solid var(--glass-edge);border-radius:999px;padding:4px;gap:4px}
+html[data-theme] .device :is(.segment button,.note-filters button,.map-style-tabs button,.floor-controls button){border-radius:999px;border-color:transparent;color:var(--text);background:transparent}
+/* Prominent glass: identical key-colour gradient and inset reflection to console. */
+html[data-theme] :is(.device,.modal) :is(.primary-button,.composer>button,.nav-item.active,.workspace-presets button[aria-pressed="true"],.map-style-tabs button.active,.floor-controls button.active,.segment button.active,.note-filters button.active,.live-map-tools button[aria-pressed="true"]){background:var(--lg-prom);color:#fff;border-color:transparent;box-shadow:var(--lg-prom-shadow)}
+html[data-theme] .device :is(.nav-item,.source-card){color:var(--text)}
+html[data-theme] .device .source-card.active{background:var(--accent-soft);border-color:var(--key);color:var(--text)}
+html[data-theme] .device .nav-item{border-radius:16px}
+html[data-theme] .device .map-style-tabs{padding:4px}
+html[data-theme] .device .map-top h2{color:var(--text)}
+html[data-theme] .device .live-site-card button{background:var(--lg-prom);color:#fff;box-shadow:var(--lg-prom-shadow)}
+html[data-theme] :is(.device,.modal) :is(.text-input,.form-select,textarea,.composer input){background:var(--console-input);border:1px solid var(--line);color:var(--text);border-radius:14px;box-shadow:inset 0 1px 2px #00000008}
+html[data-theme] :is(.device,.modal) :is(input,textarea)::placeholder{color:var(--muted);opacity:1}
+html[data-theme] .device .panel-switch-wrap .panel-switch{background:transparent;color:var(--text);box-shadow:none}
+html[data-theme] .device .panel-switch option{background:var(--surface);color:var(--text)}
+html[data-theme] :is(.device,.modal) :is(button,input,textarea,select):focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+html[data-theme] :is(.device,.modal) .tag{border-radius:999px;background:var(--console-card);color:var(--text);font-weight:500}
+html[data-theme] :is(.device,.modal) .tag.danger{background:#e9392f24;color:var(--critical)}
+html[data-theme] :is(.device,.modal) .tag.amber{background:#f5c74459;color:#735400}
+html[data-theme="dark"] :is(.device,.modal) .tag.danger{color:#ff9a93}
+html[data-theme="dark"] :is(.device,.modal) .tag.amber{color:#ffe49a;background:#f5c74426}
+html[data-theme] .device .alert-card{background:#f5c74416;border:1px solid #f5c74440;color:var(--text);border-radius:16px}
+html[data-theme] .device .alert-icon{background:#f5c74430;color:var(--text)}
+html[data-theme] .device .record-mark{background:var(--accent-soft);color:var(--action-text)}
+html[data-theme] .modal-backdrop{background:#101c3052;backdrop-filter:blur(3px);-webkit-backdrop-filter:blur(3px)}
+html[data-theme] .modal{background:var(--float);border-radius:24px}
+html[data-theme] .modal p{font-size:16px;color:var(--muted)}
+html[data-theme] .device .bottom-nav{margin:8px 10px 10px}
+html[data-theme] .device .history-banner{background:var(--glass-soft);border-color:var(--line)}
+/* Reflection rim copied from teammate .win::after, mapped to non-scrolling controls. */
+html[data-theme] .device :is(.workspace-presets button,.header-actions .icon-button,.bottom-nav){position:relative}
+html[data-theme] .device :is(.workspace-presets button,.header-actions .icon-button,.bottom-nav)::after{content:'';position:absolute;inset:0;z-index:1;padding:1px;border-radius:inherit;pointer-events:none;background:var(--lg-rim);-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude}
+html[data-theme] :is(.device,.modal) :is(.primary-button,.secondary-button,.workspace-presets button,.icon-button){transition:transform .5s cubic-bezier(.3,1.6,.5,1),background-color .2s,color .2s,box-shadow .25s}
+@media(hover:hover){html[data-theme] :is(.device,.modal) :is(.secondary-button,.workspace-presets button:not([aria-pressed="true"]),.icon-button):hover{background-image:radial-gradient(56px circle at 50% 50%,var(--lg-glint),transparent 70%)}html[data-theme] :is(.device,.modal) .primary-button:hover:not(:disabled){background:var(--lg-prom);filter:brightness(1.05)}}
+html[data-theme] :is(.device,.modal) :is(.primary-button,.secondary-button,.workspace-presets button,.icon-button):active:not(:disabled){transform:scale(1.03)}
+html[data-theme] .compact .device .panels{padding:0}
+html[data-theme] .compact .device .pane{border-radius:0;border:0;box-shadow:var(--glass-hi)}
+html[data-theme] .compact .device .panel-content{padding:20px}
+html[data-theme] .compact .device .workspace-presets button{font-size:13px}
+@media(max-width:360px){html[data-theme] .compact .device .workspace-presets button{font-size:12px}}
+@media(prefers-reduced-motion:reduce){html[data-theme] :is(.device,.modal) *{transition:none!important;animation:none!important}html[data-theme] :is(.device,.modal) button:active{transform:none!important}}
+@media(prefers-reduced-transparency:reduce){html[data-theme]{--glass:var(--surface);--glass-soft:var(--raised);--float:var(--surface);--console-card:var(--raised);--glass-blur:none;--lg-blur-clear:none}}
+@supports not (backdrop-filter:blur(1px)){html[data-theme]{--glass:var(--surface);--glass-soft:var(--raised);--float:var(--surface);--console-card:var(--raised)}}
+
+html[data-theme] .device .alert-icon{display:grid;place-items:center;width:36px;height:36px;flex:0 0 36px;border-radius:10px}
+html[data-theme="dark"] .device .case-avatar .icon{color:#20232c}

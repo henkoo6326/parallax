@@ -1,0 +1,240 @@
+/* Original cityBase geometry from teammate web console; matte visual adapter. */
+html[data-theme] .device .teammate-map{position:relative;height:100%;min-height:640px;overflow:hidden;background:#edf1f3;isolation:isolate}
+.teammate-map-canvas{position:absolute;inset:0;touch-action:none;overflow:hidden;cursor:grab;outline-offset:-3px!important}
+.teammate-map-canvas:active{cursor:grabbing}
+.teammate-map-svg{width:100%;height:100%;display:block;user-select:none}
+.teammate-map-svg>rect{fill:#e9eef0}
+.teammate-map-svg .m-block{fill:#f7f9fa;stroke:#dce3e8;stroke-width:1}
+.teammate-map-svg .m-block-2{fill:#f1f4f6}
+.teammate-map-svg .m-road{stroke:#fff;fill:none}.teammate-map-svg .m-roadmark{stroke:#d2d9e1;stroke-width:1;stroke-dasharray:6 8}
+.teammate-map-svg .m-park{fill:#dce9de;stroke:#d0dfd2}.teammate-map-svg .m-water{fill:#d1e3ed;stroke:none}
+.teammate-map-svg .m-label{fill:#84909a;font:12px Pretendard,sans-serif;pointer-events:none}
+.team-zone{cursor:pointer;color:#6b7787;outline:none}.team-zone rect{fill:url(#teamUnknown);stroke:#82909d;stroke-width:1.5;stroke-dasharray:5 4;vector-effect:non-scaling-stroke}
+.team-zone text{font:600 12px Pretendard,sans-serif;fill:#354554;pointer-events:none}.team-zone .zone-state-label{font-size:10px;font-weight:400;fill:#697783}
+.team-zone.progress rect{fill:#2446f012;stroke:#2446f0;stroke-dasharray:none}.team-zone.complete rect{fill:#5fcb5b24;stroke:#5ca656;stroke-dasharray:none}.team-zone.recheck rect{fill:#f5c74428;stroke:#b58b21}
+.team-zone.selected rect,.team-zone:focus rect{stroke:#2446f0;stroke-width:3;filter:drop-shadow(0 2px 3px #2446f018)}
+.team-position circle{fill:#2446f0;stroke:#fff;stroke-width:2}.team-position text,.camera-position text{font:11px Pretendard,sans-serif;fill:#415265;paint-order:stroke;stroke:#f9fafb;stroke-width:3;stroke-linejoin:round}
+.camera-position circle{fill:#697a8e;stroke:white;stroke-width:2}.team-camera-fov{fill:#2446f00c;stroke:#2446f040;stroke-width:1;pointer-events:none}
+.team-map-top{position:absolute;top:14px;left:16px;right:16px;display:flex;align-items:center;justify-content:space-between;gap:10px;pointer-events:none}
+.team-map-top strong{font-size:17px}.team-map-top small{display:block;font-size:11px!important;margin-top:3px}.team-map-top button,.team-map-top select{pointer-events:auto}
+html[data-theme] .device .team-map-top .context-note-bar button{background:var(--float);border-radius:12px;box-shadow:none}
+.team-map-controls{position:absolute;top:84px;right:14px;display:flex;flex-direction:column;gap:2px;padding:4px;border-radius:14px;background:var(--float);box-shadow:0 3px 12px #21324810}
+.team-map-controls button{display:grid;place-items:center;min-width:44px;min-height:44px;border-radius:10px;font-size:12px;color:var(--text)}
+.team-map-controls button[aria-pressed=true]{color:var(--action-text);background:var(--accent-soft)}
+.team-map-caption{position:absolute;left:16px;bottom:16px;display:flex;gap:12px;font-size:11px;color:var(--muted);pointer-events:none}
+.team-map-caption span{display:flex;align-items:center;gap:5px}.team-map-caption span:before{content:'';width:7px;height:7px;border:1px dashed #82909d;border-radius:2px}.team-map-caption span:nth-child(2):before{background:#2446f03a;border-color:#2446f0}.team-map-caption span:nth-child(3):before{background:#5fcb5b55;border-color:#5ca656}
+html[data-theme] .device .zone-inspector{position:absolute;bottom:12px;left:12px;right:12px;max-height:43%;overflow:auto;overscroll-behavior:contain;padding:16px 18px;background:var(--surface);border:1px solid var(--line);border-radius:18px;box-shadow:0 8px 24px #21324814}
+.zone-inspector h3{font-size:18px}.zone-inspector .zone-owner{font-size:13px;margin:10px 0}.zone-work-count{display:flex;gap:20px;color:var(--muted);font-size:13px}.zone-work-count b{color:var(--text);margin-left:5px}.zone-inspector article{border-top:1px solid var(--line);padding:12px 0;margin-top:10px}.zone-inspector article strong{font-size:14px}.zone-inspector article p{font-size:13px;margin:6px 0}.zone-inspector article .row{align-items:flex-start}.zone-inspector article small{flex-shrink:0;font-size:11px!important}.zone-evidence-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}.zone-evidence-actions button{display:flex;align-items:center;justify-content:center;gap:6px;min-height:44px;font-size:12px;border-radius:10px;padding:8px 10px;color:var(--action-text);background:var(--accent-soft)}
+.teammate-map.has-selection .team-map-caption{display:none}
+html[data-theme="dark"] .device .teammate-map{background:#1b232c}
+html[data-theme="dark"] .teammate-map-svg>rect{fill:#1b232c}html[data-theme="dark"] .teammate-map-svg .m-block{fill:#242e39;stroke:#313e4c}html[data-theme="dark"] .teammate-map-svg .m-block-2{fill:#202a34}html[data-theme="dark"] .teammate-map-svg .m-road{stroke:#172029}html[data-theme="dark"] .teammate-map-svg .m-roadmark{stroke:#344354}html[data-theme="dark"] .teammate-map-svg .m-park{fill:#26392f;stroke:#344b3e}html[data-theme="dark"] .teammate-map-svg .m-water{fill:#293e51}html[data-theme="dark"] .team-zone text{fill:#dce5ef}html[data-theme="dark"] .team-zone .zone-state-label{fill:#a4b2c2}html[data-theme="dark"] :is(.team-position,.camera-position) text{fill:#dce5ef;stroke:#202a34}
+html[data-theme] .compact .device .teammate-map{height:100%;min-height:100%}
+@media(prefers-reduced-transparency:reduce){.team-map-controls{background:var(--surface)}}
+
+.team-map-top{background:var(--float);padding:8px 10px;border-radius:14px}.team-map-controls{top:94px}
+/* Apple MapKit adapter: no illustrated basemap or substitute tiles. */
+html[data-theme] .device .apple-map{height:100%;min-height:0;display:flex;flex-direction:column;overflow:auto;background:var(--surface)}
+.apple-map-header{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:16px;flex-shrink:0}
+.apple-map-header>strong{font-size:17px;white-space:nowrap}
+.apple-map-stage{position:relative;min-height:180px;flex:1 0 180px;background:var(--glass-soft)}
+.apple-map.is-connected .apple-map-stage{min-height:340px;flex-basis:340px}
+[data-apple-canvas]{position:absolute;inset:0}
+.apple-map-status{position:relative;margin:auto;padding:28px 24px;text-align:center;max-width:440px}
+.apple-map-status h3{font-size:18px;line-height:1.5}.apple-map-status p{font-size:13px;margin-top:8px;color:var(--muted)}
+.apple-map-status-icon{display:grid;place-items:center;margin:0 auto 12px;width:44px;height:44px;border-radius:14px;background:var(--accent-soft);color:var(--action-text)}
+.apple-map-tools{position:absolute;top:12px;left:12px;right:12px;display:flex;gap:3px;flex-wrap:wrap;pointer-events:none}
+.apple-map-tools button{pointer-events:auto;min-height:44px;min-width:44px;padding:8px 12px;border-radius:12px;background:var(--float);font-size:12px;display:grid;place-items:center}
+.apple-map-tools button[aria-pressed=true]{background:var(--accent-soft);color:var(--action-text)}
+.apple-map-zone-list{display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:16px;flex-shrink:0}
+.apple-map-zone-list button{text-align:left;padding:12px;border:1px solid var(--line);border-radius:12px;min-height:66px;background:var(--glass-soft)}
+.apple-map-zone-list strong{display:block;font-size:13px;line-height:1.5}.apple-map-zone-list small{display:block;margin-top:4px;font-size:11px!important}
+.apple-map-zone-list button[aria-pressed=true]{border-color:var(--action-text);background:var(--accent-soft)}
+html[data-theme] .device .apple-map .zone-inspector{position:static;max-height:none;overflow:visible;margin:0 12px 16px;flex-shrink:0;box-shadow:none}
+.apple-map [hidden]{display:none!important}
+/* OpenFreeMap: one real footprint; fictional work, unmapped locations stay in lists. */
+html[data-theme] .device .open-map{height:100%;min-height:0;overflow:auto;display:flex;flex-direction:column;background:var(--surface)}
+.open-map-header{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:14px 16px;flex-shrink:0}.open-map-header strong{font-size:17px}.open-map-header small{display:block;margin-top:4px;font-size:11px!important}
+.open-map-stage{position:relative;min-height:340px;flex:1 0 340px;background:var(--glass-soft);isolation:isolate}[data-open-canvas]{position:absolute;inset:0}
+.open-map-status{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:24px;background:var(--surface);z-index:3}.open-map-status[hidden]{display:none}.open-map-status p{font-size:13px;margin:12px}.open-map-status button{padding:12px 18px;background:var(--accent-soft);border-radius:12px;color:var(--action-text)}
+.open-map-tools{position:absolute;top:12px;right:12px;display:flex;gap:6px}.open-map-tools button{min-height:40px;padding:8px 12px;font-size:12px;border-radius:12px;background:var(--float);box-shadow:0 2px 8px #20304015}
+.demo-building-pin{display:flex;align-items:center;gap:7px;padding:8px 11px;border-radius:12px;background:#2446f0;color:#fff;box-shadow:0 3px 10px #2446f033;border:2px solid #fff;text-align:left;font:600 12px Pretendard,sans-serif}.demo-building-pin:hover{background:#193ad0}.demo-building-pin small{display:block;color:#e1e7ff;font-size:10px!important;margin-top:2px}
+.open-map .maplibregl-ctrl-attrib{font-size:10px}.open-map .maplibregl-ctrl-attrib a{color:#394b60}.open-map .maplibregl-ctrl-scale{font-size:10px}.open-map .maplibregl-ctrl-attrib-button{min-width:24px;min-height:24px}
+.building-work,.unmapped-work{padding:16px;flex-shrink:0}.building-work>.row{align-items:flex-start}.building-work strong{font-size:14px}.building-work small{display:block;font-size:11px!important;margin-top:4px}.building-work p,.unmapped-work p{font-size:12px;color:var(--muted);margin:8px 0 12px;line-height:1.6}
+.open-floor-list{display:grid;grid-template-columns:1fr 1fr;gap:8px}.open-floor-list button{padding:12px;text-align:left;min-height:64px;border:1px solid var(--line);border-radius:12px;background:var(--glass-soft)}.open-floor-list button[aria-pressed=true]{background:var(--accent-soft);border-color:var(--action-text)}.open-floor-list .floor-complete{color:#3d823d}
+html[data-theme] .device .open-map .zone-inspector{position:static;max-height:none;overflow:visible;margin:0 12px 8px;flex-shrink:0;box-shadow:none;padding:16px}
+.unmapped-work{border-top:1px solid var(--line)}.unmapped-work h3{font-size:13px;color:var(--muted)}.unmapped-work>div{display:flex;flex-direction:column;gap:4px}.unmapped-work button{display:flex;gap:10px;align-items:center;padding:10px;text-align:left;border-radius:12px;min-height:52px}.unmapped-work button>span{flex:1;font-size:13px}.unmapped-work button small{display:block;font-size:11px!important;margin-top:3px}.unmapped-work button[aria-pressed=true]{background:var(--accent-soft)}
+.compact .open-map-stage{min-height:290px;flex-basis:290px}
+.open-map-stage>[data-open-canvas]{position:absolute;inset:0}
+html[data-theme] .device .demo-building-pin small{color:#e1e7ff}
+/* Operational presence: matte surfaces and explicit simulation provenance. */
+.presence-controls{padding:0 16px 12px;flex-shrink:0}.presence-heading{display:flex;gap:8px;align-items:center;font-size:11px;color:var(--muted);margin-bottom:10px}.simulation-badge{font-weight:650;color:var(--action-text);background:var(--accent-soft);padding:4px 7px;border-radius:5px}.presence-heading>button{margin-left:auto;min-height:32px;color:var(--action-text);font-size:11px;padding:4px 7px;white-space:nowrap}
+.presence-layers{display:flex;gap:6px}.presence-layers button{display:flex;align-items:center;justify-content:center;gap:7px;min-height:40px;flex:1;background:var(--glass-soft);border:1px solid var(--line);border-radius:10px;font-size:12px;color:var(--muted)}.presence-layers button[aria-pressed=true]{background:var(--accent-soft);border-color:transparent;color:var(--action-text)}.presence-layers button span{opacity:.65;font-variant-numeric:tabular-nums}.presence-layers svg{width:17px;height:17px}
+html[data-theme] .device .presence-marker{background:none;border:0;padding:4px;display:flex;flex-direction:column;align-items:center;cursor:pointer;overflow:visible;color:#2446f0;min-width:44px;min-height:44px;z-index:1;font-family:inherit}.presence-marker[hidden],.presence-roster button[hidden],[data-presence-detail][hidden]{display:none!important}.presence-symbol{display:grid;place-items:center;width:36px;height:36px;border:2px solid #fff;border-radius:50%;background:#2446f0;color:#fff;box-shadow:0 2px 7px #15294938}.presence-marker.vehicle .presence-symbol{border-radius:11px;background:#263b6a}.presence-marker.facility .presence-symbol{width:30px;height:30px;border-radius:8px;background:#fff;color:#475775;border:1px solid #d0d8e5}.presence-marker .presence-label{margin-top:3px;font-size:10px;font-weight:650;white-space:nowrap;color:#243653;background:#fffffff0;border-radius:5px;padding:2px 5px;box-shadow:0 1px 4px #15294915}.presence-marker.selected{z-index:2!important}.presence-marker.selected .presence-symbol{outline:3px solid #2446f04a;outline-offset:3px}.presence-marker:focus-visible .presence-symbol{outline:3px solid #2446f0;outline-offset:3px}.presence-marker:hover .presence-symbol{box-shadow:0 3px 12px #2446f060}
+.presence-playback{display:flex;align-items:center;gap:10px;padding:12px 14px 8px;flex-shrink:0;background:var(--surface)}.presence-playback>button{width:38px;height:38px;flex-shrink:0;display:grid;place-items:center;border-radius:50%;background:var(--accent-soft);color:var(--action-text)}.presence-playback>div{flex:1;min-width:0}.presence-time{display:flex;justify-content:space-between;align-items:center;gap:8px;font-size:10px;color:var(--muted);font-variant-numeric:tabular-nums}.presence-time strong{font-weight:550;color:var(--text)}.presence-playback input[type=range]{display:block;accent-color:#2446f0;width:100%;height:20px;cursor:pointer;margin:3px 0 0}
+.presence-roster{display:flex;gap:6px;overflow-x:auto;padding:5px 14px 12px;flex-shrink:0;scrollbar-width:thin}.presence-roster button{display:flex;gap:5px;align-items:center;white-space:nowrap;min-height:34px;font-size:11px;padding:6px 9px;border-radius:8px;background:var(--glass-soft);color:var(--muted)}.presence-roster svg{width:15px;height:15px}.presence-roster button[aria-pressed=true]{background:var(--accent-soft);color:var(--action-text)}
+[data-presence-detail]{flex-shrink:0}.presence-detail{margin:4px 14px 12px;padding:16px;background:var(--surface);border:1px solid var(--line);border-radius:16px;box-shadow:0 5px 18px #233d5e08}.presence-detail-heading{display:flex;gap:10px;align-items:center}.presence-detail-icon{display:grid;place-items:center;background:var(--accent-soft);color:var(--action-text);width:40px;height:40px;border-radius:12px}.presence-detail-heading>div{flex:1}.presence-detail-heading h3{font-size:16px;margin-top:3px}.presence-detail-heading small{font-size:10px!important}.presence-detail-heading>button{display:grid;place-items:center;width:36px;height:36px;border-radius:10px;background:var(--glass-soft)}.presence-detail-meta{display:flex;justify-content:space-between;gap:10px;font-size:11px;margin-top:15px;color:var(--muted)}.presence-detail-meta strong{color:var(--action-text);font-weight:550}.presence-detail p{font-size:12px;line-height:1.65;color:var(--muted);margin:10px 0}.presence-linked-work{display:flex;justify-content:space-between;font-size:11px;padding:10px 0;border-top:1px solid var(--line);color:var(--muted)}.presence-linked-work b{font-weight:550;margin-left:8px;color:var(--text)}.presence-detail-actions{display:flex;gap:8px;margin-top:6px}.presence-detail-actions button{display:flex;align-items:center;justify-content:center;gap:6px;flex:1;min-height:40px;padding:8px 10px;border-radius:10px;font-size:12px;color:var(--action-text);background:var(--accent-soft)}.presence-detail-actions button[aria-pressed=true]{color:#fff;background:#2446f0}.presence-route-note{display:block;font-size:10px!important;margin-top:10px}
+.open-map-stage{min-height:390px;flex-basis:390px}.compact .open-map-stage{min-height:340px;flex-basis:340px}
+html[data-theme="dark"] .presence-marker .presence-label{background:#243245;color:#dce6f8}html[data-theme="dark"] .presence-marker.facility .presence-symbol{background:#27384f;border-color:#4e6280;color:#dae5f8}
+.open-map-stage>[data-presence-detail]{position:absolute;bottom:31px;left:12px;right:12px;z-index:3}.open-map-stage .presence-detail{margin:0;max-height:228px;overflow-y:auto;padding:12px 14px;box-shadow:0 6px 24px #20325220}.open-map-stage .presence-detail-meta{margin-top:9px}.open-map-stage .presence-linked-work{padding:7px 0}.presence-info{margin-top:8px;color:var(--muted);font-size:11px}.presence-info summary{cursor:pointer;min-height:22px}.presence-info p{margin-bottom:0}.open-map-stage .presence-detail-heading h3{font-size:15px}
+/* Reuse the removed status bar's 52px (58px folded) for actual workspace. */
+.preview:not(.compact) .workspace{height:756px}.compact .workspace{height:665px}
+@media(min-width:1600px){.preview:not(.compact) .workspace{height:802px}}
+@media(max-width:700px){.preview:not(.compact) .workspace{height:752px}.compact .workspace{height:calc(100dvh - 337px);min-height:528px}}
+/* A raised sheet makes the lower workspace discoverable by touch and mouse. */
+.map-work-sheet{position:relative;z-index:2;flex-shrink:0;margin-top:-20px;border-radius:28px 28px 0 0;background:var(--surface);box-shadow:0 -6px 20px #23375412;min-width:0;padding-bottom:8px;overflow:clip}
+html[data-theme] .device .map-sheet-handle{width:100%;min-height:44px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;padding:10px 16px 5px;color:var(--muted);cursor:grab;touch-action:none;background:var(--surface);border-radius:28px 28px 0 0}
+.map-sheet-handle:active{cursor:grabbing}.map-sheet-handle i{width:40px;height:4px;border-radius:999px;background:#acb5c3}.map-sheet-handle span{font-size:10px;line-height:1.4}.map-sheet-handle:hover i,.map-sheet-handle:focus-visible i{background:var(--action-text)}
+.map-work-sheet .presence-playback{padding-top:5px}.open-map .maplibregl-ctrl-bottom-left,.open-map .maplibregl-ctrl-bottom-right{bottom:22px}.open-map-stage>[data-presence-detail]{bottom:54px}
+html[data-theme="dark"] .map-work-sheet{box-shadow:0 -5px 20px #0003}
+.notes-intro{margin-bottom:22px}.notes-intro h2{font-size:24px;line-height:1.4;margin:14px 0 8px}.notes-intro p{font-size:13px;color:var(--muted)}.note-reference{padding:14px 16px;background:var(--accent-soft);border-radius:14px;margin-bottom:22px;border-left:3px solid var(--action-text)}.note-reference small,.note-reference strong{display:block}.note-reference strong{font-size:14px;line-height:1.6;margin:6px 0}.note-reference button{display:flex;align-items:center;gap:6px;font-size:12px}.note-editor-label{display:block;font-size:14px;font-weight:600;margin-bottom:10px}html[data-theme] .device .workspace-note{width:100%;min-height:210px;resize:vertical;border:1px solid var(--line);border-radius:14px;padding:16px;font-size:14px;line-height:1.8;background:var(--surface);color:var(--text)}.note-save-row{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:12px}.note-save-row small{max-width:60%;line-height:1.6}.note-save-row button{white-space:nowrap}.notes-saved{margin-top:30px;padding-top:20px;border-top:1px solid var(--line)}.notes-saved h3{font-size:16px}.note-empty{font-size:13px;color:var(--muted);line-height:1.8;padding:22px 0}.notes-workspace .note-card{box-shadow:none}.notes-workspace .note-card .row{gap:8px}
+/* Fixed map behind an independently scrolling, resizable bottom sheet. */
+html[data-theme] .device .open-map{position:relative;overflow:hidden;--sheet-height:176px}
+.open-map .open-map-stage,.compact .open-map .open-map-stage{flex:1 1 0;min-height:0;flex-basis:0}
+.open-map .map-work-sheet{position:absolute;bottom:0;left:0;right:0;height:var(--sheet-height);max-height:calc(100% - 180px);margin:0;overflow-y:auto;overscroll-behavior:contain;scrollbar-width:none;border-radius:28px 28px 0 0;transition:height 320ms cubic-bezier(.22,1,.36,1);box-shadow:0 -4px 18px #2337540c;padding-bottom:16px}
+.map-work-sheet.is-dragging{transition:none}.map-work-sheet::-webkit-scrollbar{display:none}
+html[data-theme] .device .map-sheet-handle,html[data-theme] .device .map-sheet-handle:hover,html[data-theme] .device .map-sheet-handle:active{position:sticky;top:0;z-index:4;min-height:28px;padding:10px 0 8px;background:var(--surface);box-shadow:none;border:0;outline-offset:-4px}
+.map-sheet-handle i{width:36px;height:4px;background:#b6bfcc}.map-sheet-handle:hover i,.map-sheet-handle:focus-visible i{background:var(--action-text)}
+.open-map .maplibregl-ctrl-bottom-left,.open-map .maplibregl-ctrl-bottom-right{bottom:calc(var(--sheet-height) + 8px);transition:bottom 320ms cubic-bezier(.22,1,.36,1)}
+.open-map .map-work-sheet>[data-presence-detail]{position:static}.map-work-sheet .presence-detail{margin:0 14px 12px;box-shadow:none;border:0;border-bottom:1px solid var(--line);border-radius:0;padding:6px 2px 14px}
+.map-work-sheet .presence-playback{padding:2px 18px 10px;gap:12px;background:transparent}.map-work-sheet .presence-playback>button{width:36px;height:36px;min-width:36px;border-radius:12px;background:transparent}.map-work-sheet .presence-playback>button:hover{background:var(--accent-soft)}.map-work-sheet .presence-playback>button:first-child{background:var(--accent-soft)}.map-work-sheet .presence-time{font-size:11px;line-height:1.5}.map-work-sheet .presence-playback input[type=range]{appearance:none;-webkit-appearance:none;height:22px;background:transparent;margin-top:3px}.map-work-sheet .presence-playback input[type=range]::-webkit-slider-runnable-track{height:4px;background:var(--line);border-radius:8px}.map-work-sheet .presence-playback input[type=range]::-webkit-slider-thumb{appearance:none;-webkit-appearance:none;width:14px;height:14px;background:#2446f0;border:2px solid var(--surface);border-radius:50%;margin-top:-5px;box-shadow:0 1px 4px #2446f030}.map-work-sheet .presence-playback input[type=range]::-moz-range-track{height:4px;background:var(--line);border-radius:8px}.map-work-sheet .presence-playback input[type=range]::-moz-range-progress{height:4px;background:#2446f0}.map-work-sheet .presence-playback input[type=range]::-moz-range-thumb{width:12px;height:12px;background:#2446f0;border:2px solid var(--surface);border-radius:50%}
+@media(prefers-reduced-motion:reduce){.open-map .map-work-sheet,.open-map .maplibregl-ctrl-bottom-left,.open-map .maplibregl-ctrl-bottom-right{transition:none}}
+.map-work-sheet .presence-playback input[type=range]::-webkit-slider-runnable-track{background:linear-gradient(to right,#2446f0 0 var(--play-progress,0%),var(--line) var(--play-progress,0%) 100%)}
+.open-map .map-work-sheet{max-height:calc(100% - 270px)}
+/* Basic notepad, entered once from the app header. */
+html[data-theme] .device .header-note-button{display:flex;align-items:center;justify-content:center;gap:7px;min-height:44px;padding:10px 14px;border-radius:14px;background:var(--surface);color:var(--text);font-size:14px}
+html[data-theme] .device .header-note-button[aria-pressed=true]{background:var(--accent-soft);color:var(--action-text)}
+.basic-note-paper{padding:4px 2px 0}.basic-note-title{display:block;width:100%;border:0;background:transparent;color:var(--text);font-size:26px;font-weight:650;line-height:1.5;padding:4px 0 14px;border-radius:0}
+html[data-theme] .device .basic-note-body{display:block;width:100%;min-height:300px;padding:0;border:0;border-radius:0;box-shadow:none;background:transparent;color:var(--text);font-size:16px;line-height:1.9;resize:vertical}
+.basic-note-title::placeholder,.basic-note-body::placeholder{color:var(--muted);opacity:.65}.basic-note-title:focus-visible,.basic-note-body:focus-visible{outline:none}.basic-note-paper:focus-within .basic-note-footer{border-bottom-color:var(--action-text)}
+.basic-note-footer{display:flex;justify-content:space-between;align-items:center;padding:12px 0 18px;border-bottom:1px solid var(--line)}.basic-note-footer small{font-size:11px}.basic-note-footer button{min-height:36px;padding:6px 10px;font-size:14px;font-weight:600}
+.basic-note-list{margin-top:24px}.basic-note-list h3{font-size:13px;color:var(--muted);font-weight:500}.basic-note-list article{padding:18px 0;border-bottom:1px solid var(--line)}.basic-note-list article strong{font-size:15px}.basic-note-list article p{white-space:pre-wrap;font-size:14px;line-height:1.8;margin:8px 0}.basic-note-list article button{font-size:11px;color:var(--muted);padding:4px 0}.basic-note-empty{padding:18px 0;font-size:13px;color:var(--muted)}
+.compact .basic-note-body{min-height:240px}.compact .header-note-button span{display:none}.compact .header-note-button{width:44px;padding:10px}
+html[data-theme] .device .basic-notes textarea.basic-note-body{border:0;border-radius:0;background:transparent;box-shadow:none;padding:0;margin:0;outline:none;min-height:300px}
+html[data-theme] .device .basic-notes input.basic-note-title{border:0;border-radius:0;background:transparent;box-shadow:none}
+/* Fade scrolled content behind sticky section titles, keeping controls crisp. */
+html[data-theme] .device .panel-toolbar{z-index:12;background:transparent;border-bottom:1px solid var(--line);isolation:isolate;backdrop-filter:none;-webkit-backdrop-filter:none}
+html[data-theme] .device .panel-toolbar::before{content:'';position:absolute;inset:0 0 -32px;z-index:-1;pointer-events:none;background:linear-gradient(to bottom,color-mix(in srgb,var(--surface) 94%,transparent) 0%,color-mix(in srgb,var(--surface) 86%,transparent) 55%,transparent 100%);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);mask-image:linear-gradient(to bottom,#000 0%,#000 55%,transparent 100%);-webkit-mask-image:linear-gradient(to bottom,#000 0%,#000 55%,transparent 100%)}
+html[data-theme] .device .panel-toolbar>*{position:relative;z-index:1}
+@supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){html[data-theme] .device .panel-toolbar::before{background:linear-gradient(to bottom,var(--surface) 0%,var(--surface) 70%,transparent 100%)}}
+@media(prefers-reduced-transparency:reduce){html[data-theme] .device .panel-toolbar::before{background:var(--surface);backdrop-filter:none;-webkit-backdrop-filter:none;mask-image:none;-webkit-mask-image:none;bottom:0}}
+/* Clip backdrop compositing to the same rounded boundary as the scroll pane. */
+html[data-theme] .device .pane:not(.map-pane){clip-path:inset(0 round 20px)}
+html[data-theme] .device .panel-toolbar{border-radius:20px 20px 0 0}
+html[data-theme] .device .panel-toolbar::before{bottom:-18px;border-radius:20px 20px 0 0;backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
+html[data-theme] .compact .device .pane:not(.map-pane){clip-path:inset(0)}
+html[data-theme] .compact .device .panel-toolbar,html[data-theme] .compact .device .panel-toolbar::before{border-radius:0}
+@media(prefers-reduced-transparency:reduce){html[data-theme] .device .panel-toolbar::before{bottom:0;backdrop-filter:none;-webkit-backdrop-filter:none}}
+
+/* Align the remaining preview controls with the display edge. */
+.preview .studio-head{max-width:1320px;margin-inline:auto;justify-content:flex-end}
+.preview .studio-controls{width:auto;margin-left:auto;justify-content:flex-end;flex-wrap:wrap}
+
+/* The browser is a fixed frame; each display pane owns its scrolling. */
+html,body{height:100%;overflow:hidden}
+#app{height:100%;min-height:0}
+html[data-theme] .preview{height:100dvh;min-height:0;display:flex;flex-direction:column;padding:12px 24px 8px;overflow:hidden;gap:8px}
+html[data-theme] .preview>.studio-head{width:100%;margin:0 auto;padding:0;flex:0 0 auto}
+html[data-theme] .preview>.device{width:100%;flex:1 1 0;min-height:0;display:flex;flex-direction:column;margin:0 auto}
+html[data-theme] .preview>.device>:is(.statusbar,.app-header,.workspace-presets,.history-banner,.bottom-nav){flex-shrink:0}
+html[data-theme] .preview>.device>.workspace{flex:1 1 0;height:0;min-height:0;overflow:hidden}
+html[data-theme] .preview .panels{height:100%;min-height:0;grid-template-rows:minmax(0,1fr)}
+html[data-theme] .preview .pane{min-height:0;overscroll-behavior:contain}
+html[data-theme] .preview .rail{min-height:0;overflow-y:auto;overscroll-behavior:contain}
+html[data-theme] .preview>.preview-foot{width:100%;max-width:1320px;margin:0 auto;padding:0;display:flex;justify-content:flex-end;flex:0 0 auto}
+.preview-foot .reset-demo{min-height:32px;padding:6px 10px}
+@media(max-width:700px){html[data-theme] .preview{padding:8px;gap:6px}}
+
+/* Preview settings sit outside the display, directly above the fold button. */
+html[data-theme] .preview{position:relative;padding-right:184px}
+.preview-dock{position:absolute;right:12px;bottom:12px;width:156px;display:flex;flex-direction:column;align-items:flex-end;gap:10px}
+.preview .preview-dock .studio-controls{width:100%;display:flex;flex-direction:column;align-items:stretch;gap:10px;margin:0}
+.preview-dock .theme-switch{justify-content:center}
+.preview-dock .preview-controls{flex-direction:column;border-radius:18px}
+.preview-dock .preview-controls button{justify-content:center;padding:10px 8px}
+.preview-dock .reset-demo{min-height:36px;padding:8px 12px}
+.preview .preview-dock .fold-cta{position:static;margin:0;min-height:44px}
+@media(max-width:700px){html[data-theme] .preview{padding:8px 8px 156px}.preview-dock{width:auto;max-width:calc(100% - 16px);right:8px;bottom:8px;gap:4px}.preview .preview-dock .studio-controls{flex-direction:row;flex-wrap:wrap;justify-content:flex-end;gap:6px}.preview-dock .preview-controls{flex-direction:row;border-radius:24px}.preview-dock .reset-demo{min-height:28px;padding:4px 10px}}
+
+/* Anchor preview controls to the viewport edge, independent of display width. */
+html[data-theme] .preview .preview-dock{position:fixed;right:16px;bottom:16px}
+
+/* Symmetric gutters keep the display on the viewport centerline. */
+html[data-theme] .preview{padding-left:184px;padding-right:184px}
+#modal-root{position:fixed;z-index:90;overflow:hidden;isolation:isolate;pointer-events:none;clip-path:inset(0 round 38px)}
+#modal-root:empty{visibility:hidden}
+html[data-theme] #modal-root .modal-backdrop{position:absolute;inset:0;border-radius:inherit;overflow:hidden;pointer-events:auto;align-items:center;padding:20px}
+html[data-theme] #modal-root .modal{max-width:100%;max-height:100%;overscroll-behavior:contain}
+@media(max-width:900px){html[data-theme] .preview{padding:8px 8px 156px}.preview-dock{width:auto;max-width:calc(100% - 32px);gap:4px}.preview .preview-dock .studio-controls{flex-direction:row;flex-wrap:wrap;justify-content:flex-end;gap:6px}.preview-dock .preview-controls{flex-direction:row;border-radius:24px}.preview-dock .reset-demo{min-height:28px;padding:4px 10px}}
+
+html[data-theme] #modal-root .modal{background:var(--surface)}
+
+/* Fit the Duo display without stretching either screen's pixel aspect ratio.
+   The 7px frame is added outside the measured display area. */
+html[data-theme] .preview{container-type:size;justify-content:center}
+html[data-theme] .preview>.device{box-sizing:content-box;flex:0 0 auto;width:auto;height:min(calc(100cqh - 14px),calc((100cqw - 14px) * 1878 / 2670));aspect-ratio:2670 / 1878;max-width:none;border-width:7px;margin:auto}
+html[data-theme] .preview.compact>.device{width:auto;aspect-ratio:1398 / 2034;max-width:none}
+
+/* Keep dismissal available for the entire sheet, beyond the detail card. */
+html[data-theme] .device .presence-sheet-close{position:sticky;top:32px;z-index:6;display:grid;place-items:center;align-self:flex-end;flex:0 0 40px;width:40px;height:40px;margin:6px 16px -46px auto;border-radius:12px;background:var(--surface);box-shadow:0 1px 6px #182c4214;color:var(--text)}
+html[data-theme] .device .presence-sheet-close[hidden]{display:none}
+.map-work-sheet .presence-detail-heading{padding-right:50px}
+/* The sheet header never participates in the content's scroll. */
+html[data-theme] .device .map-work-sheet{display:flex;flex-direction:column;max-height:calc(100% - 12px);overflow:hidden;padding-bottom:0;z-index:8;transition:height 420ms cubic-bezier(.22,1,.36,1)}
+html[data-theme] .device .map-work-sheet.is-dragging{transition:none}
+.map-sheet-topbar{position:relative;flex:0 0 48px;background:var(--surface);border-radius:28px 28px 0 0;z-index:2}
+html[data-theme] .device .map-sheet-topbar .map-sheet-handle{position:absolute;inset:0;width:100%;height:48px;min-height:48px;padding:0 60px;border-radius:28px 28px 0 0}
+html[data-theme] .device .map-sheet-topbar .map-sheet-handle:focus-visible{outline:0}
+html[data-theme] .device .map-sheet-topbar .map-sheet-handle:focus-visible i{outline:2px solid var(--action-text);outline-offset:4px}
+html[data-theme] .device .map-sheet-close{position:absolute;right:12px;top:6px;width:36px;height:36px;display:grid;place-items:center;border-radius:12px;background:var(--glass-soft);z-index:5}
+.map-sheet-scroll{flex:1 1 0;min-height:0;overflow-y:auto;overscroll-behavior:contain;scrollbar-width:none;padding-bottom:16px;-webkit-overflow-scrolling:touch}
+.map-sheet-scroll::-webkit-scrollbar{display:none}
+.map-work-sheet .presence-detail-heading{padding-right:0}
+@media(prefers-reduced-motion:reduce){html[data-theme] .device .map-work-sheet{transition:none}}
+
+html[data-theme] .device .map-sheet-close[hidden]{display:none}
+
+/* Compact application chrome prioritizes the working area. */
+html[data-theme] .preview .device .app-header{min-height:72px;padding:8px 22px 10px;gap:12px}
+html[data-theme] .preview .device .case-avatar{width:40px;height:40px;flex-basis:40px}
+html[data-theme] .preview .device .case-head{gap:12px}
+html[data-theme] .preview .device .case-head p{margin-top:2px;font-size:11px}
+.case-title-button{padding:0;min-height:32px;text-align:left;font:inherit;border-radius:6px}
+html[data-theme] .device .case-title-button:hover{background:transparent;color:var(--action-text)}
+html[data-theme] .preview .device .workspace-presets{padding:0 22px 6px;gap:18px}
+html[data-theme] .preview .device .workspace-presets button{min-height:42px;padding:8px 2px;border:0;border-bottom:2px solid transparent;border-radius:0;background:transparent;box-shadow:none;backdrop-filter:none;color:var(--muted);font-size:14px;gap:7px;transform:none}
+html[data-theme] .preview .device .workspace-presets button::after{display:none}
+html[data-theme] .preview .device .workspace-presets button[aria-pressed=true]{background:transparent;color:var(--action-text);border-bottom-color:var(--action-text);box-shadow:none}
+html[data-theme] .preview .device .workspace-presets button:hover{background:transparent;color:var(--action-text);transform:none}
+html[data-theme] .preview .device .workspace-presets .icon{width:17px;height:17px}
+html[data-theme] .device .open-map-header{padding:8px 14px;min-height:52px}
+html[data-theme] .device .open-map-header small{margin:0;white-space:nowrap;font-size:10px!important;color:var(--muted)}
+html[data-theme] .device .map-header-actions .panel-switch-wrap{display:inline-flex}
+html[data-theme] .device .map-header-actions .panel-switch-wrap>.icon:first-child{display:block}
+html[data-theme] .device .map-header-actions .panel-switch{font-size:14px;font-weight:600}
+.open-map-stage>.presence-controls{position:absolute;top:12px;left:12px;right:12px;z-index:3;padding:0;pointer-events:none}
+.open-map-stage .presence-layers{gap:6px;flex-wrap:wrap}
+html[data-theme] .device .open-map-stage .presence-layers button{pointer-events:auto;flex:0 0 auto;min-height:40px;padding:8px 10px;border-radius:12px;background:var(--surface);border:1px solid var(--line);box-shadow:0 2px 8px #182b4010;color:var(--muted);font-size:12px}
+html[data-theme] .device .open-map-stage .presence-layers button[aria-pressed=true]{background:var(--surface);color:var(--action-text);border-color:var(--accent-line)}
+.open-map-stage .open-map-tools{top:66px}
+html[data-theme] .preview.compact .device .app-header{padding-inline:14px}
+html[data-theme] .preview.compact .device .workspace-presets{padding-inline:14px;gap:10px}
+html[data-theme] .preview.compact .device .workspace-presets button{font-size:12px;gap:5px}
+@media(max-width:380px){html[data-theme] .device .open-map-header small{display:none}}
+
+/* One map filter trigger, aligned with the navigation controls. */
+.open-map-stage>.presence-controls{right:auto;pointer-events:auto}
+.map-layer-menu{position:relative}
+.map-layer-menu summary{list-style:none;display:flex;align-items:center;gap:7px;min-height:40px;padding:8px 12px;background:var(--surface);border:1px solid var(--line);border-radius:12px;box-shadow:0 2px 8px #182b4010;cursor:pointer;font-size:12px;color:var(--text)}
+.map-layer-menu summary::-webkit-details-marker{display:none}
+.map-layer-menu summary>svg{width:17px;height:17px}
+.map-layer-menu[open] summary{color:var(--action-text)}
+.open-map-stage .map-layer-menu .presence-layers{position:absolute;top:calc(100% + 8px);left:0;display:flex;flex-direction:column;gap:4px;padding:6px;min-width:152px;background:var(--surface);border:1px solid var(--line);border-radius:14px;box-shadow:0 8px 24px #182b4020}
+html[data-theme] .device .open-map-stage .map-layer-menu .presence-layers button{width:100%;justify-content:flex-start;box-shadow:none;border-color:transparent}
+html[data-theme] .device .open-map-stage .map-layer-menu .presence-layers button[aria-pressed=true]{background:var(--accent-soft)}
+.map-layer-menu .presence-layers button span{margin-left:auto}
+.open-map-stage .open-map-tools{top:12px;right:12px;gap:6px}
+html[data-theme] .device .open-map-tools button{min-height:40px;padding:8px 10px;font-size:12px;border-radius:12px}
+.map-view-switch{display:flex;gap:3px;padding:3px;border-radius:10px;background:var(--glass-soft)}
+.map-view-switch button{min-height:34px;padding:6px 12px;border-radius:8px;font-size:12px;color:var(--muted)}
+.map-view-switch button[aria-pressed=true]{background:var(--surface);color:var(--action-text);box-shadow:0 1px 4px #182b4010}
+.drone-provenance{position:absolute;left:12px;top:60px;z-index:2;padding:4px 7px;border-radius:6px;background:var(--surface);font-size:10px;color:var(--muted);pointer-events:none}

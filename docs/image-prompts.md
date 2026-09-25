@@ -13,3 +13,15 @@ Use case: stylized-concept. Asset type: background asset for PARALLAX police fie
 ### 영상 프레임
 
 Use case: photorealistic-natural. Asset type: fictional training footage still for a police coordination app prototype. Wide 16:9 landscape photograph from a fixed ceiling CCTV camera looking into the entrance lobby of an ordinary Korean low-rise residential building at dusk. Glass entry door on right with cool blue evening light outside, concrete staircase ascending on left, neutral tiled floor and pale walls, small mailboxes, green exit light, no legible writing. Clean realistic architectural details, subdued teal-gray palette, documentary security camera optics with subtle noise but sharp enough. Empty room, no people, no weapons, no incident, no text or UI overlays, no timestamp; those will be coded separately. This is illustrative simulated footage.
+
+
+## 1인칭 AR 현장 시야
+
+assets/scene-ar.png: 가상 한국 주거 건물 2층 계단실, 눈높이 1인칭, 쿨 실버·블루 그레이, 자연광, 인물·무기·HUD·문자 없음. 생성 이미지 위 HUD는 HTML 상호작용으로 구현.
+
+assets/parallax-glasses.png: 사용자 제공 투명 PNG를 수정 없이 복사.
+
+
+## 임무 전·후 비교 사진
+
+assets/mission-comparison.png: 두 개의 동일 크기 패널, 같은 한국 주거 건물 계단실, 사람 눈높이, 왼쪽 조명 꺼진 초기 상태 / 오른쪽 조명 켜진 확인 후 상태. 인물·무기·문자·UI 없음. 차가운 중성 회색 자연스러운 사진. 가상 비교 예시. CSS 배경 위치로 각 패널을 표시하며 원본 생성 파일은 유지.

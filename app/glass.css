@@ -1,0 +1,48 @@
+/* Console Theme.swift: key colour, semantic colours, 24pt panels, glass controls.
+   Web material approximation; SwiftUI's native glass renderer is not available here. */
+:root{--glass-key:#2446f0;--glass-critical:#e9392f;--glass-warning:#f5c744;--glass-ok:#5fcb5b;--glass-radius:24px}
+html[data-theme="light"]{--glass-surface:rgba(255,255,255,.64);--glass-edge:rgba(255,255,255,.9);--glass-ink:#20232c;--glass-shadow:0 6px 18px #17243d0a,inset 0 1px 0 #fff,inset 0 -1px 0 #202b4010;--glass-hover:rgba(255,255,255,.88)}
+html[data-theme="dark"]{--glass-surface:rgba(44,46,53,.66);--glass-edge:rgba(255,255,255,.13);--glass-ink:#f4f5fa;--glass-shadow:0 6px 18px #0002,inset 0 1px 0 #ffffff24,inset 0 -1px 0 #0003;--glass-hover:rgba(65,68,78,.85)}
+html[data-theme] .device{background:radial-gradient(ellipse at 18% 0%,#2446f00a,transparent 55%),var(--surface)}
+html[data-theme] .device .statusbar{height:28px;min-height:28px;padding:0}
+html[data-theme] .device .app-header{display:flex;height:auto;min-height:104px;padding:18px 26px 22px;gap:20px;border:0;background:transparent;flex-wrap:nowrap}
+.device .case-head{min-width:0;gap:16px}
+.device .case-head>div:last-child{min-width:0}
+.device .case-head h1{overflow-wrap:anywhere}
+.device .case-head p{margin-top:6px}
+html[data-theme] .device .case-avatar{width:56px;height:56px;flex:0 0 56px;border-radius:50%;background:var(--glass-ink);color:var(--surface);box-shadow:0 3px 12px #0000000c}
+.device .case-avatar .icon{width:27px;height:27px}
+html[data-theme] .device .header-actions{width:auto;margin:0;gap:8px;justify-content:flex-end;flex-shrink:0}
+html[data-theme] .device .header-actions .icon-button{display:inline-flex;width:48px;min-width:48px;height:48px;border-radius:50%;color:var(--glass-ink);background:var(--glass-surface);border:1px solid var(--glass-edge);box-shadow:var(--glass-shadow);backdrop-filter:blur(22px) saturate(1.5);-webkit-backdrop-filter:blur(22px) saturate(1.5)}
+.device .header-actions .profile{font-size:16px;font-weight:500}
+.device .badge-dot:after{display:none}
+.device .notification-count{position:absolute;right:-3px;top:-4px;display:grid;place-items:center;min-width:20px;height:20px;padding:0 5px;border-radius:50%;background:var(--glass-critical);color:white;font-size:12px;font-weight:600}
+html[data-theme] .device .workspace-presets{display:flex;padding:0 26px 24px;gap:10px;border:0;background:transparent;overflow:visible}
+html[data-theme] .device .workspace-presets button{display:flex;align-items:center;justify-content:center;gap:10px;min-height:50px;padding:12px 22px;border-radius:999px;border:1px solid var(--glass-edge);background:var(--glass-surface);color:var(--glass-ink);font-size:16px;font-weight:500;white-space:nowrap;box-shadow:var(--glass-shadow);backdrop-filter:blur(22px) saturate(1.5);-webkit-backdrop-filter:blur(22px) saturate(1.5);transition:background .18s,transform .18s,box-shadow .18s}
+html[data-theme] .device .workspace-presets button[aria-pressed="true"]{background:linear-gradient(160deg,#ffffff20,transparent 70%),var(--glass-key);color:#fff;border-color:#ffffff38;box-shadow:inset 0 1px 0 #ffffff4a,0 4px 12px #2446f026}
+html[data-theme] .device :is(.workspace-presets button,.header-actions .icon-button):focus-visible{outline:2px solid var(--glass-key);outline-offset:3px}
+@media(hover:hover){html[data-theme] .device .workspace-presets button:hover{transform:translateY(-1px);background:var(--glass-hover)}html[data-theme] .device .workspace-presets button[aria-pressed="true"]:hover{background:#203ed7}}
+html[data-theme] .device .workspace-presets button:active{transform:scale(.97)}
+html[data-theme] .device .pane{border-radius:var(--glass-radius)}
+html[data-theme] .device .panel-toolbar{background:var(--glass-surface);backdrop-filter:blur(24px) saturate(1.3);-webkit-backdrop-filter:blur(24px) saturate(1.3)}
+html[data-theme] .compact .device .app-header{padding:12px 18px 20px;min-height:94px;gap:12px}
+.compact .device .case-head{gap:10px;flex:1}
+html[data-theme] .compact .device .case-avatar{width:44px;height:44px;flex-basis:44px}
+.compact .device .case-avatar .icon{width:24px;height:24px}
+html[data-theme] .compact .device .case-head h1{font-size:16px;line-height:1.45}
+.compact .device .case-head p{font-size:11px;line-height:1.5}
+html[data-theme] .compact .device .header-actions{gap:6px}
+html[data-theme] .compact .device .header-actions .icon-button{width:44px;min-width:44px;height:44px}
+html[data-theme] .compact .device .workspace-presets{padding:0 16px 20px;gap:6px}
+html[data-theme] .compact .device .workspace-presets button{flex:1;min-width:0;min-height:46px;padding:10px 8px;gap:6px;font-size:13px}
+.compact .device .workspace-presets .icon{width:17px;height:17px}
+html[data-theme] .compact .device .pane{border-radius:0}
+@media(max-width:360px){html[data-theme] .compact .device .app-header{padding-inline:12px}.compact .device .case-head{gap:8px}html[data-theme] .compact .device .case-avatar{width:36px;height:36px;flex-basis:36px}html[data-theme] .compact .device .header-actions{gap:2px}html[data-theme] .compact .device .case-head h1{font-size:14px}html[data-theme] .compact .device .workspace-presets{padding-inline:10px}html[data-theme] .compact .device .workspace-presets button{gap:4px;font-size:12px}}
+@media(prefers-reduced-motion:reduce){html[data-theme] .device .workspace-presets button{transition:none;transform:none}}
+@media(prefers-reduced-transparency:reduce){html[data-theme="light"]{--glass-surface:#f4f5f8}html[data-theme="dark"]{--glass-surface:#2c2e35}}
+@supports not (backdrop-filter:blur(1px)){html[data-theme="light"]{--glass-surface:#f4f5f8}html[data-theme="dark"]{--glass-surface:#2c2e35}}
+html[data-theme="dark"] .device .case-avatar{color:#20232c}
+
+/* Preserve the supplied brand artwork and its intrinsic aspect ratio. */
+html[data-theme] .device .case-avatar.case-brand{background:transparent;border-radius:0;box-shadow:none}
+.device .case-brand img{display:block;width:100%;height:auto;object-fit:contain}

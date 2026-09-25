@@ -1,0 +1,42 @@
+/* PoliceMap/ OpsMapKit visual hierarchy adapted to Leaflet and field workflow. */
+html[data-theme] .device .live-map-view{background:#e8eced;min-height:640px}
+html[data-theme] .device .live-map-view .map-top{left:12px;right:12px;top:12px}
+html[data-theme] .device .live-map-view .map-top>.row{padding:8px 12px;border-radius:18px;background:var(--float);box-shadow:var(--glass-hi),0 3px 16px #17243d16;backdrop-filter:var(--lg-blur-clear)}
+html[data-theme] .device .live-map-view .map-top h2{font-size:17px;margin:0}
+html[data-theme] .device .live-map-view .map-top .eyebrow{font-size:11px}
+html[data-theme] .device .live-map-view .map-style-tabs{width:max-content;max-width:100%;margin-top:8px;background:var(--float);backdrop-filter:var(--lg-blur-clear);border-radius:999px;gap:3px}
+html[data-theme] .device .live-map-view .map-style-tabs button{font-size:12px;padding:8px 10px;min-height:44px}
+html[data-theme] .device .live-map-view .context-note-bar button{box-shadow:none;background:transparent;padding:8px;font-size:12px}
+.device .map-scope{position:absolute;top:155px;left:12px;z-index:3;display:flex;gap:3px;padding:3px;background:var(--float);border-radius:999px;box-shadow:var(--glass-shadow),var(--glass-hi);backdrop-filter:var(--lg-blur-clear)}
+.device .map-scope button{display:flex;align-items:center;gap:6px;min-height:40px;padding:8px 12px;color:var(--text);font-size:12px;border-radius:999px}
+.device .map-scope .icon{width:17px;height:17px}
+html[data-theme] .device .live-map-tools{right:12px;bottom:164px;display:flex;flex-direction:column;gap:0;padding:4px;background:var(--float);border-radius:999px;box-shadow:var(--glass-shadow),var(--glass-hi);backdrop-filter:var(--lg-blur-clear)}
+html[data-theme] .device .live-map-tools .icon-button{border:0;box-shadow:none;background:transparent;color:var(--text);width:44px;height:44px}
+html[data-theme] .device .live-map-tools .icon-button[aria-pressed=true]{background:var(--lg-prom);color:white}
+html[data-theme] .device .live-site-card{left:12px;right:12px;bottom:38px;padding:14px 16px;background:var(--float);border-radius:20px;gap:10px;backdrop-filter:var(--lg-blur-clear)}
+html[data-theme] .device .live-site-card h3{font-size:17px;margin:3px 0}
+html[data-theme] .device .live-site-card p{font-size:12px}
+html[data-theme] .device .live-site-card .eyebrow{font-size:11px}
+html[data-theme] .device .live-site-card button{border-radius:50%;width:44px;height:44px;min-width:44px;padding:10px}
+.device .live-site-card button span{display:none}
+.device .map-detail-hint{position:absolute;bottom:151px;left:12px;right:70px;z-index:3;width:max-content;max-width:calc(100% - 88px);padding:6px 10px;background:var(--float);border-radius:999px;backdrop-filter:var(--lg-blur-clear);color:var(--muted);font-size:11px;pointer-events:none}
+.device .map-zone-legend{position:absolute;bottom:12px;left:108px;z-index:3;display:flex;gap:8px;align-items:center;font-size:10px;color:#303946;background:#ffffffdc;border-radius:999px;padding:4px 8px;pointer-events:none}
+.map-zone-legend span{display:flex;gap:4px;align-items:center}.map-zone-legend i{width:7px;height:7px;display:block;border-radius:2px}.map-zone-legend .incident{background:#e9392f}.map-zone-legend .control{background:#3a4657}.map-zone-legend .unknown{border:1px dashed #6b7787}
+html[data-theme] .device .live-pin{padding:0;width:44px;min-height:44px;gap:3px;color:#232b36}
+html[data-theme] .device .live-pin>span{width:34px;height:34px;min-height:34px;border-radius:50%;border:2px solid white;background:#fff;box-shadow:0 2px 6px #10203840}
+html[data-theme] .device .live-pin .icon{width:18px;height:18px}
+html[data-theme] .device .live-pin small{font-size:11px;line-height:1.4;padding:3px 7px;color:#232b36;background:#ffffffeb;border:0;border-radius:6px;box-shadow:0 1px 5px #10203816}
+html[data-theme] .device .marker-work>span{background:#e9392f;color:white}
+html[data-theme] .device .marker-team>span{background:#2446f0;color:white}
+html[data-theme] .device .marker-alert>span{background:#f5c744;color:#232b36}
+.live-map-canvas[data-density="region"] .live-pin small{display:none}
+.live-map-canvas[data-density="area"] .detail-marker .live-pin small{display:none}
+.live-map-canvas .leaflet-tile-pane{filter:saturate(.45) contrast(.95) brightness(1.04)}
+html[data-theme="dark"] .live-map-canvas .leaflet-tile-pane{filter:invert(1) hue-rotate(180deg) saturate(.25) brightness(.7) contrast(.9)}
+html[data-theme] .device .live-map-status{top:207px;left:12px;right:12px;background:var(--float);color:var(--text)}
+html[data-theme] .device .live-map-view .leaflet-control-attribution{font-size:9px;padding:2px 5px}
+html[data-theme] .compact .device .live-map-view{min-height:100%;height:100%}
+html[data-theme] .compact .device .live-map-view .map-style-tabs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr)) 44px;width:100%}
+html[data-theme] .compact .device .live-map-view .map-style-tabs button{padding:7px 5px;font-size:11px}
+@media(max-width:360px){.device .map-zone-legend{left:90px;gap:5px}.device .map-detail-hint{font-size:10px}}
+html[data-theme] .device .live-site-card p{color:var(--muted)}
